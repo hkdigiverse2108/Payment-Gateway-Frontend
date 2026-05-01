@@ -1,8 +1,22 @@
 export const KEYS = {
     AUTH: {
-        SIGNIN: "signin",
-        VERIFY_OTP: "verify_otp",
-        FORGOT_PASSWORD: "forgot_password",
+        LOGIN: "admin-login",
+        RESET_PASSWORD: "reset-password",
+        CHANGE_PASSWORD: "change-password",
     },
-
-};
+    DASHBOARD: {
+        BASE: "dashboard",
+    },
+    USER: {
+        UPDATE_PROFILE: "update-profile",
+        UPDATE: "update-user",
+        BASE: "user",
+    },
+    TRANSACTION: {
+        ALL: "transaction-all",
+        EXPORT: "transaction-export",
+        PAYIN: "transaction-payin",
+        STATUS: "transaction-status",
+        BASE: "transaction",
+    },
+}

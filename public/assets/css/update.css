@@ -1,0 +1,70 @@
+@layer components {
+
+  .common-table .ant-table {
+    @apply bg-surface text-foreground border-border/30;
+  }
+
+  .common-table .ant-table-container {
+    @apply bg-surface;
+  }
+
+  .common-table .ant-table-thead,
+  .common-table .ant-table-header {
+    @apply bg-gray-100 dark:bg-brand-600;
+  }
+
+  .common-table .ant-table-thead > tr > th {
+    @apply bg-gray-100 text-foreground dark:bg-brand-600 !border-border/30;
+  }
+
+  .common-table .ant-table-tbody > tr > td {
+    @apply bg-surface text-foreground !border-border/30;
+  }
+
+  .common-table .ant-table-tbody > tr:hover > td {
+    @apply bg-gray-100 dark:bg-gray-800;
+  }
+
+  .common-table .ant-table-tbody > tr > td {
+    @apply !bg-surface !text-foreground !border-border/30;
+  }
+
+  .common-table .ant-table-thead > tr > th {
+    @apply !bg-gray-100 dark:!bg-brand-500 bg-transparent  !border-border/30;
+  }
+
+  .common-table .ant-table-selection-column {
+    @apply !bg-surface !border-border/0;
+  }
+
+  .common-table .ant-table-cell-fix-left,
+  .common-table .ant-table-cell-fix-right {
+    @apply !bg-surface dark:!bg-gray-900 !border-border/30;
+  }
+
+  .common-table .ant-table,
+  .common-table .ant-table-container,
+  .common-table .ant-table-content {
+    @apply !border-border/30;
+  }
+
+  .common-table .ant-table-container::before,
+  .common-table .ant-table-container::after {
+    background: transparent !important;
+  }
+}
+.common-table .ant-table-cell {
+  border-color: var(--border);
+}
+
+/* BORDER ON */
+.common-table.table-bordered .ant-table-container table > thead > tr > th,
+.common-table.table-bordered .ant-table-container table > tbody > tr > td {
+  border: 1px solid var(--border) !important;
+}
+
+/* BORDER OFF */
+.common-table:not(.table-bordered) .ant-table-container table > thead > tr > th,
+.common-table:not(.table-bordered) .ant-table-container table > tbody > tr > td {
+  border: none !important;
+}

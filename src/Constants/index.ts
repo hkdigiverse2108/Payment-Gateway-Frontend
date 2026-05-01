@@ -1,6 +1,12 @@
-export * from "./HttpStatus";
-export * from "./Keys";
-export * from "./PageTitle";
 export * from "./Routes";
-export * from "./StorageKeys";
+export * from "./HttpStatus";
 export * from "./Url";
+export * from "./StorageKeys";
+export * from "./PageTitle";
+export * from "./Keys";
+
+export const Href: string = "#Javascript";
+export const ImagePath: string = "/assets/images/";
+export const LoginSource: string = "admin-panel";
+export const ThemeTitle: string = "Payment Gateway Admin";
+export const Title: string = "Payment Gateway Panel";

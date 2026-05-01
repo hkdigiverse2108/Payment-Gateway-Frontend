@@ -1,71 +1,37 @@
-import type { ApiResponse } from "./Common";
+import type { CommonDataType, MessageStatus, PageStatus } from "./Common";
 
-
-export type UserType = {
-    _id: string;
-    firstName?: string;
-    lastName?: string;
+export interface UserFormValues {
+    userId?: string;
+    name: string;
     email: string;
-    contact?: {
-        countryCode?: string;
-        phoneNo?: number;
-    };
-    roles?: string;
+    mobileNumber: string;
+    userName?: string;
+    password?: string;
+    websiteName?: string;
+    websiteUrl?: string;
+    payinCallbackUrl?: string;
+    payoutCallbackUrl?: string;
     isActive?: boolean;
+}
 
+export type AddUserPayload = UserFormValues;
+
+export type UpdateUserPayload = Omit<UserFormValues, "mobileNumber" | "username"> & {
+    mobileNumber: number;
 };
 
-export interface IUser {
-    _id: string;
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    roles?: string;
-    isActive?: boolean;
-    createdAt?: string;
-    contact?: {
-        countryCode?: string;
-        phoneNo?: number;
+export type UserBase = UserFormValues & CommonDataType;
+
+export interface UserDataResponse extends PageStatus {
+    user_data: UserBase[];
+}
+
+export interface UserApiResponse extends MessageStatus {
+    data: {
+        data: {
+            data: UserBase[];
+        };
     };
 }
-export type UserPayload = {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-
-    contact?: {
-        countryCode?: string;
-        phoneNo?: number | string;
-    };
-};
-
-export type UpdateUserPayload = {
-    userId: string
-    firstName: string
-    lastName: string;
-    email: string;
-    password: string;
 
 
-    contact?: {
-        countryCode?: string;
-        phoneNo?: number | string;
-    }
-    isActive?: boolean;
-
-};
-
-export type UpdateUserResponse = Record<string, unknown>;
-
-
-
-export type UserResponse = ApiResponse<UserType>;
-export type UserListResponse = {
-    status: number;
-    message: string;
-    data: {
-        user_data: UserType[];
-        totalData: number;
-    };
-};

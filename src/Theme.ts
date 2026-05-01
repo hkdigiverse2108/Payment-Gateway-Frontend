@@ -14,9 +14,9 @@ export const getTheme = (mode: "light" | "dark") =>
                         contrastText: "#FFFFFF",
                     }
                     : {
-                        light: "#dfba45",
-                        main: "#D4AF37",
-                        dark: "#B89326",
+                        light: "#DDD6FE",
+                        main: "#8B5CF6",
+                        dark: "#6D28D9",
                         contrastText: "#000000",
                     },
         },

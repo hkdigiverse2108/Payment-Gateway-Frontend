@@ -1,70 +1,401 @@
 @layer components {
-
+  .bg-surface {
+    @apply bg-white dark:bg-gray-900;
+  }
   .common-table .ant-table {
     @apply bg-surface text-foreground border-border/30;
   }
-
   .common-table .ant-table-container {
     @apply bg-surface;
   }
-
-  .common-table .ant-table-thead,
-  .common-table .ant-table-header {
-    @apply bg-gray-100 dark:bg-brand-600;
-  }
-
-  .common-table .ant-table-thead > tr > th {
-    @apply bg-gray-100 text-foreground dark:bg-brand-600 !border-border/30;
-  }
-
   .common-table .ant-table-tbody > tr > td {
     @apply bg-surface text-foreground !border-border/30;
   }
-
   .common-table .ant-table-tbody > tr:hover > td {
     @apply bg-gray-100 dark:bg-gray-800;
   }
-
   .common-table .ant-table-tbody > tr > td {
     @apply !bg-surface !text-foreground !border-border/30;
   }
-
   .common-table .ant-table-thead > tr > th {
-    @apply !bg-gray-100 dark:!bg-brand-500 bg-transparent  !border-border/30;
+    @apply !bg-gray-100 dark:!bg-backgroundlight bg-transparent  !border-border/30;
   }
-
   .common-table .ant-table-selection-column {
     @apply !bg-surface !border-border/0;
   }
-
   .common-table .ant-table-cell-fix-left,
   .common-table .ant-table-cell-fix-right {
     @apply !bg-surface dark:!bg-gray-900 !border-border/30;
   }
-
   .common-table .ant-table,
   .common-table .ant-table-container,
   .common-table .ant-table-content {
     @apply !border-border/30;
   }
-
   .common-table .ant-table-container::before,
   .common-table .ant-table-container::after {
-    background: transparent !important;
+    background: transparent ;
   }
-}
+
 .common-table .ant-table-cell {
   border-color: var(--border);
 }
-
-/* BORDER ON */
 .common-table.table-bordered .ant-table-container table > thead > tr > th,
 .common-table.table-bordered .ant-table-container table > tbody > tr > td {
+  border: 1px solid var(--border);
+}
+.common-table:not(.table-bordered) .ant-table-container table > thead > tr > th,
+.common-table:not(.table-bordered) .ant-table-container table > tbody > tr > td {
+  border: none;
+  .ant-input,
+  .ant-input-affix-wrapper {
+    @apply bg-surface text-foreground border border-border;
+  }
+  /* .ant-input::placeholder {
+    @apply text-text-muted;
+  } */
+  .ant-input:hover,
+  .ant-input-affix-wrapper:hover {
+    /* @apply border-accent; */
+  }
+  .ant-input:focus,
+  .ant-input-focused,
+  .ant-input-affix-wrapper-focused {
+    @apply shadow-focus-ring;
+  }
+  .ant-select-selector {
+    @apply bg-surface text-foreground border border-border;
+  }
+  .ant-select-selection-placeholder {
+    /* @apply text-text-muted; */
+  }
+  .ant-form-item-label > label {
+    @apply text-foreground;
+  }
+  .ant-btn-primary {
+    /* @apply bg-primary border-primaryy text-white; */
+  }
+  .ant-btn-primary:hover {
+    /* @apply bg-primary-dark border-primary-dark; */
+  }
+  .ant-card {
+    @apply bg-surface text-foreground border border-border;
+  }
+  .ant-table {
+    @apply bg-surface text-foreground;
+  }
+  .ant-table-thead > tr > th {
+    @apply bg-gray-100 text-foreground dark:bg-gray-900;
+  }
+  .ant-table-tbody > tr > td {
+    @apply border-border;
+  }
+  /* .ant-modal-content {
+    @apply bg-surface text-foreground;
+  } */
+  .ant-modal-header {
+    @apply bg-surface text-foreground;
+  }
+  .ant-breadcrumb a {
+    /* @apply text-text-muted; */
+  }
+}
+  .ant-breadcrumb a:hover {
+    /* @apply text-accent; */
+  }
+  .common-table .ant-table-title {
+    background: var(--background) !important;
+  }
+  .common-table .ant-table-title {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+  .text-foreground {
+    @apply text-gray-900 dark:text-gray-100;
+  }
+
+  .text-muted {
+    @apply text-gray-500 dark:text-gray-400;
+  }
+
+  .border-default {
+    @apply border-gray-200 dark:border-gray-700;
+  }
+  .common-table .ant-input,
+.common-table .ant-input-affix-wrapper {
+  @apply bg-surface text-foreground border border-border;
+}
+
+/* Focus state override */
+.common-table .ant-input:focus,
+.common-table .ant-input-focused,
+.common-table .ant-input-affix-wrapper-focused {
+  background: var(--surface) !important;
+  color: var(--foreground) !important;
+  box-shadow: none !important;
+}
+.common-table .ant-input {
+  background: transparent !important;
+  color: var(--foreground) !important;
+}
+
+.common-table .ant-input input {
+  background: transparent !important;
+  color: var(--foreground) !important;
+}
+.common-table .ant-switch {
+  background-color: #d1d5db !important;
+}
+
+.dark .common-table .ant-switch {
+  background-color: #374151 !important;
+}
+
+.common-table .ant-switch-checked {
+  background-color: var(--active) !important;
+}
+
+/* knob */
+.common-table .ant-switch-handle::before {
+  background: #fff !important;
+} 
+.common-table .ant-switch-checked {
+  background-color: var(--active) !important;
+}
+.common-table .ant-input-affix-wrapper {
+  @apply bg-surface text-foreground border border-border;
+}
+
+.common-table .ant-input-affix-wrapper input {
+  background: transparent !important;
+  color: var(--foreground) !important;
+}
+
+/* focus state (THIS WAS MISSING) */
+.common-table .ant-input-affix-wrapper-focused {
+  background: var(--surface) !important;
+  border-color: var(--border) !important;
+  box-shadow: none !important;
+}
+
+.common-table .ant-input-affix-wrapper-focused input {
+  background: transparent !important;
+  color: var(--foreground) !important;
+}
+.common-table .ant-pagination {
+  @apply text-foreground;
+}
+.common-table .ant-pagination-item {
+  background: var(--surface) !important;
   border: 1px solid var(--border) !important;
 }
 
-/* BORDER OFF */
-.common-table:not(.table-bordered) .ant-table-container table > thead > tr > th,
-.common-table:not(.table-bordered) .ant-table-container table > tbody > tr > td {
-  border: none !important;
+.common-table .ant-pagination-item a {
+  color: var(--foreground) !important;
 }
+.ant-select-dropdown {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+}
+
+/* list container */
+.rc-virtual-list-holder-inner {
+  background: var(--surface) !important;
+}
+
+/* item text */
+.rc-select-item-option-content {
+  color: var(--foreground) !important;
+}
+
+/* 🔥 HOVER */
+.rc-select-item-option-active {
+  background: var(--border) !important;
+  color: var(--foreground) !important;
+}
+
+/* 🔥 SELECTED */
+.rc-select-item-option-selected {
+  background: var(--active) !important;
+  /* color: #fff !important; */
+}
+
+/* pagination dropdown */
+.ant-pagination-options .ant-select-dropdown {
+  background: var(--surface) !important;
+}
+.common-input .ant-input {
+  height: 40px;
+  border-radius: 8px;
+  padding: 0 12px;
+}
+
+/* Prefix / Suffix alignment */
+.common-input .ant-input-prefix,
+.common-input .ant-input-suffix {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Remove weird spacing */
+.common-input .ant-input-affix-wrapper {
+  padding: 0 10px;
+  border-radius: 8px;
+}
+
+/* Focus */
+.common-input.ant-input-affix-wrapper-focused {
+  box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.15);
+}
+
+/* Error */
+.common-input.ant-input-affix-wrapper-status-error {
+  border-color: #ff4d4f;
+}
+
+/* Password toggle */
+.password-toggle-icon {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+/* Clear icon */
+.ant-input-clear-icon,
+.ant-input-suffix .anticon-close-circle {
+  cursor: pointer;
+  color: rgba(0,0,0,0.45);
+}
+
+.ant-input-suffix .anticon-close-circle:hover {
+  color: rgba(0,0,0,0.75);
+}
+.ant-pagination-prev .ant-pagination-disabled{
+  @apply bg-surface;
+}
+.ant-select-item .ant-select-item-option .ant-select-item-option-active .ant-select-item-option-selected {
+  @apply bg-backgroundlight text-foreground;
+}
+.cb-wrapper {
+  @apply flex items-center justify-between px-6 py-3;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* LEFT */
+.cb-left {
+  @apply flex items-center gap-3;
+}
+
+/* ICON */
+.cb-home-icon {
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+/* TITLE (fix hierarchy clearly) */
+.cb-title {
+  @apply text-base font-semibold capitalize;
+  color: var(--foreground);
+  margin: 0;
+}
+
+/* RIGHT */
+.cb-right {
+  @apply flex items-center;
+}
+
+/* LINKS */
+.cb-link {
+  @apply text-xs capitalize;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.cb-link:hover {
+  color: var(--foreground);
+}
+
+/* ACTIVE LINK */
+.cb-link.active {
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+/* CURRENT */
+.cb-current {
+  @apply text-xs font-medium capitalize;
+  color: var(--foreground);
+}
+
+/* ANTD RESET (important for consistency) */
+.cb-wrapper .ant-breadcrumb {
+  font-size: 12px;
+}
+
+.cb-wrapper .ant-breadcrumb-separator {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+/* common */
+.ant-checkbox-checked {
+  @apply bg-brand-400!;
+}
+.ant-checkbox {
+  @apply border border-brand-400!;
+}
+.commonbutton-actionbar-main {
+  @apply fixed bottom-0 left-0 right-0 z-50 flex bg-surface border-t border-border transition-all duration-300;
+}
+.commonbutton-actionbar-inner {
+  @apply w-full flex items-center justify-between mx-5 my-4 gap-4 flex-wrap;
+}
+.commonbutton-actionbar-div{
+  @apply flex gap-2 ml-auto;
+}
+.common-dropdown {
+  /* @apply app-dropdown-menu border-none; */
+}
+.common-profile {
+  @apply flex items-center justify-center rounded-full overflow-hidden;
+}
+.layout-loader {
+  @apply fixed left-0 top-0 z-999999 flex h-screen w-screen items-center justify-center bg-white/70 dark:bg-black/70 backdrop-blur-sm transition-opacity duration-300 ease-in-out;
+}
+.common-card {
+  @apply rounded-lg border-none bg-surface;
+}
+.common-card-header {
+  @apply flex items-center border-none justify-between p-3 max-sm:flex-col gap-2;
+}
+.common-card-title {
+  @apply mb-0! capitalize text-gray-700 dark:text-gray-200;
+}
+.common-table-search {
+  @apply flex items-center bg-surface border border-border/30;
+}
+.common-table-search-input {
+  @apply bg-transparent text-foreground placeholder:text-muted border-none shadow-none w-full text-sm;
+}
+.common-table-active {
+  @apply flex items-center gap-3 bg-surface px-3 py-3 rounded-lg border border-border/30;
+}
+.common-table-active span {
+  @apply text-sm font-semibold text-foreground uppercase;
+}
+.common-table-add {
+  @apply flex justify-end w-full;
+}
+.common-table-add button {
+  @apply bg-primary text-white text-sm px-4 py-2 rounded-lg hover:opacity-90 transition;
+}
+}
+  

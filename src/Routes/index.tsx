@@ -1,15 +1,16 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import PrivateRoutes from "./PrivateRoutes";
 import PublicRoutes from "./PublicRoutes";
 import Layout from "../Layout";
 import { AuthRoutes, pageRoutes } from "./PageRoutes";
-import RootRedirect from "./RootRedirect";
+import { ROUTES } from "../Constants";
 
 export const Router = createBrowserRouter([
-
   {
     path: "/",
-    element: <RootRedirect />,
+    element: (
+      <Navigate to={ROUTES.AUTH.LOGIN} replace />
+    ),
   },
   {
     element: <PublicRoutes />,
@@ -19,13 +20,15 @@ export const Router = createBrowserRouter([
     element: <PrivateRoutes />,
     children: [
       {
-        element: <Layout />,  
+        element: <Layout />,
         children: pageRoutes,
       },
     ],
   },
   {
     path: "*",
-    element: <RootRedirect />,
+    element: (
+      <Navigate to={ROUTES.AUTH.LOGIN} replace />
+    ),
   },
 ]);

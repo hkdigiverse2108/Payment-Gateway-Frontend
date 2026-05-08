@@ -1,7 +1,9 @@
 const HeaderBrand = () => {
   return (
-    <div>PAYMENT GATEWAY</div>
-  )
-}
+    <div className="headerbrand">
+      PAYMENT GATEWAY
+    </div>
+  );
+};
 
-export default HeaderBrand
+export default HeaderBrand;

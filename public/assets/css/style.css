@@ -1,6 +1,5 @@
 /* @custom-variant dark (&where(.dark, .dark *)); */
 
-
 @import "./variables.css";
 
 @layer base {
@@ -11,15 +10,13 @@
   aside {
     border-color: var(--border);
   }
-
-
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
-  /* body {
+  body {
     @apply relative   text-gray-600 font-outfit dark:bg-gray-dark dark:text-gray-300;
-  } */
+  }
    body {
   @apply relative;
 font-family: Outfit, sans-serif;
@@ -42,15 +39,10 @@ font-family: Outfit, sans-serif;
   .custom-input.ant-input:hover {
     @apply border-primary;
   } */
-
-  /* Error */
   .custom-input.ant-input-status-error:focus,
   .custom-input.ant-input-status-error.ant-input-focused {
     box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
   }
 }
-
-
-
 @import "./layout.css";
 @import "./update.css";

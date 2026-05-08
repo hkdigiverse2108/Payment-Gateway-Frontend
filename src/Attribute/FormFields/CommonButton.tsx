@@ -1,71 +1,16 @@
 import { Button } from "antd";
+import { type FC } from "react";
 import type { CommonButtonProps } from "../../Types";
 
-const CommonButton = ({
-  text,
-  type = "primary",
-  htmlType = "button",
-  loading = false,
-  disabled = false,
-  onClick,
-  className = "",
-
-  icon,
-  size = "middle",
-  color,
-  variant,
-}: CommonButtonProps) => {
+export const CommonButton: FC<CommonButtonProps> = ({ loading, title, children, disabled, className = "", ...props }) => {
   return (
     <Button
-      type={type}
-      htmlType={htmlType}
+      {...props}
       loading={loading}
-      disabled={disabled}
-      onClick={onClick}
-      icon={icon}
-      size={size}
-      className={`common-button ${className}`}
-      style={
-        color
-          ? {
-              backgroundColor: variant === "solid" ? color : undefined,
-              borderColor: color,
-              color: variant === "text" ? color : undefined,
-            }
-          : undefined
-      }
+      disabled={disabled || loading}
+      className={`rounded-md font-semibold h-10 ${className}`}
     >
-      {text}
+      {children || title}
     </Button>
   );
 };
-
-export default CommonButton;
-
-// import { Button } from "antd";
-// import type { CommonButtonProps } from "../../Types";
-
-// const CommonButton = ({
-//   text,
-//   type = "primary",
-//   htmlType = "button",
-//   loading = false,
-//   disabled = false,
-//   onClick,
-//   className = "",
-// }: CommonButtonProps) => {
-//   return (
-//     <Button
-//       type={type}
-//       htmlType={htmlType}
-//       loading={loading}
-//       disabled={disabled}
-//       onClick={onClick}
-//       className={`common-button ${className}`}
-//     >
-//       {text}
-//     </Button>
-//   );
-// };
-
-// export default CommonButton;

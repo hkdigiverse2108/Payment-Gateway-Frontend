@@ -14,7 +14,6 @@ export interface TransactionFormValues {
 
     _submitAction?: string;
 }
-
 export interface TransactionBase extends CommonDataType {
     orderId: string;
     traId: string;
@@ -26,12 +25,10 @@ export interface TransactionBase extends CommonDataType {
     brand?: string;
     userId?: string;
 }
-
 export interface TransactionDataResponse extends PageStatus {
     data: TransactionBase[];
     totalData: number;
 }
-
 export interface TransactionApiResponse extends MessageStatus {
     data: TransactionDataResponse;
 }

@@ -1,10 +1,9 @@
 import type { CommonDataType, MessageStatus } from "./Common";
 
 export interface LoginFormValues {
-    email: string;
+    identifier: string;
     password: string;
 }
-
 export interface LoginPayload {
     userName: string;
     password: string;
@@ -15,14 +14,7 @@ export interface ChangePasswordPayload {
     newPassword?: string;
     confirmPassword?: string;
 }
-// export interface User extends LoginPayload, CommonDataType {
-//     fullName: string;
-//     phoneNumber: string;
-//     profileImage: string;
-//     role: string;
-// }
-
-export interface User extends CommonDataType {
+export interface User extends LoginPayload, CommonDataType {
     _id: string;
     name: string;
     email: string;
@@ -36,9 +28,6 @@ export interface LoginResponse extends MessageStatus {
         user: User;
     };
 }
-
-
-
 export interface ResetPasswordPayload {
     userId: string;
     oldPassword: string;

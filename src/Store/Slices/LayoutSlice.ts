@@ -1,26 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { STORAGE_KEYS } from "../../Constants";
-import type { AdminSettingBase } from "../../Types";
 import { Storage } from "../../Utils";
-
-type LayoutState = {
-    isExpanded: boolean;
-    isMobileOpen: boolean;
-    isMobile: boolean;
-    isHovered: boolean;
-    isApplicationMenuOpen: boolean;
-    openSubmenu: string | null;
-    isToggleTheme: string;
-    adminSetting: AdminSettingBase | null;
-};
+import type { LayoutStateProps } from "../../Types";
 
 const storedTheme = Storage.getItem(STORAGE_KEYS.THEME) || "light";
-
-// Apply the initial theme class immediately
 if (storedTheme === "dark") document.documentElement.classList.add("dark");
 else document.documentElement.classList.remove("dark");
-
-const initialState: LayoutState = {
+const initialState: LayoutStateProps = {
     isExpanded: true,
     isMobileOpen: false,
     isMobile: false,
@@ -28,16 +14,11 @@ const initialState: LayoutState = {
     isApplicationMenuOpen: false,
     openSubmenu: null,
     isToggleTheme: storedTheme,
-    adminSetting: null,
 };
-
 const layoutSlice = createSlice({
     name: "layout",
     initialState,
     reducers: {
-        setAdminSetting: (state, action) => {
-            state.adminSetting = action.payload;
-        },
         setIsMobile: (state, action) => {
             state.isMobile = action.payload;
             if (!action.payload) {
@@ -74,6 +55,6 @@ const layoutSlice = createSlice({
     },
 });
 
-export const { setAdminSetting, setIsMobile, setToggleSidebar, setToggleMobileSidebar, setIsHovered, setApplicationMenuOpen, setToggleSubmenu, setToggleTheme, setSidebarOpen } = layoutSlice.actions;
+export const { setIsMobile, setToggleSidebar, setToggleMobileSidebar, setIsHovered, setApplicationMenuOpen, setToggleSubmenu, setToggleTheme, setSidebarOpen } = layoutSlice.actions;
 
 export default layoutSlice.reducer;

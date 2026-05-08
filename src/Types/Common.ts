@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { MenuProps } from "antd";
-import type { ComponentType, ReactNode } from "react";
+import type { ReactNode, FocusEvent } from "react";
 import * as Yup from "yup";
-import type { TableProps } from "antd";
-import type { ColumnsType } from "antd/es/table";
+import type { ColumnsType, ColumnType } from "antd/es/table";
+import type { ColProps, InputProps, TableProps, MenuProps, ButtonProps } from "antd";
+import type { SorterResult, FilterValue } from "antd/es/table/interface";
 
 export type ApiResponse<T = unknown> = {
     status: number;
@@ -32,8 +32,8 @@ export interface FieldOptions<T> {
     extraRules?: (schema: T) => T;
     minItems?: number;
 }
-export type FieldSchemaArgs<K extends keyof FieldTypeMap> = [type: K, options?: FieldOptions<FieldTypeMap[K]>] | [type: K, label: string, options?: FieldOptions<FieldTypeMap[K]>];
 
+export type FieldSchemaArgs<K extends keyof FieldTypeMap> = [type: K, options?: FieldOptions<FieldTypeMap[K]>] | [type: K, label: string, options?: FieldOptions<FieldTypeMap[K]>];
 
 export type FieldTypeMap = {
     string: Yup.StringSchema<string | null | undefined>;
@@ -47,7 +47,6 @@ export type Params = Record<
     string,
     string | number | boolean | null | undefined
 >;
-
 
 export interface PageState {
     page: number;
@@ -65,7 +64,6 @@ export interface MessageStatus {
     error: Record<string, unknown>;
 }
 
-
 export interface PhoneNumberType {
     countryCode?: string;
     number?: string;
@@ -82,14 +80,14 @@ export interface CommonCheckboxProps {
 
 export interface CommonInputProps {
     name: string;
-    label: string;
+    label?: string;
     required?: boolean;
+    type?: "text" | "password" | "email" | "number";
     placeholder?: string;
-    prefix?: React.ReactNode;
-    suffix?: React.ReactNode;
-    type?: string;
-    disabled?: boolean;
-}
+    allowClear?: boolean;
+    showPasswordToggle?: boolean;
+    clearable?: boolean;
+};
 
 export interface CommonDropDownProps {
     items: MenuProps["items"];
@@ -101,12 +99,6 @@ export interface CommonDropDownProps {
     className?: string;
 }
 
-export interface CommonIconButtonProps {
-    icon: ComponentType<any>;
-    onClick?: () => void;
-    badge?: boolean;
-}
-
 export interface CommonProfileButtonProps {
     name?: string;
     role?: string;
@@ -114,37 +106,13 @@ export interface CommonProfileButtonProps {
     avatar?: ReactNode;
 }
 
-// export interface CommonButtonProps {
-//     text: string;
-//     type?: "primary" | "default" | "dashed" | "link" | "text";
-//     htmlType?: "button" | "submit" | "reset";
-//     loading?: boolean;
-//     disabled?: boolean;
-//     onClick?: () => void;
-//     className?: string;
-// }
-export interface CommonButtonProps {
-    text?: string;
-
-    type?: "primary" | "default" | "dashed" | "link" | "text";
-
-    htmlType?: "button" | "submit" | "reset";
-
-    loading?: boolean;
-    disabled?: boolean;
-
-    onClick?: () => void;
-
-    className?: string;
-
-    icon?: React.ReactNode;
-    size?: "small" | "middle" | "large";
-
-    color?: string;
-
-    variant?: "solid" | "outlined" | "dashed" | "filled" | "text";
+export interface CommonButtonProps extends ButtonProps {
+  loading?: boolean;
+  title?: string;
+  children?: ReactNode;
+  className?: string;
+  disabled?: boolean;
 }
-
 export type SearchControl = {
     value?: string;
     onChange?: (value: string) => void;
@@ -176,7 +144,7 @@ export interface CommonTableProps<T extends object>
 
     onSearch?: SearchControl;
     onActive?: ActiveControl;
-
+    onAdd?: () => void;
     children?: ReactNode;
 }
 
@@ -199,11 +167,274 @@ export interface CommonObjectNameColumnOptions {
 export type CommonColumn<T> = ColumnsType<T>[number];
 
 export interface ActionHandler<T> {
-    onHandle: (record: T) => void;
-    isPermission?: (record: T) => boolean;
+    onHandle: (row: T) => void;
+    isPermission?: (row: T) => boolean;
 }
 export interface CommonActionColumnProps<T> {
-    onActive?: ActionHandler<T>;
+    editRoute?: string;
+    permissionRoute?: string;
     onEdit?: ActionHandler<T>;
     onDelete?: ActionHandler<T>;
+    onActive?: ActionHandler<T>;
+    onRefund?: (row: T) => void;
 }
+
+export interface BreadcrumbItem {
+    label: string;
+    href?: string;
+}
+
+export interface BreadcrumbHeaderProps {
+    title: string;
+    breadcrumbs?: BreadcrumbItem[];
+    maxItems?: number;
+}
+
+
+export interface CommonValidationTextFieldProps {
+    label?: string;
+    name: string;
+    type?: InputProps["type"];
+    placeholder?: string;
+    required?: boolean;
+    isFormLabel?: boolean;
+    autoComplete?: string;
+    validating?: boolean;
+    clearable?: boolean;
+    startIcon?: ReactNode;
+    endIcon?: ReactNode;
+    showPasswordToggle?: boolean;
+    disabled?: boolean;
+    currencyDisabled?: boolean;
+    isCurrency?: boolean;
+    onCurrencyLog?: (value: string) => void;
+    maxDigits?: number;
+    onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
+    onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
+    helperText?: string;
+    multiline?: boolean;
+    rows?: number;
+    readOnly?: boolean;
+}
+export interface CommonTextFieldProps
+    extends Omit<CommonValidationTextFieldProps, "name"> {
+    value: string | number;
+    onChange?: (value: string) => void;
+}
+
+
+export interface CommonPhoneNumberProps {
+    name: string;
+    label?: string;
+    required?: boolean;
+}
+
+export type AppTableColumn<T extends object> = ColumnType<T> & {
+    exportFormatter?: (value: unknown, row: T) => string | number;
+    isSummary?: boolean;
+};
+
+export type NotificationType = | "success" | "info" | "warning" | "error";
+
+export type SelectOptionType = {
+    label: string;
+    value: string;
+    [key: string]: any;
+};
+
+export interface CommonSelectProps {
+    label?: string;
+    options: SelectOptionType[];
+    value: string[];
+    onChange: (values: string[]) => void;
+    multiple?: boolean;
+    limitTags?: number;
+    size?: "small" | "middle" | "large";
+    grid?: ColProps; 
+    required?: boolean;
+    disabled?: boolean;
+    readOnly?: boolean;
+    placeholder?: string;
+    isLoading?: boolean;
+    searchKeys?: string[];
+}
+
+
+export interface CommonValidationSelectProps extends Omit<CommonSelectProps, "onChange" | "value"> {
+    name: string;
+    syncFieldName?: string;
+}
+
+export interface CommonValidationCreatableSelectProps {
+    name: string;
+    label: string;
+    options: string[];
+    required?: boolean;
+    disabled?: boolean;
+    grid?: ColProps;
+}
+
+export interface AdvancedSearchFilterOption {
+    label: string;
+    options: SelectOptionType[];
+    value: string[];
+    onChange: (values: string[]) => void;
+    multiple?: boolean;
+    limitTags?: number;
+    grid?: ColProps; 
+    isLoading?: boolean;
+}
+
+export interface AdvancedSearchProps {
+    children?: ReactNode;
+    filter?: AdvancedSearchFilterOption[];
+    defaultExpanded?: boolean;
+}
+
+
+export interface CommonTableSummaryProps {
+    pageData: any[];
+    fields: string[];
+    columns: any[];
+    label?: string;
+}
+
+
+export interface CommonValidationSwitchProps {
+    name: string;
+    label?: string;
+    required?: boolean;
+    disabled?: boolean;
+    isFormLabel?: boolean;
+    grid?: ColProps;
+    switchPlacement?: "start" | "between";
+    syncFieldName?: string;
+}
+export interface CommonSwitchProps extends CommonValidationSwitchProps {
+    // For NON-FORMIK switch
+    value?: boolean;
+    onChange?: (val: boolean) => void;
+}
+
+
+
+export interface CommonDataGridProps {
+    columns: ColumnsType<any>;
+    rows: any[];
+    rowCount: number;
+    loading?: boolean;
+    handleAdd?: () => void;
+
+    isActive?: boolean;
+    setActive?: (active: boolean) => void;
+    paginationModel?: {
+        page: number;
+        pageSize: number;
+    };
+
+    onPaginationModelChange?: (model: {
+        page: number;
+        pageSize: number;
+    }) => void;
+
+    pageSizeOptions?: number[];
+    pagination?: boolean;
+    sortModel: SorterResult<any> | SorterResult<any>[];
+
+    onSortModelChange: (model: SorterResult<any> | SorterResult<any>[]) => void;
+    filterModel: Record<string, FilterValue | null>;
+
+    onFilterModelChange: (model: Record<string, FilterValue | null>) => void;
+    defaultHidden?: string[];
+    BoxClass?: string;
+    isExport?: boolean;
+    fileName: string;
+    isToolbar?: boolean;
+    slots?: {
+        noRowsOverlay?: React.ReactNode;
+        bottomContainer?: (props: {
+            rows: any[];
+            rowCount: number;
+        }) => React.ReactNode;
+    };
+    slotProps?: any;
+    onExportAll?: {
+        onExportAll: () => void;
+        isFetching: boolean;
+    };
+}
+
+export interface CustomToolbarProps<T = any> {
+    columns: ColumnsType<T>;
+    data: T[];
+    total?: number;
+    search?: string;
+    setSearch?: (value: string) => void;
+    isActive?: boolean;
+    setActive?: (active: boolean) => void;
+    handleAdd?: () => void;
+    isExport?: boolean;
+    fileName?: string;
+    onExportAll?: {
+        onExportAll: () => void;
+        isFetching: boolean;
+    };
+}
+
+export type AppGridColDef<T = any> = ColumnsType<T>[number] & {
+    exportFormatter?: (value: unknown, row: T) => string | number;
+    isSummary?: boolean;
+};
+
+export type SidebarProps = {
+    openDrawer: boolean;
+    setOpenDrawer: (val: boolean) => void;
+};
+
+export type LoaderProps = {
+    loading: boolean;
+    delay?: number;
+};
+
+export interface CommonCardProps {
+  title?: string;
+  children: ReactNode;
+  hideDivider?: boolean;
+  topContent?: ReactNode;
+  btnHref?: string;
+  className?: string;
+}
+
+export interface CommonBottomActionBarProps {
+  children?: ReactNode;
+  isLoading?: boolean;
+  save?: boolean;
+  clear?: boolean;
+  submit?: boolean;
+  disabled?: boolean;
+  onClear?: () => void;
+  onSave?: () => void;
+  onSaveAndNew?: () => void;
+}
+
+
+export interface CommonProfileAvatarProps {
+    fullName?: string;
+    profileImage?: string;
+    className?: string;
+}
+
+
+export interface HeaderProps {
+    onOpenDrawer: () => void;
+};
+
+export interface LayoutStateProps {
+    isExpanded: boolean;
+    isMobileOpen: boolean;
+    isMobile: boolean;
+    isHovered: boolean;
+    isApplicationMenuOpen: boolean;
+    openSubmenu: string | null;
+    isToggleTheme: string;
+};

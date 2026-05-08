@@ -15,14 +15,9 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-full flex flex-col items-center justify-center gap-6">
-      <h1 className="text-2xl font-semibold">User Dashboard</h1>
+      <h1 className="text-2xl font-semibold">Dashboard</h1>
 
-      <Button
-        type="primary"
-        danger
-        onClick={handleLogout}
-        className="h-10 px-6 rounded-lg"
-      >
+      <Button type="primary" danger onClick={handleLogout} className="h-10 px-6 rounded-lg" >
         Logout
       </Button>
     </div>

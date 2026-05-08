@@ -1,9 +1,11 @@
 export const PAGE_TITLE = {
-    DASHBOARDADMIN: "Admin Dashboard",
-    DASHBOARDUSER: "User Dashboard",
+    DASHBOARD: "Dashboard",
     ORDER: {
         BASE: "Orders",
         HISTORY: "Order History",
+    },
+    PROFILE: {
+        BASE: "Profile"
     },
     PAYMENT: {
         BASE: "Payments",
@@ -15,7 +17,10 @@ export const PAGE_TITLE = {
         BALANCE: "Wallet Balance",
     },
     USERS: {
+        BASE: "Users",
         ALL: "Users",
+        ADD: "Add Users",
+        EDIT: "Edit Users"
     },
     SETTING: {
         BASE: "Settings",

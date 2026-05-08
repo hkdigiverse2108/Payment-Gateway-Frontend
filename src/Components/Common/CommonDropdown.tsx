@@ -1,21 +1,17 @@
 import { Dropdown } from "antd";
 import type { CommonDropDownProps } from "../../Types";
 
-const CommonDropdown = ({
-  items,
-  children,
-  trigger = ["click"],
-  placement = "bottomRight",
-  className,
-}: CommonDropDownProps) => {
+const CommonDropdown = ({ items, children, trigger = ["click"], placement = "bottomRight" }: CommonDropDownProps) => {
   return (
     <Dropdown
-      menu={{ items }}
+      menu={{
+        items,
+        className: "common-dropdown",
+      }}
       trigger={trigger}
       placement={placement}
-      overlayClassName={`header-dropdown ${className || ""}`}
     >
-      <div className="dropdown-trigger">{children}</div>
+      <div className="app-dropdown-trigger">{children}</div>
     </Dropdown>
   );
 };

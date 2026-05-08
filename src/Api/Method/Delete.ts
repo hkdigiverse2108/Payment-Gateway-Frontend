@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 import { HTTP_STATUS } from "../../Constants";
 import { getToken } from "../../Utils";
+import { showNotification } from "../../Attribute/Notification";
 
 export async function Delete<T, TInput>(url: string, data?: TInput): Promise<T> {
     const authToken = getToken();
@@ -11,17 +11,16 @@ export async function Delete<T, TInput>(url: string, data?: TInput): Promise<T> 
         method: "DELETE",
         url: BASE_URL + url,
         headers: {
-            Authorization: `Bearer ${authToken}`,
+            Authorization: authToken,
         },
         data,
     };
-
     try {
         const response = await axios(config);
         const resData = response.data;
 
         if (response.status === HTTP_STATUS.OK) {
-            console.log(resData.message, "success");
+            showNotification("success", resData.message);
             return resData;
         } else {
             return null as T;

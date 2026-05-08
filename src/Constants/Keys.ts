@@ -11,6 +11,8 @@ export const KEYS = {
         UPDATE_PROFILE: "update-profile",
         UPDATE: "update-user",
         BASE: "user",
+        ADD: "add-user",
+        DELETE: "delete-user"
     },
     TRANSACTION: {
         ALL: "transaction-all",

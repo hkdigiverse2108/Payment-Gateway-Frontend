@@ -12,6 +12,7 @@ export const URL_KEYS = {
         UPDATE: "/user/edit",
         BASE: "/user",
         GET: "/user/all",
+        ADD: "/user/add"
     },
     TRANSACTION: {
         BASE: "/transaction",

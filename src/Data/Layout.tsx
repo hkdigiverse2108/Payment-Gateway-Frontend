@@ -7,20 +7,12 @@ import { GrTransaction } from "react-icons/gr";
 import { BsFillWalletFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
 
-
-
 export const NavItems: NavItem[] = [
     {
         icon: <IoHome />,
-        name: PAGE_TITLE.DASHBOARDUSER,
-        path: ROUTES.DASHBOARDUSER,
-        roles: ["user"],
-    },
-    {
-        icon: <IoHome />,
-        name: PAGE_TITLE.DASHBOARDADMIN,
-        path: ROUTES.DASHBOARDADMIN,
-        roles: ["admin"],
+        name: PAGE_TITLE.DASHBOARD,
+        path: ROUTES.DASHBOARD,
+        roles: ["admin","user"],
     },
     {
         icon: <AiOutlineUnorderedList />,
@@ -29,7 +21,7 @@ export const NavItems: NavItem[] = [
         roles: ["admin", "user"],
     },
 
-    // USER FEATURES (based on backend routes)
+    // USER FEATURES 
     {
         icon: <MdPayment />,
         name: PAGE_TITLE.PAYMENT.BASE,
@@ -48,12 +40,6 @@ export const NavItems: NavItem[] = [
         path: ROUTES.WALLET.BALANCE,
         roles: ["user"],
     },
-    // {
-    //     icon: <Send />,
-    //     name: "Withdraw",
-    //     path: ROUTES.WITHDRAW.BULK_HISTORY,
-    //     roles: ["user"],
-    // },
 
     // ADMIN FEATURES
     {

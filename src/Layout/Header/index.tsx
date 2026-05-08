@@ -1,36 +1,43 @@
-import { FiMenu } from "react-icons/fi";
-import { useAppDispatch } from "../../Store";
-import { setToggleMobileSidebar } from "../../Store/Slices/LayoutSlice";
-
+import { MenuFoldOutlined, MenuUnfoldOutlined, MenuOutlined } from "@ant-design/icons";
+import { useAppDispatch, useAppSelector } from "../../Store";
+import { setToggleSidebar } from "../../Store/Slices/LayoutSlice";
 import HeaderBrand from "./HeaderBrand";
 import HeaderActions from "./HeaderActions";
-import { useSidebarWidth } from "../../Utils/Hooks/useSidebarWidth";
+import { useMediaQuery } from "react-responsive";
+import { CommonButton } from "../../Attribute";
+import type { HeaderProps } from "../../Types";
 
-const Header = () => {
-  const dispatch = useAppDispatch();
-  const { sidebarWidth } = useSidebarWidth();
-
+const Header = ({ onOpenDrawer }: HeaderProps) => {
+  const dispatch = useAppDispatch()
+  const { isExpanded } = useAppSelector((state) => state.layout);
+  const isMobile = useMediaQuery({ maxWidth: 768 });
   return (
-    <header
-      className="header"
-      style={{
-        "--sidebar-width": `${sidebarWidth}px`,
-      } as React.CSSProperties}
-    >
-      {/* LEFT SIDE */}
-      <div className="header-left">
-        <button
-          className="header-mobile-btn"
-          onClick={() => dispatch(setToggleMobileSidebar())}
-        >
-          <FiMenu />
-        </button>
-
+    <header className="app-header">
+      <div className="app-header-left">
+        {isMobile ? (
+          <CommonButton
+            onClick={onOpenDrawer}
+            icon={
+              <span className="text-foreground">
+                <MenuOutlined />
+              </span>
+            }
+          />
+        ) : (
+          <CommonButton
+            onClick={() => dispatch(setToggleSidebar())}
+            icon={
+              <span className="text-foreground">
+                {isExpanded ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
+              </span>
+            }
+          />
+        )}
         <HeaderBrand />
       </div>
-
-      {/* RIGHT SIDE */}
-      <HeaderActions />
+      <div className="app-header-right">
+        <HeaderActions />
+      </div>
     </header>
   );
 };

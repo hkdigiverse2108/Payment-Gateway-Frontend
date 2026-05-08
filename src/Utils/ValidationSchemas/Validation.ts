@@ -1,22 +1,19 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as Yup from "yup";
 import type { FieldOptions, FieldSchemaArgs, FieldTypeMap } from "../../Types";
+import type { Primitive } from "../../Types";
 
 export function Validation<K extends keyof FieldTypeMap>(...args: FieldSchemaArgs<K>): FieldTypeMap[K] {
     let type: K;
     let label: string;
     let options: FieldOptions<FieldTypeMap[K]> | undefined;
-
     if (typeof args[1] === "string") {
         [type, label, options] = args as [K, string, FieldOptions<FieldTypeMap[K]>?];
     } else {
         [type, options] = args as [K, FieldOptions<FieldTypeMap[K]>?];
         label = "Field";
     }
-
     const { required = true, extraRules, minItems } = options || {};
     let schema: FieldTypeMap[K];
-
     switch (type) {
         case "string":
             schema = Yup.string() as FieldTypeMap[K];
@@ -40,6 +37,36 @@ export function Validation<K extends keyof FieldTypeMap>(...args: FieldSchemaArg
     }
 
     schema = required ? (schema.required(`${label} is required`) as FieldTypeMap[K]) : (schema.notRequired() as FieldTypeMap[K]);
-
     return extraRules ? extraRules(schema) : schema;
 }
+
+export const RequiredWhen = (dependentField: string, requiredValues: Primitive[], label: string, type: "string" | "number" | "array" = "string", options?: { extraRules?: (schema: Yup.AnySchema) => Yup.AnySchema }) => {
+    let schema: Yup.AnySchema;
+    if (type === "number") schema = Yup.number();
+    else if (type === "array") schema = Yup.array();
+    else schema = Yup.string();
+    if (options?.extraRules) schema = options.extraRules(schema);
+    return schema.test("required-when", `${label} is required`, (value, { from }) => {
+        const root = from?.[from.length - 1]?.value;
+        const dependentValue = root?.[dependentField];
+        const match = requiredValues.includes(dependentValue);
+        if (match) {
+            if (type === "array") return Array.isArray(value) && value.length > 0;
+            if (type === "number") return value !== undefined && value !== null;
+            return !!value;
+        }
+        return true;
+    });
+};
+
+// Reusable helpers
+export const PhoneValidation = (label = "Phone No", options?: { requiredCountryCode?: boolean; requiredNumber?: boolean }) =>
+    Yup.object({
+        countryCode: Validation("string", "Country code", {
+            required: options?.requiredCountryCode ?? true,
+        }),
+        number: Validation("string", label, {
+            required: options?.requiredNumber ?? true,
+            extraRules: (s) => s.trim().matches(/^[0-9]{10}$/, "Phone number must be 10 digits"),
+        }),
+    });

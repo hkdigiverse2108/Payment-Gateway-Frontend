@@ -8,5 +8,5 @@ export * from "./Keys";
 export const Href: string = "#Javascript";
 export const ImagePath: string = "/assets/images/";
 export const LoginSource: string = "admin-panel";
-export const ThemeTitle: string = "Payment Gateway Admin";
+export const ThemeTitle: string = "Payment";
 export const Title: string = "Payment Gateway Panel";

@@ -1,113 +1,61 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { STORAGE_KEYS } from "../../Constants";
-import { Storage } from "../../Utils";
-// const StoredUser = Storage.getItem(STORAGE_KEYS.USER)
-//     ? JSON.parse(Storage.getItem(STORAGE_KEYS.USER)!)
-//     : null;
-let StoredUser = null;
-const StoredToken = Storage.getItem(STORAGE_KEYS.TOKEN);
+import { Storage, Stringify } from "../../Utils";
+import type { LoginResponse } from "../../Types";
 
-try {
-    const rawUser = Storage.getItem(STORAGE_KEYS.USER);
-
-    if (rawUser && rawUser !== "undefined") {
-        StoredUser = JSON.parse(rawUser);
-    }
-} catch (error) {
-    console.error("Invalid user in storage, clearing...", error);
-    Storage.removeItem(STORAGE_KEYS.USER);
-}
+const StoredUser = JSON.parse( Storage.getItem(STORAGE_KEYS.USER) || "null");
+const StoredToken = Storage.getItem(STORAGE_KEYS.TOKEN) || null;
 const initialState = {
-    token: StoredToken || StoredUser?.token || null,
-    user: StoredUser || null,
+    token: StoredToken,
+    user: StoredUser,
     role: StoredUser?.role || null,
-    apiKey: StoredUser?.apiKey || null,
-    secretKey: StoredUser?.secretKey || null,
-    isAuthenticated: !!(StoredToken || StoredUser?.token),
+    isAuthenticated: !!StoredToken,
+    signinResponse: null as {
+        email: string;
+        responseData?: LoginResponse["data"];
+    } | null,
 };
-const normalizeUser = (u: any) => ({
-    _id: u?._id,
-    name: u?.name || "",
-    email: u?.email || "",
-    mobileNumber: u?.mobileNumber ?? "",
-    userName: u?.userName || "",
-    username: u?.username || "",
-    websiteName: u?.websiteName || "",
-    websiteUrl: u?.websiteUrl || "",
-    payinCallbackUrl: u?.payinCallbackUrl || "",
-    payoutCallbackUrl: u?.payoutCallbackUrl || "",
-    token: u?.token || null,
-    role: u?.role || null,
-});
 
 const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        // setLogin: (state, action) => {
-        //     const data = action.payload;
-
-        //     if (!data?.token) return;
-
-        //     // state.token = data.token;
-        //     // state.user = data.user || data;
-        //     // state.role = data.role;
-        //     // state.isAuthenticated = true;
-
-        //     // Storage.setItem(STORAGE_KEYS.TOKEN, data.token);
-        //     // Storage.setItem(STORAGE_KEYS.USER, JSON.stringify(data));
-        //     state.token = data.token;
-        //     state.user = data.user || data;
-        //     state.role = data.user?.role;
-        //     state.isAuthenticated = true;
-
-        //     Storage.setItem(STORAGE_KEYS.TOKEN, data.token);
-        //     Storage.setItem(STORAGE_KEYS.USER, JSON.stringify(data.user || data));
-        //     console.log("SET LOGIN DATA:", data);
-        //     console.log("STORED USER:", state.user);
-        // },
         setLogin: (state, action) => {
             const data = action.payload;
-
             if (!data?.token) return;
-
-            const user = {
-                ...normalizeUser(data.user || data),
-                token: data.token,
-            };
-
-            state.token = data.token;
+            const { token, ...user } = data;
+            state.token = token;
             state.user = user;
-            state.role = user.role;
+            state.role = user?.role || null;
             state.isAuthenticated = true;
-
-            Storage.setItem(STORAGE_KEYS.TOKEN, data.token);
-            Storage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
+            Storage.setItem( STORAGE_KEYS.TOKEN, token);
+            Storage.setItem( STORAGE_KEYS.USER, Stringify(user) );
         },
-
-        setSignOut(state) {
+        setUser: (state, action) => {
+            state.user = action.payload;
+            Storage.setItem( STORAGE_KEYS.USER, Stringify(action.payload) );
+        },
+        setLoginResponse: (state, action) => {
+            state.signinResponse = action.payload;
+        },
+        setSignOut: (state) => {
             state.token = null;
             state.user = null;
             state.role = null;
             state.isAuthenticated = false;
-
+            state.signinResponse = null;
             Storage.clear();
+            window.location.reload();
         },
         setUserUpdate: (state, action) => {
-            const updatedUser = normalizeUser(action.payload);
-
             state.user = {
                 ...state.user,
-                ...updatedUser,
-                token: state.token,
-                apiKey: state.user?.apiKey,
-                secretKey: state.user?.secretKey,
+                ...action.payload,
             };
-
-            Storage.setItem(STORAGE_KEYS.USER, JSON.stringify(state.user));
-        }
+            Storage.setItem( STORAGE_KEYS.USER, Stringify(state.user) );
+        },
     },
 });
 
-export const { setSignOut, setLogin, setUserUpdate } = authSlice.actions;
+export const { setLogin, setUser, setLoginResponse, setSignOut, setUserUpdate } = authSlice.actions;
 export default authSlice.reducer;

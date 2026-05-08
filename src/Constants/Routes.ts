@@ -1,7 +1,6 @@
 export const ROUTES = {
     HOME: "/",
-    DASHBOARDUSER: "/user",
-    DASHBOARDADMIN: "/admin/dashboard",
+    DASHBOARD: "/dashboard",
     AUTH: {
         LOGIN: "/auth/login",
     },
@@ -30,7 +29,9 @@ export const ROUTES = {
         BALANCE: "/wallet/balance",
     },
     USERS: {
+        BASE: "/user",
         ALL: "/user/all",
+        ADD_EDIT: "/user/add-edit",
     },
     SETTING: {
         BASE: "/settings",

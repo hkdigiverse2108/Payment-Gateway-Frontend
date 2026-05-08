@@ -1,27 +1,25 @@
 import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 import CryptoJS from "crypto-js";
 import { getToken } from "../../Utils";
+import { HTTP_STATUS } from "../../Constants";
+import { showNotification } from "../../Attribute";
 
 export async function Put<TInput, TResponse>(url: string, data?: TInput, isToken: boolean = true): Promise<TResponse> {
     const authToken = getToken();
     const isFormData = data instanceof FormData;
     const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
     let tokenPayload: { apiKey?: string; secretKey?: string; _id?: string; exp?: number } | null;
-
     try {
         tokenPayload = authToken ? JSON.parse(atob(authToken.split(".")[1] || "")) : null;
     } catch {
         tokenPayload = null;
     }
-
     const apiKey = tokenPayload?.apiKey;
     const secretKey = tokenPayload?.secretKey;
     const signature =
         apiKey && secretKey && !isFormData
             ? CryptoJS.HmacSHA256(JSON.stringify(data || {}), secretKey).toString(CryptoJS.enc.Hex)
             : undefined;
-
     const config: AxiosRequestConfig = {
         method: "PUT",
         url: BASE_URL + url,
@@ -43,14 +41,13 @@ export async function Put<TInput, TResponse>(url: string, data?: TInput, isToken
             expiresAt: tokenPayload?.exp ? new Date(tokenPayload.exp * 1000).toLocaleString() : null,
         });
     }
-
     try {
         const response = await axios(config);
         const resData = response.data;
 
-        // if (response.status === HTTP_STATUS.OK) {
-        if (response.status === 200 || response.status === 204) {
-            console.log(resData.message, "success");
+        if (response.status === HTTP_STATUS.OK) {
+            // if (response.status === 200 || response.status === 204) {
+            showNotification("success", resData.message);
             return resData;
         } else {
             return null as TResponse;
@@ -72,7 +69,6 @@ export async function Put<TInput, TResponse>(url: string, data?: TInput, isToken
                 data: backendData,
             });
         }
-
         return Promise.reject({
             status: axiosError.response?.status,
             message,
@@ -80,3 +76,42 @@ export async function Put<TInput, TResponse>(url: string, data?: TInput, isToken
         });
     }
 }
+
+// import axios, { AxiosError, type AxiosRequestConfig } from "axios";
+// import { getToken } from "../../Utils";
+// import { HTTP_STATUS } from "../../Constants";
+// import { emitNotification } from "../../Attribute";
+
+// export async function Put<TInput, TResponse>(url: string, data?: TInput, isToken: boolean = true): Promise<TResponse> {
+//     const authToken = getToken();
+//     const isFormData = data instanceof FormData;
+//     const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+//     const config: AxiosRequestConfig = {
+//         method: "PUT",
+//         url: BASE_URL + url,
+//         headers: {
+//             ...(isToken ? { Authorization: `Bearer ${authToken}` } : {}),
+//             ...(isFormData ? {} : { "Content-Type": "application/json" }),
+//         },
+//         data,
+//     };
+
+//     try {
+//         const response = await axios(config);
+//         const resData = response.data;
+
+//         if (response.status === HTTP_STATUS.OK) {
+//             emitNotification(resData.message, "success");
+//             return resData;
+//         } else {
+//             return null as TResponse;
+//         }
+//     } catch (error) {
+//         const axiosError = error as AxiosError<any>;
+//         const responseData = axiosError.response?.data as { message?: string };
+//         const message = responseData?.message || axiosError.message || "Something went wrong";
+
+//         throw new Error(message);
+//     }
+// }

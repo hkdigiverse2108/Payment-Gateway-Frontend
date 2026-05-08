@@ -1,4 +1,6 @@
 @theme {
+
+  
   --font-*: initial;
   --font-outfit: Outfit, sans-serif;
 
@@ -36,10 +38,11 @@
 
   /* ---------------- NEW GLOBAL TOKENS ---------------- */
   --background: #0A0A0F;
-  --foreground: #ffffff;
+  /* --foreground: #ffffff; */
 
   --primaryy: #8B5CF6;
   --primary-dark: #7C3AED;
+  --active: #22c55e;
 
   --accent: #A78BFA;
 
@@ -126,20 +129,36 @@
   --z-index-999: 999;
   --z-index-9999: 9999;
 }
-:root {
-  --surface: #ffffff;
-  --border: #898c91;
-  --foreground: #101828;
-}
+@layer base {
+  :root {
+    --background: #f9fafb; 
+    --surface: #ffffff;
+    --border: #898c91;
+    --foreground: #101828;
+    --background-light: rgb(245, 245, 245);
+    --primary: #22c55e;
 
-.dark {
-  --surface: #16161D;
-  --border: rgb(130, 130, 136);
-  --foreground: #ffffff;
-}
-:root {
-  /* --surface: #ffffff; */
-  /* --border: #e4e7ec; */
+    --blue-50: var(--color-gray-50);
+    --blue-100: var(--color-gray-100);
+    --tableback: rgb(237, 237, 225);
+    --ant-layout-body-bg: var(--background);
+  --cb-hover: rgba(0, 0, 0, 0.06);
+  
+  }
+
+  .dark {
+    --background: #0A0A0F;
+    --surface: #16161D;
+    --border: rgb(130, 130, 136);
+    --foreground: #ffffff;
+    --background-light: #4a4b4b;
+    --blue-50: #3467391a;
+    --blue-100: var(--color-brand-100);;
+    --tableback: rgb(37, 37, 36);
+    --ant-layout-body-bg: var(--background);
+    --primary: #22c55e;
+  --cb-hover: rgba(255, 255, 255, 0.08);
+  }
 }
 /* ---------------- DARK MODE ---------------- */
 .dark {

@@ -21,27 +21,10 @@ export const CommonPhoneNumber = ({ name, label, required }: CommonPhoneNumberPr
     helpers.setValue(e.target.value);
   };
   return (
-    <Form.Item
-      label={label}
-      required={required}
-      validateStatus={meta.touched && meta.error ? "error" : ""}
-      help={meta.touched && meta.error}
-      style={{ marginBottom: 0 }}
-    >
+    <Form.Item label={label} required={required} validateStatus={meta.touched && meta.error ? "error" : ""} help={meta.touched && meta.error} style={{ marginBottom: 0 }} >
       <div style={{ display: "flex", gap: 8 }}>
-        <Select
-          showSearch
-          value={country}
-          onChange={(val) => setCountry(val)}
-          options={countryOptions}
-          style={{ width: 180 }}
-          placeholder="Country"
-        />
-        <Input
-          value={field.value}
-          onChange={handlePhoneChange}
-          placeholder="Mobile number"
-        />
+        <Select showSearch value={country} onChange={(val) => setCountry(val)} options={countryOptions} style={{ width: 180 }} placeholder="Country" />
+        <Input value={field.value} onChange={handlePhoneChange} placeholder="Enter mobile number" />
       </div>
     </Form.Item>
   );

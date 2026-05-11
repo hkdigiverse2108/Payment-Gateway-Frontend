@@ -11,7 +11,6 @@ export interface TransactionFormValues {
     customerEmail?: string;
     returnUrl?: string;
     notifyUrl?: string;
-
     _submitAction?: string;
 }
 export interface TransactionBase extends CommonDataType {

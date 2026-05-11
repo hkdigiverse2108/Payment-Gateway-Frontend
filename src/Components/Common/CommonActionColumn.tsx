@@ -21,13 +21,13 @@ const CommonActionColumn = < T extends {
     const isFeatured = row.isFeatured;
     return (
       <Space size="small">
-        {onFeatured?.handleFeatured &&
+        {onFeatured?.onHandle &&
           !onFeatured?.isPermission?.(row) && (
             <Button type="text" icon={ isFeatured ? <StarFilled /> : <StarOutlined />
-              } onClick={() => onFeatured.handleFeatured(row)} />
+              } onClick={() => onFeatured.onHandle(row)} />
           )}
         {onActive && (
-          <Button type="text" icon={ isActive ? <EyeOutlined /> : <EyeInvisibleOutlined /> } onClick={() => onActive(row)} />
+          <Button type="text" icon={ isActive ? <EyeOutlined /> : <EyeInvisibleOutlined /> } onClick={() => onActive.onHandle(row)} />
         )}
         {editRoute && (
           <Link to={editRoute} state={{ data: row }}>
@@ -39,12 +39,12 @@ const CommonActionColumn = < T extends {
             <Button type="text" icon={<KeyOutlined />} />
           </Link>
         )}
-        {onEdit?.handleEdit &&
+        {onEdit?.onHandle &&
           !onEdit?.isPermission?.(row) && (
-            <Button type="text" icon={<EditOutlined />} onClick={() => onEdit.handleEdit(row)} />
+            <Button type="text" icon={<EditOutlined />} onClick={() => onEdit.onHandle(row)} />
           )}
-        {onDelete && (
-          <Button type="text" danger icon={<DeleteOutlined />} onClick={() => onDelete(row)} />
+        {onDelete?.onHandle && (
+          <Button type="text" danger icon={<DeleteOutlined />} onClick={() => onDelete.onHandle(row)} />
         )}
       </Space>
     );

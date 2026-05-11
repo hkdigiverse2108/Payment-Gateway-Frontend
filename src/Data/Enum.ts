@@ -2,7 +2,7 @@ export const PROFILE_FIELDS = [
     { name: "name", label: "Name" },
     { name: "email", label: "Email" },
     { name: "mobileNumber", label: "Phone" },
-    { name: "userName", label: "Username" },
+    { name: "username", label: "Username" },
     { name: "websiteName", label: "Website Name" },
     { name: "websiteUrl", label: "Website URL" },
     { name: "payinCallbackUrl", label: "Payin Callback URL" },
@@ -12,7 +12,7 @@ export const PROFILE_FIELDS = [
 export const PROFILE_SECTIONS = [
     {
         title: "Basic Info",
-        fields: ["name", "email", "mobileNumber", "userName"],
+        fields: ["name", "email", "mobileNumber", "username"],
     },
     {
         title: "Website Info",

@@ -9,27 +9,53 @@ const initialState = {
     token: StoredToken,
     user: StoredUser,
     role: StoredUser?.role || null,
-    isAuthenticated: !!StoredToken,
+    isAuthenticated: !!StoredUser,
     signinResponse: null as {
         email: string;
         responseData?: LoginResponse["data"];
     } | null,
-};
+};  
 
 const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
         setLogin: (state, action) => {
-            const data = action.payload;
-            if (!data?.token) return;
-            const { token, ...user } = data;
+            const payload = action.payload;
+
+            if (!payload?.token) return;
+
+            const token = payload.token;
+
+            let decodedUser = {};
+
+            try {
+                decodedUser = JSON.parse(
+                    atob(token.split(".")[1])
+                );
+            } catch (error) {
+                console.log("Token decode error", error);
+            }
+
+            const user = {
+                ...payload,
+                ...decodedUser,
+            };
+
             state.token = token;
             state.user = user;
             state.role = user?.role || null;
             state.isAuthenticated = true;
-            Storage.setItem( STORAGE_KEYS.TOKEN, token);
-            Storage.setItem( STORAGE_KEYS.USER, Stringify(user) );
+
+            Storage.setItem(
+                STORAGE_KEYS.TOKEN,
+                token
+            );
+
+            Storage.setItem(
+                STORAGE_KEYS.USER,
+                Stringify(user)
+            );
         },
         setUser: (state, action) => {
             state.user = action.payload;

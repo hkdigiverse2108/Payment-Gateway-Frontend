@@ -1,17 +1,11 @@
-
-
-@config "../../../tailwind.config.js";
+@reference "./variables.css";
 @reference "tailwindcss";
 html, body, #root {
   height: 100%;
-  /* background: var(--background); */
 }
-/* ---------------- INPUT WRAPPER ---------------- */
-
  /* -------------------sidebar-------------------- */
 .sidebar {
-  @apply h-screen bg-surface border-r border-border/20
-        transition-all duration-300 ease-in-out flex flex-col sticky top-0;
+  @apply h-screen bg-surface border-r border-border/20 transition-all duration-300 ease-in-out flex flex-col sticky top-0;
 }
 
 /* HEADER */
@@ -416,8 +410,6 @@ html, body, #root {
 }
 
 
-
-
 /* ---------------new ------------------------ */
 @layer components {
 
@@ -484,34 +476,28 @@ html, body, #root {
     @apply opacity-50 cursor-not-allowed;
   }
  .app-dropdown-menu {
-    @apply rounded-xl p-1 border shadow-theme-md;
-    background: var(--surface) !important;
-    border-color: var(--border) !important;
+    @apply rounded-xl p-1 border shadow-theme-md bg-surface! border-border/20!;
   }
 
   .app-dropdown-menu .ant-dropdown-menu-item {
-    @apply text-theme-sm rounded-lg px-3 py-2;
-    color: var(--foreground) !important;
+    @apply text-theme-sm rounded-lg px-3 py-2 text-foreground!;
   }
 
   .app-dropdown-menu .ant-dropdown-menu-item:hover,
   .app-dropdown-menu .ant-dropdown-menu-item-active {
-    background: var(--surface) !important;
-    color: var(--primaryy) !important;
+    @apply bg-surface! text-foreground!;
   }
 
   .app-dropdown-menu .ant-dropdown-menu-item-divider {
-    background: var(--border) !important;
+    @apply bg-border/20!;
     opacity: 0.3;
   }
 
   .app-dropdown-menu .ant-dropdown-menu-item-danger {
     color: #ef4444 !important;
   }
-
-  /* portal root fix */
   .app-dropdown .ant-dropdown {
-    background: var(--surface) !important;
+    @apply bg-surface! text-foreground!;
   }
   /* sidebar */
   
@@ -529,16 +515,14 @@ html, body, #root {
   .sidebar-menu.ant-menu-root,
   .sidebar-menu.ant-menu-light,
   .sidebar-menu.ant-menu-inline {
-    @apply text-foreground border-none;
-    background: var(--surface) !important;
+    @apply text-foreground border-none bg-surface!;
   }
   .sidebar-menu .ant-menu,
   .sidebar-menu .ant-menu-root {
-    background: var(--surface) !important;
+    @apply bg-surface!;
   }
   .sidebar-menu .ant-menu-item {
-    @apply text-foreground rounded-lg mx-2 my-1 h-10 leading-10;
-    background: transparent !important;
+    @apply text-foreground rounded-lg mx-2 my-1 h-10 leading-10 bg-surface!;
   }
 
   .sidebar-menu.ant-menu .ant-menu-item:hover {
@@ -562,8 +546,7 @@ html, body, #root {
     display: none !important;
   }
   .sidebar-menu .ant-menu-sub {
-    background: var(--surface) !important;
-  }
+    @apply bg-surface!;  }
 
   .sidebar-menu .ant-menu-submenu-title {
     @apply text-foreground;
@@ -587,8 +570,7 @@ html, body, #root {
   .sidebar-menu .ant-menu-item .anticon,
   .sidebar-menu .ant-menu-submenu-title .anticon,
   .sidebar-menu .ant-menu-item .ant-menu-item-icon {
-    color: var(--foreground) !important;
-  }
+    @apply text-foreground;  }
 
   /* SVG must inherit */
   .sidebar-menu .ant-menu-item .anticon svg,
@@ -599,7 +581,7 @@ html, body, #root {
   /* ACTIVE ICON */
   .sidebar-menu .ant-menu-item-selected .anticon,
   .sidebar-menu .ant-menu-item-selected .ant-menu-item-icon {
-    color: var(--primaryy) !important;
+    @apply text-primary;  
   }
 
   .sidebar-menu .ant-menu-item-selected .anticon svg {
@@ -617,7 +599,7 @@ html, body, #root {
     @apply bg-surface p-3;
   }
   .mobile-sidebar-drawer .ant-drawer-content-wrapper {
-    background: var(--surface) !important;
+    @apply bg-surface!;
   }
   .mobile-sidebar-drawer .ant-drawer-mask {
     background: rgba(0, 0, 0, 0.45);
@@ -627,10 +609,11 @@ html, body, #root {
 }
 
 .mobile-menu-btn.ant-btn {
-  background: var(--surface) !important;
-  color: var(--foreground) !important;
+  @apply bg-brand-500! text-foreground! border-none;
 }
-
+.colored-button{
+  @apply bg-brand-500! text-surface! border-none;
+}
   .mobile-menu-btn:hover {
     @apply bg-surface text-primary;
   }
@@ -646,8 +629,7 @@ html, body, #root {
   .ant-dropdown-menu,
   .ant-modal,
   .ant-popover {
-    background: var(--surface) !important;
-    color: var(--foreground) !important;
+    @apply bg-surface! text-foreground!;
   }
   .mobile-sidebar-drawer .ant-drawer-content,
   .mobile-sidebar-drawer .ant-drawer-body {
@@ -655,7 +637,7 @@ html, body, #root {
   }
 
   .mobile-sidebar-drawer .ant-drawer-content-wrapper {
-    background: var(--surface) !important;
+      @apply bg-surface!;
     }
   .mobile-sidebar-drawer .ant-drawer-mask {
     backdrop-filter: blur(8px);
@@ -698,7 +680,7 @@ html, body, #root {
     @apply text-foreground;
   }
   .ant-btn{
-    border: none !important;
+    @apply border-none!;
 }
 
 }

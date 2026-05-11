@@ -16,7 +16,7 @@ export const URL_KEYS = {
     },
     TRANSACTION: {
         BASE: "/transaction",
-        GET_ALL: "/transaction/all",
+        GET: "/transaction/all",
         EXPORT: "/transaction/export",
         PAYIN: "/transaction/payin",
         STATUS: "/transaction/status",

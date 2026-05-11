@@ -6,7 +6,6 @@ import { showNotification } from "../../Attribute/Notification";
 export async function Delete<T, TInput>(url: string, data?: TInput): Promise<T> {
     const authToken = getToken();
     const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
     const config: AxiosRequestConfig = {
         method: "DELETE",
         url: BASE_URL + url,
@@ -29,6 +28,6 @@ export async function Delete<T, TInput>(url: string, data?: TInput): Promise<T> 
         const axiosError = error as AxiosError<any>;
         const responseData = axiosError.response?.data as { message?: string };
         const message = responseData?.message || axiosError.message || "Something went wrong";
-        throw new Error(message);
+        throw new Error(message, { cause: error});
     }
 }

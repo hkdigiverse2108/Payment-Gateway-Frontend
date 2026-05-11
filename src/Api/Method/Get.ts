@@ -5,7 +5,6 @@ import { getToken, Storage } from "../../Utils";
 import { ErrorMessage, showNotification } from "../../Attribute";
 
 let isRedirecting = false;
-
 export async function Get<T>(url: string, params?: Params, headers?: Record<string, string>): Promise<T> {
     const authToken = getToken();
     const BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -20,14 +19,11 @@ export async function Get<T>(url: string, params?: Params, headers?: Record<stri
         },
         params,
     };
-
     try {
         const response = await axios.get<T>(BASE_URL + url, config);
-
         return response.data;
     } catch (error) {
         const axiosError = error as AxiosError<{ status?: string }>;
-
         if (axiosError?.response?.status === HTTP_STATUS.UNAUTHORIZED && !isRedirecting) {
             Storage.clear();
             isRedirecting = true;

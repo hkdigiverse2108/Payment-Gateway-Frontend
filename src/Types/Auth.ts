@@ -5,7 +5,7 @@ export interface LoginFormValues {
     password: string;
 }
 export interface LoginPayload {
-    userName: string;
+    username: string;
     password: string;
 }
 export interface ChangePasswordPayload {
@@ -29,7 +29,7 @@ export interface LoginResponse extends MessageStatus {
     };
 }
 export interface ResetPasswordPayload {
-    userId: string;
+    userId?: string;
     oldPassword: string;
     newPassword: string;
     confirmPassword?: string;

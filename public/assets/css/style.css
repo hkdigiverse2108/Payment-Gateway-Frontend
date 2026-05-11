@@ -3,45 +3,17 @@
 @import "./variables.css";
 
 @layer base {
-  input,
-  button,
-  div,
-  section,
-  aside {
-    border-color: var(--border);
-  }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
   body {
-    @apply relative   text-gray-600 font-outfit dark:bg-gray-dark dark:text-gray-300;
+    @apply relative font-outfit bg-background text-foreground;
   }
    body {
   @apply relative;
-font-family: Outfit, sans-serif;
-    background-color: var(--surface);
-    color: var(--foreground, #000);
-  }
-}
-@layer components {
-  /* .custom-input.ant-input {
-    @apply rounded-lg transition;
-  } 
-
-   .custom-input.ant-input:focus,
-  .custom-input.ant-input-focused {
-    @apply 
-    border-primary;
-    box-shadow: 0 0 0 2px var(--primary);
-  }
-
-  .custom-input.ant-input:hover {
-    @apply border-primary;
-  } */
-  .custom-input.ant-input-status-error:focus,
-  .custom-input.ant-input-status-error.ant-input-focused {
-    box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
+    @apply bg-background text-foreground;
+    font-family: Outfit, sans-serif;
   }
 }
 @import "./layout.css";

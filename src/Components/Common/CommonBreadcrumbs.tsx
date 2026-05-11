@@ -1,13 +1,11 @@
 import { Breadcrumb } from "antd";
 import type { FC } from "react";
 import type { BreadcrumbHeaderProps, BreadcrumbItem } from "../../Types";
-import { ROUTES } from "../../Constants";
 import { Link } from "react-router-dom";
 import { HomeOutlined } from "@ant-design/icons";
 
 const CommonBreadcrumbs: FC<BreadcrumbHeaderProps> = ({ title, breadcrumbs = [] }) => {
   const finalBreadcrumbs: BreadcrumbItem[] = [
-    { label: "Home", href: ROUTES.HOME },
     ...breadcrumbs,
   ];
   const items = finalBreadcrumbs.map((item, index) => {

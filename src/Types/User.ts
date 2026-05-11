@@ -5,8 +5,8 @@ export interface UserFormValues {
     name: string;
     email: string;
     mobileNumber: number;
-    // userName?: string;
-    userName: string;
+    // username?: string;
+    username: string;
     password?: string;
     websiteName?: string;
     websiteUrl?: string;

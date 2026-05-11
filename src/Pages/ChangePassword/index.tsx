@@ -20,46 +20,50 @@ const ChangePassword = () => {
     newPassword: "",
     confirmPassword: ""
   };
-  const handleSubmit = async (values: ResetPasswordPayload, { resetForm }: FormikHelpers<ResetPasswordPayload>) => {
-    await resetPassword(values, {
-      onSuccess: () => {
-        resetForm();
-        navigate(-1);
-      },
-    });
+  const handleSubmit = async ( values: ResetPasswordPayload, { resetForm }: FormikHelpers<ResetPasswordPayload> ) => {
+    await resetPassword(values, { onSuccess: () => { resetForm(); navigate(-1); }});
   };
-
   return (
-    <>
-      <div className="bg-surface">
-        <CommonBreadcrumbs title="Change Password" breadcrumbs={BREADCRUMBS.CHANGE_PASSWORD.BASE} />
-        <div className="p-4 md:p-6 mb-20">
+    <div className="bg-surface min-h-screen">
+      <CommonBreadcrumbs title="Change Password" breadcrumbs={BREADCRUMBS.CHANGE_PASSWORD.BASE} />
+      <div className="p-4 md:p-6 mb-20 flex justify-center">
+        <div className="w-full md:w-8/12 lg:w-6/12 space-y-4">
+          <div className="bg-surface rounded-xl shadow p-4 flex items-center gap-4 border border-border/30">
+            <div className="w-12 h-12 rounded-full bg-primary text-surface flex items-center justify-center font-bold">
+              {user?.name?.charAt(0)?.toUpperCase()}
+            </div>
+            <div>
+              <p className="font-semibold text-foreground"> {user?.name} </p>
+              <p className="text-sm text-gray-500"> {user?.email} </p>
+            </div>
+            <div className="ml-auto text-xs px-3 py-1 rounded-full bg-blue-100 text-blue-600"> {user?.role} </div>
+          </div>
           <Formik<ResetPasswordPayload> enableReinitialize initialValues={initialValues} validationSchema={ResetPasswordSchema} onSubmit={handleSubmit}>
-            {({ dirty }) => (
-              <Form noValidate>
-                <div className="flex justify-center">
-                  <div className="w-full md:w-8/12 lg:w-6/12">
-                    <CommonCard title="Change Password" >
-                      <div className="p-4 flex flex-col gap-4">
-                        <CommonInput name="oldPassword" label="Old Password" type="password" />
-                        <CommonInput name="newPassword" label="New Password" type="password" />
-                        <CommonInput name="confirmPassword" label="Confirm Password" type="password" />
-                      </div>
-                    </CommonCard>
-                    <CommonBottomActionBar>
-                      <div className="flex gap-2 ml-auto">
-                        <CommonButton variant="outlined" onClick={() => navigate(-1)} title="Cancel" />
-                        <CommonButton htmlType="submit" type="primary" title="Save" loading={isLoading} disabled={!dirty} />
-                      </div>
-                    </CommonBottomActionBar>
-                  </div>
-                </div>
-              </Form>
-            )}
-          </Formik>
+             {({ dirty }) => (
+               <Form noValidate>
+                 <div className="flex justify-center">
+                   <div className="w-full md:w-8/12 lg:w-6/12">
+                     <CommonCard title="Change Password" >
+                       <div className="p-4 flex flex-col gap-4">
+                         <CommonInput name="oldPassword" label="Old Password" type="password" />
+                         <CommonInput name="newPassword" label="New Password" type="password" />
+                         <CommonInput name="confirmPassword" label="Confirm Password" type="password" />
+                       </div>
+                     </CommonCard>
+                     <CommonBottomActionBar>
+                       <div className="flex gap-2 ml-auto">
+                         <CommonButton variant="outlined" onClick={() => navigate(-1)} title="Cancel" />
+                         <CommonButton htmlType="submit" type="primary" title="Save" loading={isLoading} disabled={!dirty} />
+                       </div>
+                     </CommonBottomActionBar>
+                   </div>
+                 </div>
+               </Form>
+             )}
+           </Formik>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

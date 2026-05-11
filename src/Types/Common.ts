@@ -87,6 +87,7 @@ export interface CommonInputProps {
     allowClear?: boolean;
     showPasswordToggle?: boolean;
     clearable?: boolean;
+    className?: string;
 };
 
 export interface CommonDropDownProps {
@@ -134,7 +135,7 @@ export interface CommonTableProps<T extends object>
         total?: number;
         showSizeChanger?: boolean;
     };
-
+    onPaginationChange?: (page: number, pageSize: number) => void;
     rowKey?: string | ((record: T) => string);
 
     bordered?: boolean;
@@ -176,6 +177,7 @@ export interface CommonActionColumnProps<T> {
     onEdit?: ActionHandler<T>;
     onDelete?: ActionHandler<T>;
     onActive?: ActionHandler<T>;
+    onFeatured?: ActionHandler<T>;
     onRefund?: (row: T) => void;
 }
 
@@ -331,7 +333,6 @@ export interface CommonDataGridProps {
         page: number;
         pageSize: number;
     };
-
     onPaginationModelChange?: (model: {
         page: number;
         pageSize: number;
@@ -438,3 +439,37 @@ export interface LayoutStateProps {
     openSubmenu: string | null;
     isToggleTheme: string;
 };
+
+export interface CommonModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    children: React.ReactNode;
+    title?: string;
+    subTitle?: string;
+    className?: string;
+    width?: number | string; 
+}
+
+export interface CommonDeleteModalProps {
+    open: boolean;
+    title?: string;
+    description?: string;
+    itemName?: string;
+    loading?: boolean;
+    onClose: () => void;
+    onConfirm?: () => void;
+}
+
+export type PrivateRoutesProps = {
+    allowedRoles: string[];
+    children: React.ReactNode;
+};
+
+export type SidebarIconKey =
+  | "dashboard"
+  | "orders"
+  | "payments"
+  | "transactions"
+  | "wallet"
+  | "users"
+  | "settings";

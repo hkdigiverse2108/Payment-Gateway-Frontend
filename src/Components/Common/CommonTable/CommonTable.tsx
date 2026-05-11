@@ -20,20 +20,9 @@ export const CommonTable = <T extends object>({ loading = false, dataSource, col
   }, [columns, current, pageSize]);
 
   return (
-    <Table<T>
-      loading={loading}
-      dataSource={dataSource}
-      columns={fixedColumns}
-      rowKey={rowKey as keyof T}
-      bordered={bordered}
-      size={size}
-      scroll={scroll ?? { x: "max-content" }}
-      pagination={{
-        ...pagination,
-        showSizeChanger: true,
-        showTotal: (total) => `Total ${total} items`,
-      }}
-      className="common-table"
+    <Table<T> loading={loading} dataSource={dataSource} columns={fixedColumns} rowKey={rowKey as keyof T} bordered={bordered} size={size}
+      scroll={scroll ?? { x: "max-content" }} pagination={{ ...pagination, showSizeChanger: true, showTotal: (total) => `Total ${total} items`,
+      onChange: (page, pageSize) => { rest.onPaginationChange?.(page, pageSize); }, }} className="common-table"
       title={() => (
           <Row
             className="rounded-lg p-2 items-center"

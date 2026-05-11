@@ -1,9 +1,9 @@
 @theme {
-
-  
+  /* ---------------- FONT ---------------- */
   --font-*: initial;
   --font-outfit: Outfit, sans-serif;
 
+  /* ---------------- BREAKPOINTS ---------------- */
   --breakpoint-*: initial;
   --breakpoint-2xsm: 375px;
   --breakpoint-xsm: 425px;
@@ -17,74 +17,66 @@
   /* ---------------- TYPOGRAPHY ---------------- */
   --text-title-2xl: 72px;
   --text-title-2xl--line-height: 90px;
+
   --text-title-xl: 60px;
   --text-title-xl--line-height: 72px;
+
   --text-title-lg: 48px;
   --text-title-lg--line-height: 60px;
+
   --text-title-md: 36px;
   --text-title-md--line-height: 44px;
+
   --text-title-sm: 30px;
   --text-title-sm--line-height: 38px;
+
   --text-theme-xl: 20px;
   --text-theme-xl--line-height: 30px;
+
   --text-theme-sm: 14px;
   --text-theme-sm--line-height: 20px;
+
   --text-theme-xs: 12px;
   --text-theme-xs--line-height: 18px;
 
-  /* ---------------- BASE COLORS ---------------- */
-  --color-white: #ffffff;
-  --color-black: #101828;
+  /* ---------------- THEME COLORS ---------------- */
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
 
-  /* ---------------- NEW GLOBAL TOKENS ---------------- */
-  --background: #0A0A0F;
-  /* --foreground: #ffffff; */
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-accent: var(--accent);
 
-  --primaryy: #8B5CF6;
-  --primary-dark: #7C3AED;
-  --active: #22c55e;
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-active: var(--active);
 
-  --accent: #A78BFA;
+  --color-muted: var(--text-muted);
 
-  /* --surface: #16161D;
-  --surface-light: #1F1F28;
+  --color-backgroundlight: var(--background-light);
 
-  --border: #2A2A35; */
+  --color-blue-50: var(--blue-50);
+  --color-blue-100: var(--blue-100);
 
-  --text-muted: #A0A0B0;
+  --color-tableback: var(--tableback);
 
-  --success: #10B981;
-  --warning: #F59E0B;
+  /* ---------------- BRAND ---------------- */
+  --color-brand-25: #f5f3ff;
+  --color-brand-50: #ede9fe;
+  --color-brand-100: #ddd6fe;
+  --color-brand-200: #c4b5fd;
+  --color-brand-300: #a78bfa;
+  --color-brand-400: #8b5cf6;
+  --color-brand-500: #8b5cf6;
+  --color-brand-600: #7c3aed;
+  --color-brand-700: #6d28d9;
+  --color-brand-800: #5b21b6;
+  --color-brand-900: #4c1d95;
+  --color-brand-950: #2e1065;
 
-  --code-bg: #0D0D12;
-  --code-border: #252530;
-
-  /* ---------------- BRAND (UPDATED TO NEW THEME) ---------------- */
-  --color-brand-25:  #F5F3FF;
-  --color-brand-50:  #EDE9FE;
-  --color-brand-100: #DDD6FE;
-  --color-brand-200: #C4B5FD;
-  --color-brand-300: #A78BFA;
-  --color-brand-400: #8B5CF6; 
-  --color-brand-500: #8B5CF6; 
-  --color-brand-600: #7C3AED;
-  --color-brand-700: #6D28D9; 
-  --color-brand-800: #5B21B6;
-  --color-brand-900: #4C1D95;
-  --color-brand-950: #2E1065;
-
-/* ---------------- ACCENT ---------------- */
-  --color-accent-50:  #F5F3FF;
-  --color-accent-100: #EDE9FE;
-  --color-accent-200: #DDD6FE;
-  --color-accent-300: #C4B5FD;
-  --color-accent-400: #A78BFA;
-  --color-accent-500: #8B5CF6;
-
-  /* ---------------- SECONDARY (OPTIONAL USE) ---------------- */
-  --color-secondary-500: #A78BFA;
-
-  /* ---------------- GRAYS (UNCHANGED) ---------------- */
+  /* ---------------- GRAYS ---------------- */
   --color-gray-25: #fcfcfd;
   --color-gray-50: #f9fafb;
   --color-gray-100: #f2f4f7;
@@ -97,29 +89,26 @@
   --color-gray-800: #333333;
   --color-gray-900: #1f1f1f;
   --color-gray-950: #121212;
-  --color-gray-dark: #0a0a0a;
-
-  /* ---------------- SEMANTIC ---------------- */
-  --color-theme-primary-500: var(--color-brand-500);
-  --color-theme-secondary-500: var(--color-brand-400);
-  --color-theme-accent-500: var(--color-accent-300);
 
   /* ---------------- SHADOWS ---------------- */
   --shadow-theme-xs: 0px 1px 2px rgba(16, 24, 40, 0.05);
 
-  --shadow-theme-sm: 0px 1px 3px rgba(16, 24, 40, 0.08),
-                    0px 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow-theme-sm:
+    0px 1px 3px rgba(16, 24, 40, 0.08),
+    0px 1px 2px rgba(16, 24, 40, 0.05);
 
-  --shadow-theme-md: 0px 4px 8px rgba(16, 24, 40, 0.08),
-                    0px 2px 4px rgba(16, 24, 40, 0.05);
+  --shadow-theme-md:
+    0px 4px 8px rgba(16, 24, 40, 0.08),
+    0px 2px 4px rgba(16, 24, 40, 0.05);
 
-  --shadow-theme-lg: 0px 12px 16px rgba(16, 24, 40, 0.06),
-                    0px 4px 6px rgba(16, 24, 40, 0.04);
+  --shadow-theme-lg:
+    0px 12px 16px rgba(16, 24, 40, 0.06),
+    0px 4px 6px rgba(16, 24, 40, 0.04);
 
-  --shadow-theme-xl: 0px 20px 24px rgba(16, 24, 40, 0.06),
-                    0px 8px 8px rgba(16, 24, 40, 0.03);
+  --shadow-theme-xl:
+    0px 20px 24px rgba(16, 24, 40, 0.06),
+    0px 8px 8px rgba(16, 24, 40, 0.03);
 
-  /* Updated focus ring */
   --shadow-focus-ring: 0px 0px 0px 4px rgba(139, 92, 246, 0.35);
 
   /* ---------------- Z INDEX ---------------- */
@@ -129,88 +118,71 @@
   --z-index-999: 999;
   --z-index-9999: 9999;
 }
-@layer base {
-  :root {
-    --background: #f9fafb; 
-    --surface: #ffffff;
-    --border: #898c91;
-    --foreground: #101828;
-    --background-light: rgb(245, 245, 245);
-    --primary: #22c55e;
 
-    --blue-50: var(--color-gray-50);
-    --blue-100: var(--color-gray-100);
-    --tableback: rgb(237, 237, 225);
-    --ant-layout-body-bg: var(--background);
+/* ================= LIGHT MODE ================= */
+
+:root {
+  --background: #f9fafb;
+  --surface: #ffffff;
+  --foreground: #101828;
+  --border: #898c91;
+
+  --background-light: rgb(245, 245, 245);
+
+  --primary: #8b5cf6;
+  --primary-dark: #7c3aed;
+
+  --accent: #a78bfa;
+  --active: #22c55e;
+
+  --success: #10b981;
+  --warning: #f59e0b;
+
+  --text-muted: #667085;
+
+  --blue-50: var(--color-gray-50);
+  --blue-100: var(--color-gray-100);
+
+  --tableback: rgb(237, 237, 225);
+
+  --ant-layout-body-bg: var(--background);
+
   --cb-hover: rgba(0, 0, 0, 0.06);
-  
-  }
 
-  .dark {
-    --background: #0A0A0F;
-    --surface: #16161D;
-    --border: rgb(130, 130, 136);
-    --foreground: #ffffff;
-    --background-light: #4a4b4b;
-    --blue-50: #3467391a;
-    --blue-100: var(--color-brand-100);;
-    --tableback: rgb(37, 37, 36);
-    --ant-layout-body-bg: var(--background);
-    --primary: #22c55e;
-  --cb-hover: rgba(255, 255, 255, 0.08);
-  }
+  --ray-color: var(--color-brand-500);
+  --ray-shadow: rgba(139, 92, 246, 0.3);
 }
-/* ---------------- DARK MODE ---------------- */
+
+/* ================= DARK MODE ================= */
+
 .dark {
+  --background: #0a0a0f;
+  --surface: #16161d;
+  --foreground: #ffffff;
+  --border: rgb(130, 130, 136);
+
+  --background-light: #3a3a3a;
+
+  --primary: #8b5cf6;
+  --primary-dark: #7c3aed;
+
+  --accent: #a78bfa;
+  --active: #22c55e;
+
+  --success: #10b981;
+  --warning: #f59e0b;
+
+  --text-muted: #a0a0b0;
+
   --blue-50: #3467391a;
   --blue-100: var(--color-brand-100);
-  --blue-200: var(--color-brand-200);
-  --blue-300: var(--color-brand-300);
-  --blue-400: var(--color-brand-400);
-  --blue-500: var(--color-brand-500);
-  --blue-600: var(--color-brand-600);
-  --blue-700: var(--color-brand-700);
-  --blue-800: var(--color-brand-800);
-  --blue-900: var(--color-brand-900);
+
+  --tableback: rgb(37, 37, 36);
+
+  --ant-layout-body-bg: var(--background);
+
+  --cb-hover: rgba(255, 255, 255, 0.08);
 
   --ray-color: var(--color-brand-500);
   --ray-shadow: rgba(139, 92, 246, 0.6);
-}
-/* ---------------- LIGHT MODE ---------------- */
-:root:not(.dark) {
-  --blue-50: var(--color-gray-50);
-  --blue-100: var(--color-gray-100);
-  --blue-200: var(--color-gray-200);
-  --blue-300: var(--color-gray-300);
-  --blue-400: var(--color-gray-400);
-
-  --blue-500: var(--color-black);
-  --blue-600: var(--color-black);
-  --blue-700: var(--color-black);
-  --blue-800: var(--color-black);
-  --blue-900: var(--color-black);
-
-  --ray-color: var(--color-brand-700);
-  --ray-shadow: rgba(139, 92, 246, 0.4);
-}
-
-/* ---------------- EFFECT ---------------- */
-.golden-ray-static {
-  position: absolute;
-  width: 150%;
-  height: 1px;
-
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--ray-color) 50%,
-    transparent 100%
-  );
-
-  box-shadow: 0 0 25px 3px var(--ray-shadow);
-
-  pointer-events: none;
-  z-index: 0;
-  transform: rotate(-15deg);
-  opacity: 0.6;
 }

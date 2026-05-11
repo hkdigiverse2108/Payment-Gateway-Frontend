@@ -1,7 +1,6 @@
+@reference "./variables.css";
+@reference "tailwindcss";
 @layer components {
-  .bg-surface {
-    @apply bg-white dark:bg-gray-900;
-  }
   .common-table .ant-table {
     @apply bg-surface text-foreground border-border/30;
   }
@@ -38,11 +37,11 @@
   }
 
 .common-table .ant-table-cell {
-  border-color: var(--border);
+  @apply border border-border;
 }
 .common-table.table-bordered .ant-table-container table > thead > tr > th,
 .common-table.table-bordered .ant-table-container table > tbody > tr > td {
-  border: 1px solid var(--border);
+  @apply border border-border;
 }
 .common-table:not(.table-bordered) .ant-table-container table > thead > tr > th,
 .common-table:not(.table-bordered) .ant-table-container table > tbody > tr > td {
@@ -50,13 +49,6 @@
   .ant-input,
   .ant-input-affix-wrapper {
     @apply bg-surface text-foreground border border-border;
-  }
-  /* .ant-input::placeholder {
-    @apply text-text-muted;
-  } */
-  .ant-input:hover,
-  .ant-input-affix-wrapper:hover {
-    /* @apply border-accent; */
   }
   .ant-input:focus,
   .ant-input-focused,
@@ -67,16 +59,16 @@
     @apply bg-surface text-foreground border border-border;
   }
   .ant-select-selection-placeholder {
-    /* @apply text-text-muted; */
+    @apply text-muted;
   }
   .ant-form-item-label > label {
     @apply text-foreground;
   }
   .ant-btn-primary {
-    /* @apply bg-primary border-primaryy text-white; */
+    @apply bg-primary border-primary text-white;
   }
   .ant-btn-primary:hover {
-    /* @apply bg-primary-dark border-primary-dark; */
+    @apply bg-primary-dark border-primary-dark;
   }
   .ant-card {
     @apply bg-surface text-foreground border border-border;
@@ -90,26 +82,15 @@
   .ant-table-tbody > tr > td {
     @apply border-border;
   }
-  /* .ant-modal-content {
-    @apply bg-surface text-foreground;
-  } */
   .ant-modal-header {
     @apply bg-surface text-foreground;
   }
-  .ant-breadcrumb a {
-    /* @apply text-text-muted; */
-  }
 }
-  .ant-breadcrumb a:hover {
-    /* @apply text-accent; */
+  .common-table .ant-table-title {
+    @apply bg-surface!;
   }
   .common-table .ant-table-title {
-    background: var(--background) !important;
-  }
-  .common-table .ant-table-title {
-    padding: 0 !important;
-    margin: 0 !important;
-    background: transparent !important;
+    @apply p-0! m-0! bg-transparent!;
   }
   .text-foreground {
     @apply text-gray-900 dark:text-gray-100;
@@ -131,18 +112,14 @@
 .common-table .ant-input:focus,
 .common-table .ant-input-focused,
 .common-table .ant-input-affix-wrapper-focused {
-  background: var(--surface) !important;
-  color: var(--foreground) !important;
-  box-shadow: none !important;
+  @apply bg-surface! text-foreground! shadow-none!;
 }
 .common-table .ant-input {
-  background: transparent !important;
-  color: var(--foreground) !important;
+  @apply bg-surface! text-foreground!;
 }
 
 .common-table .ant-input input {
-  background: transparent !important;
-  color: var(--foreground) !important;
+  @apply bg-surface! text-foreground!;
 }
 .common-table .ant-switch {
   background-color: #d1d5db !important;
@@ -153,96 +130,83 @@
 }
 
 .common-table .ant-switch-checked {
-  background-color: var(--active) !important;
+  @apply bg-active!;
 }
 
 /* knob */
 .common-table .ant-switch-handle::before {
-  background: #fff !important;
+  @apply bg-white!;
 } 
 .common-table .ant-switch-checked {
-  background-color: var(--active) !important;
+  @apply bg-active!;
 }
 .common-table .ant-input-affix-wrapper {
   @apply bg-surface text-foreground border border-border;
 }
 
 .common-table .ant-input-affix-wrapper input {
-  background: transparent !important;
-  color: var(--foreground) !important;
+  @apply bg-transparent! text-foreground!;
 }
 
 /* focus state (THIS WAS MISSING) */
 .common-table .ant-input-affix-wrapper-focused {
-  background: var(--surface) !important;
-  border-color: var(--border) !important;
-  box-shadow: none !important;
+  @apply bg-surface! text-foreground! shadow-none!;
 }
 
 .common-table .ant-input-affix-wrapper-focused input {
-  background: transparent !important;
-  color: var(--foreground) !important;
+  @apply bg-transparent! text-foreground!;
 }
 .common-table .ant-pagination {
   @apply text-foreground;
 }
 .common-table .ant-pagination-item {
-  background: var(--surface) !important;
-  border: 1px solid var(--border) !important;
+  @apply bg-surface! border-border!
 }
 
 .common-table .ant-pagination-item a {
-  color: var(--foreground) !important;
+  @apply text-foreground!;
 }
 .ant-select-dropdown {
-  background: var(--surface) !important;
-  border: 1px solid var(--border) !important;
+  @apply bg-surface! border-border!;
 }
 
 /* list container */
 .rc-virtual-list-holder-inner {
-  background: var(--surface) !important;
+  @apply bg-surface!;
 }
 
 /* item text */
 .rc-select-item-option-content {
-  color: var(--foreground) !important;
+  @apply text-foreground!;
 }
 
 /* 🔥 HOVER */
 .rc-select-item-option-active {
-  background: var(--border) !important;
-  color: var(--foreground) !important;
+  @apply bg-surface! text-foreground!;
 }
 
 /* 🔥 SELECTED */
 .rc-select-item-option-selected {
-  background: var(--active) !important;
-  /* color: #fff !important; */
+  @apply bg-active!;
 }
 
 /* pagination dropdown */
 .ant-pagination-options .ant-select-dropdown {
-  background: var(--surface) !important;
+  @apply bg-surface!;
 }
 .common-input .ant-input {
-  height: 40px;
-  border-radius: 8px;
-  padding: 0 12px;
+  @apply h-10! rounded-lg! px-3 py-0;
 }
 
 /* Prefix / Suffix alignment */
 .common-input .ant-input-prefix,
 .common-input .ant-input-suffix {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  @apply flex items-center gap-1;
 }
 
 /* Remove weird spacing */
 .common-input .ant-input-affix-wrapper {
-  padding: 0 10px;
-  border-radius: 8px;
+  @apply px-0 py-4 rounded-lg;
 }
 
 /* Focus */
@@ -257,10 +221,7 @@
 
 /* Password toggle */
 .password-toggle-icon {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  font-size: 16px;
+  @apply flex items-center justify-center text-muted cursor-pointer;
 }
 
 /* Clear icon */
@@ -277,16 +238,17 @@
   @apply bg-surface;
 }
 .ant-select-item .ant-select-item-option .ant-select-item-option-active .ant-select-item-option-selected {
-  @apply bg-backgroundlight text-foreground;
+  @apply bg-foreground! text-surface!;
+}
+.ant-select-item-option-selected{
+  @apply bg-foreground! text-surface!;
+}
+.anticon-left,
+.anticon-right{
+  @apply text-foreground!;
 }
 .cb-wrapper {
-  @apply flex items-center justify-between px-6 py-3;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  @apply flex items-center justify-between px-6 py-3 bg-surface! border-b border-border! sticky! top-0 z-10;
 }
 
 /* LEFT */
@@ -296,15 +258,12 @@
 
 /* ICON */
 .cb-home-icon {
-  color: var(--text-muted);
-  font-size: 15px;
+  @apply text-muted!;  font-size: 15px;
 }
 
 /* TITLE (fix hierarchy clearly) */
 .cb-title {
-  @apply text-base font-semibold capitalize;
-  color: var(--foreground);
-  margin: 0;
+  @apply text-base font-semibold capitalize text-foreground! m-0!;
 }
 
 /* RIGHT */
@@ -314,25 +273,22 @@
 
 /* LINKS */
 .cb-link {
-  @apply text-xs capitalize;
-  color: var(--text-muted);
+  @apply text-xs capitalize text-foreground!;
   transition: color 0.2s ease;
 }
 
 .cb-link:hover {
-  color: var(--foreground);
+  @apply text-foreground!;
 }
 
 /* ACTIVE LINK */
 .cb-link.active {
-  color: var(--foreground);
-  font-weight: 500;
+  @apply text-sm capitalize text-foreground!;
 }
 
 /* CURRENT */
 .cb-current {
-  @apply text-xs font-medium capitalize;
-  color: var(--foreground);
+  @apply text-xs font-medium capitalize text-foreground!;
 }
 
 /* ANTD RESET (important for consistency) */
@@ -341,7 +297,7 @@
 }
 
 .cb-wrapper .ant-breadcrumb-separator {
-  color: var(--text-muted);
+  @apply text-foreground!;
   opacity: 0.6;
 }
 
@@ -353,7 +309,7 @@
   @apply border border-brand-400!;
 }
 .commonbutton-actionbar-main {
-  @apply fixed bottom-0 left-0 right-0 z-50 flex bg-surface border-t border-border transition-all duration-300;
+  @apply fixed bottom-0 left-0 right-0 z-50 flex bg-surface border-t border-border/50 transition-all duration-300;
 }
 .commonbutton-actionbar-inner {
   @apply w-full flex items-center justify-between mx-5 my-4 gap-4 flex-wrap;
@@ -396,6 +352,215 @@
 }
 .common-table-add button {
   @apply bg-primary text-white text-sm px-4 py-2 rounded-lg hover:opacity-90 transition;
+}
+.ant-breadcrumb-link{
+  @apply text-sm text-foreground;
+}
+.cb-link {
+  @apply text-sm text-red-500;
+}
+.ant-modal-container {
+  @apply bg-surface! rounded-3xl;
+}
+.ant-modal-close{
+  @apply text-foreground!;
+}
+@layer components {
+  .profile-page {
+    @apply min-h-screen bg-surface p-6;
+  }
+
+  .profile-layout {
+    @apply grid grid-cols-[1fr_360px] gap-6 items-start;
+  }
+
+  .profile-main {
+    @apply flex flex-col gap-6;
+  }
+
+  .profile-sidebar {
+    @apply sticky top-24 flex flex-col gap-6;
+  }
+
+  /* HERO */
+
+  .profile-hero {
+    @apply overflow-hidden rounded-3xl border border-border/30 bg-surface shadow-sm pt-[20px]!;
+  }
+
+  .profile-hero-banner {
+    @apply h-10 bg-gradient-to-r bg-brand-500;
+  }
+
+  .profile-hero-content {
+    @apply relative flex items-end gap-5 px-8 pb-8;
+  }
+
+  .profile-avatar {
+    @apply -mt-14 flex h-38 w-38 items-center justify-center rounded-xl border-[6px] border-surface bg-brand-500 text-3xl font-bold text-white mt-[15px];
+  }
+
+  .profile-hero-info h2 {
+    @apply text-2xl font-bold text-foreground;
+  }
+
+  .profile-hero-info p {
+    @apply mt-1 text-base text-muted;
+  }
+
+  /* CARD */
+
+  .profile-card {
+    @apply rounded-3xl border border-border/30 bg-surface p-7 shadow-sm;
+  }
+
+  .profile-card-header {
+    @apply mb-6 flex items-center justify-between;
+  }
+  
+
+  .profile-card-header h3 {
+    @apply text-2xl font-bold text-foreground;
+  }
+
+  .profile-card-header p {
+    @apply mt-1 text-sm text-muted;
+  }
+  /* FIELDS */
+
+  .profile-fields {
+    @apply flex flex-col divide-y divide-border;
+  }
+
+  .profile-field {
+    @apply flex items-center justify-between py-5;
+  }
+  .profile-hero-content {
+  @apply flex items-center justify-between gap-6;
+}
+
+.profile-hero-info {
+  @apply flex-1;
+}
+
+.profile-hero-keys {
+  @apply flex items-center gap-3 flex-wrap;
+}
+
+.profile-mini-key {
+  @apply flex items-center gap-2
+  px-4 py-2 rounded-xl
+  border border-border
+  bg-surface
+  text-sm text-foreground
+  cursor-pointer
+  transition-all duration-200
+  hover:border-primary
+  hover:shadow-sm
+  max-w-[260px];
+}
+
+.profile-mini-key span {
+  @apply truncate;
+}
+
+.profile-mini-key button {
+  @apply flex items-center justify-center
+  text-muted hover:text-primary
+  transition-all;
+}
+.ant-form-item,
+.ant-form-item-control,
+.ant-form-item-control-input,
+.ant-form-item-control-input-content {
+  width: 100%;
+}
+
+  .profile-field-left {
+    @apply flex items-start gap-4;
+  }
+  .profile-field-left > div {
+    @apply flex-1 min-w-0;
+  }
+  .profile-left-inner {
+    @apply w-[400px];
+  }
+  .profile-field-left svg {
+    @apply mt-1 text-xl text-violet-500;
+  }
+
+  .profile-field-left span {
+    @apply text-xs font-medium uppercase tracking-wider text-muted;
+  }
+
+  .profile-field-left p {
+    @apply mt-1 text-base font-medium text-foreground;
+  }
+
+  .profile-edit-btn {
+    @apply flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground transition-all duration-200 hover:border-violet-500 hover:text-violet-500;
+  }
+  .profile-page .ant-form-item-control-input{
+    @apply flex!;
+  }
+  /* SIDEBAR */
+  
+  .profile-security-card,
+  .profile-save-card {
+    @apply rounded-3xl border border-border/30 bg-surface p-7 shadow-sm;
+  }
+
+  .profile-security-icon {
+    @apply mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-100 text-2xl text-violet-600 dark:bg-violet-500/10 dark:text-violet-400;
+  }
+
+  .profile-security-card h3,
+  .profile-save-card h4 {
+    @apply text-2xl font-bold text-foreground;
+  }
+
+  .profile-security-card p,
+  .profile-save-card p {
+    @apply mt-2 mb-6 text-sm leading-6 text-muted;
+  }
+
+  /* RESPONSIVE */
+
+  @media (max-width: 1200px) {
+    .profile-layout {
+      @apply grid-cols-1;
+    }
+
+    .profile-sidebar {
+      @apply static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .profile-page {
+      @apply p-4;
+    }
+
+    .profile-hero-content {
+      @apply flex-col items-start;
+    }
+
+    .profile-avatar {
+      @apply h-24 w-24 text-3xl;
+    }
+
+    .profile-card,
+    .profile-security-card,
+    .profile-save-card {
+      @apply p-5;
+    }
+
+    .profile-card-header h3,
+    .profile-security-card h3,
+    .profile-save-card h4 {
+      @apply text-xl;
+    }
+  }
 }
 }
   

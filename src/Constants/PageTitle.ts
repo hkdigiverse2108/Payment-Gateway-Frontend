@@ -12,6 +12,8 @@ export const PAGE_TITLE = {
     },
     TRANSACTION: {
         ALL: "All Transactions",
+        STATUS: "Transaction Status",
+        PAYIN: "Pay In",
     },
     WALLET: {
         BALANCE: "Wallet Balance",

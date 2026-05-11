@@ -48,15 +48,21 @@ export const ChangePasswordSchema = Yup.object({
 });
 //profile
 export const UserSchema = Yup.object({
-    name: Validation("string", "First Name", { required: false }),
+    name: Validation("string", "Name"),
     email: Validation("string", "Email", {
         required: true,
         extraRules: (s) => s.trim().email("Invalid email address"),
     }),
     // mobileNumber: PhoneValidation(),
-    username: Validation("string", "User Name", { required: false }),
-    websiteName: Validation("string", "Website Name", { required: false }),
-    websiteUrl: Validation("string", "Website Url", { required: false }),
-    payinCallbackUrl: Validation("string", "Payin Callback Url", { required: false }),
-    payoutCallbackUrl: Validation("string", "Pauout Callback Url", { required: false }),
+    username: Validation("string", "User Name"),
+    password: Validation("string", "Password", {
+        extraRules: (s) => s.matches(/[!@#$%^&*()_+={}:;"'<>,.?/-]/, "Password must include at least one special character"),
+    }),
+    mobileNumber: Validation("string", "Mobile Number", {
+        extraRules: (s) => s.trim().matches(/^[0-9]{10}$/, "Phone number must be 10 digits"),
+    }),
+    websiteName: Validation("string", "Website Name"),
+    websiteUrl: Validation("string", "Website Url", { required: true }),
+    payinCallbackUrl: Validation("string", "Payin Callback Url", { required: true }),
+    payoutCallbackUrl: Validation("string", "Payout Callback Url", { required: true }),
 });

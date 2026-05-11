@@ -16,12 +16,9 @@ const Login = () => {
   const { mutate: login, isPending } = Mutations.useLogin();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const handleSubmit = (
-    values: LoginFormValues,
-    { resetForm }: FormikHelpers<LoginFormValues>
-  ) => {
+  const handleSubmit = ( values: LoginFormValues, { resetForm }: FormikHelpers<LoginFormValues> ) => {
     const payload: LoginPayload = {
-      userName: values.identifier.toLowerCase(),
+      username: values.identifier.toLowerCase(),
       password: values.password,
     };
     login(payload, {
@@ -29,9 +26,7 @@ const Login = () => {
         const data = response?.data;
         if (!data?.token) return;
         dispatch(setLogin(response.data));
-        navigate(ROUTES.DASHBOARD, {
-          replace: true,
-        });
+        navigate(ROUTES.DASHBOARD, { replace: true });
         resetForm();
       },
     });

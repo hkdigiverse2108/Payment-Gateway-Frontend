@@ -13,4 +13,5 @@ export const Mutations = {
     useUpdateUser: () => useMutations<UpdateUserPayload, UserApiResponse>([KEYS.USER.UPDATE, KEYS.USER.BASE], (input) => Put(URL_KEYS.USER.UPDATE, input)),
     useDeleteUser: () => useMutations<string, void>([KEYS.USER.DELETE, KEYS.USER.BASE], (id) => Delete(`${URL_KEYS.USER.BASE}/${id}`)),
     useUpdateProfile: () => useMutations<UpdateUserPayload, UserApiResponse>([KEYS.USER.UPDATE_PROFILE, KEYS.USER.BASE], (input) => Put(URL_KEYS.USER.UPDATE_PROFILE, input)),
+
 };

@@ -46,7 +46,7 @@ const UserForm = () => {
       if (_submitAction === "saveAndNew") resetForm(); else navigate(-1); };
       if (isEditing) {
         await editUser(
-          RemoveEmptyFields({ ...payload, userId: data._id, }) as UserFormValues,
+          RemoveEmptyFields({ ...payload, _id: data._id, }) as UserFormValues,
           { onSuccess: handleSuccess}
         );
       } else {

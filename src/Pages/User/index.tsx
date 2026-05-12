@@ -72,8 +72,8 @@ const User = () => {
         itemName={deleteModal.record?.name}
         onClose={() => setDeleteModal({ open: false, record: null })}
         onConfirm={() => {
-          if (!deleteModal.record?.userId) return;
-          deleteUser(deleteModal.record.userId, {
+          if (!deleteModal.record?._id) return;
+          deleteUser(deleteModal.record._id, {
           onSuccess: () => { setDeleteModal({ open: false, record: null }); },
           });
         }}

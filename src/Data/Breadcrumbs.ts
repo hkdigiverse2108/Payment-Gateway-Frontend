@@ -15,9 +15,9 @@ export const BREADCRUMBS = {
     PROFILE: {
         BASE: [{ label: PAGE_TITLE.PROFILE.BASE }],
     },
-    TRANSACTION: {
-        ALL: [{ label: PAGE_TITLE.TRANSACTION.ALL }],
-        STATUS: [{ label: PAGE_TITLE.TRANSACTION.STATUS }],
-        PAYIN: [{ label: PAGE_TITLE.TRANSACTION.PAYIN }],
+    TRANSACTIONS: {
+        BASE: [{ label: PAGE_TITLE.TRANSACTIONS.BASE }],
+        STATUS: [{ label: PAGE_TITLE.TRANSACTIONS.STATUS }],
+        PAYIN: [{ label: PAGE_TITLE.TRANSACTIONS.PAYIN }],
     },
 };

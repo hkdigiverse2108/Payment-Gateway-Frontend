@@ -22,8 +22,8 @@ export const ROUTES = {
     PAYMENT: {
         BASE: "/payment",
     },
-    TRANSACTION: {
-        ALL: "/transaction/all",
+    TRANSACTIONS: {
+        BASE: "/transaction/all",
     },
     WALLET: {
         BALANCE: "/wallet/balance",

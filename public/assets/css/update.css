@@ -365,7 +365,31 @@
 .ant-modal-close{
   @apply text-foreground!;
 }
-@layer components {
+.change-password-page {
+  @apply bg-surface min-h-screen;
+}
+.change-password-layout {
+  @apply p-4 md:p-6 mb-20 flex justify-center;
+}
+.change-password-card {
+  @apply w-full md:w-8/12 lg:w-6/12 space-y-4;
+}
+.change-password-profile {
+  @apply bg-surface rounded-xl shadow p-4 flex items-center gap-4 border border-border/30;
+}
+.change-password-profile .avatar {
+  @apply w-12 h-12 rounded-full bg-primary text-surface flex items-center justify-center font-bold;
+}
+
+.change-password-profile .name {
+  @apply font-semibold text-foreground;
+}
+.change-password-profile .email {
+  @apply text-sm text-gray-500;
+}
+.change-password-profile .role {
+  @apply ml-auto text-xs px-3 py-1 rounded-full bg-blue-100 text-blue-600;
+}
   .profile-page {
     @apply min-h-screen bg-surface p-6;
   }
@@ -561,6 +585,5 @@
       @apply text-xl;
     }
   }
-}
 }
   

@@ -1,7 +1,7 @@
 import type { CommonDataType, MessageStatus, PageStatus } from "./Common";
 
 export interface UserFormValues {
-    userId?: string;
+    _id?: string;
     name: string;
     email: string;
     mobileNumber: number;

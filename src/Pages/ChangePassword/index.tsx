@@ -24,19 +24,19 @@ const ChangePassword = () => {
     await resetPassword(values, { onSuccess: () => { resetForm(); navigate(-1); }});
   };
   return (
-    <div className="bg-surface min-h-screen">
+    <div className="change-password-page">
       <CommonBreadcrumbs title="Change Password" breadcrumbs={BREADCRUMBS.CHANGE_PASSWORD.BASE} />
-      <div className="p-4 md:p-6 mb-20 flex justify-center">
-        <div className="w-full md:w-8/12 lg:w-6/12 space-y-4">
-          <div className="bg-surface rounded-xl shadow p-4 flex items-center gap-4 border border-border/30">
-            <div className="w-12 h-12 rounded-full bg-primary text-surface flex items-center justify-center font-bold">
+      <div className="change-password-layout">
+        <div className="change-password-card">
+          <div className="change-password-profile">
+            <div className="avatar">
               {user?.name?.charAt(0)?.toUpperCase()}
             </div>
             <div>
-              <p className="font-semibold text-foreground"> {user?.name} </p>
-              <p className="text-sm text-gray-500"> {user?.email} </p>
+              <p className="name"> {user?.name} </p>
+              <p className="email"> {user?.email} </p>
             </div>
-            <div className="ml-auto text-xs px-3 py-1 rounded-full bg-blue-100 text-blue-600"> {user?.role} </div>
+            <div className="role"> {user?.role} </div>
           </div>
           <Formik<ResetPasswordPayload> enableReinitialize initialValues={initialValues} validationSchema={ResetPasswordSchema} onSubmit={handleSubmit}>
              {({ dirty }) => (

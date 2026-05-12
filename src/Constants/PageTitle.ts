@@ -10,8 +10,8 @@ export const PAGE_TITLE = {
     PAYMENT: {
         BASE: "Payments",
     },
-    TRANSACTION: {
-        ALL: "All Transactions",
+    TRANSACTIONS: {
+        BASE: "All Transactions",
         STATUS: "Transaction Status",
         PAYIN: "Pay In",
     },

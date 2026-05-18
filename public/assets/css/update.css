@@ -29,7 +29,7 @@
   .common-table .ant-table,
   .common-table .ant-table-container,
   .common-table .ant-table-content {
-    @apply !border-border/30;
+    @apply !border-border/30 rounded-none! p-1!;
   }
   .common-table .ant-table-container::before,
   .common-table .ant-table-container::after {
@@ -56,7 +56,7 @@
     @apply shadow-focus-ring;
   }
   .ant-select-selector {
-    @apply bg-surface text-foreground border border-border;
+    @apply bg-surface text-foreground border border-border rounded-none;
   }
   .ant-select-selection-placeholder {
     @apply text-muted;
@@ -248,7 +248,7 @@
   @apply text-foreground!;
 }
 .cb-wrapper {
-  @apply flex items-center justify-between px-6 py-3 bg-surface! border-b border-border! sticky! top-0 z-10;
+  @apply flex items-center justify-between rounded-md px-6 py-3 bg-surface! sticky! top-0 z-10 mb-3;
 }
 
 /* LEFT */
@@ -425,7 +425,7 @@
   }
 
   .profile-hero-info h2 {
-    @apply text-2xl font-bold text-foreground;
+    @apply text-xl font-bold text-foreground;
   }
 
   .profile-hero-info p {
@@ -444,7 +444,7 @@
   
 
   .profile-card-header h3 {
-    @apply text-2xl font-bold text-foreground;
+    @apply text-xl font-bold text-foreground;
   }
 
   .profile-card-header p {
@@ -473,7 +473,7 @@
 
 .profile-mini-key {
   @apply flex items-center gap-2
-  px-4 py-2 rounded-xl
+  px-2 py-2 rounded-xl
   border border-border
   bg-surface
   text-sm text-foreground
@@ -485,7 +485,7 @@
 }
 
 .profile-mini-key span {
-  @apply truncate;
+  @apply truncate text-[10px];
 }
 
 .profile-mini-key button {
@@ -585,5 +585,868 @@
       @apply text-xl;
     }
   }
+  .deposit-page {
+  @apply flex flex-col min-h-[calc(100vh-80px)] bg-surface;
+}
+
+.deposit-header {
+  @apply px-6 py-4 border-b border-border/50;
+}
+
+.deposit-body {
+  @apply flex-1 flex justify-center p-6;
+}
+
+.deposit-container {
+  @apply w-full max-w-3xl;
+}
+
+.deposit-card {
+  @apply border border-border/50 rounded-2xl p-6;
+}
+
+.deposit-footer {
+  @apply sticky bottom-0 border-t border-border/50 px-6 py-4 flex justify-between bg-surface;
+}
+.gateway-title {
+  @apply text-xl font-semibold;
+}
+
+.gateway-subtitle {
+  @apply text-sm text-gray-500 mb-6;
+}
+
+.gateway-grid {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-4;
+}
+
+.gateway-card {
+  @apply border border-border/50 rounded-2xl p-5 cursor-pointer transition-all bg-surface hover:shadow-md hover:-translate-y-0.5;
+}
+
+.gateway-card-header {
+  @apply flex justify-between;
+}
+
+.gateway-name {
+  @apply font-semibold;
+}
+
+.gateway-badge {
+  @apply text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full;
+}
+
+.gateway-desc {
+  @apply text-sm text-gray-500 mt-2;
+}
+
+.gateway-card.active {
+  @apply border-black shadow-md;
+}
+
+.gateway-card.disabled {
+  @apply opacity-40 cursor-not-allowed;
+}
+.details-form {
+  @apply space-y-5;
+}
+
+/* HEADER */
+.details-header {
+  @apply space-y-1;
+}
+
+.details-title {
+  @apply text-lg font-semibold;
+}
+
+.details-subtitle {
+  @apply text-sm text-gray-500;
+}
+
+/* SUMMARY CARD */
+.summary-card {
+  @apply border border-border/50 rounded-2xl p-4 bg-surface space-y-2;
+}
+
+.summary-row {
+  @apply flex justify-between text-sm;
+}
+
+.label {
+  @apply text-gray-500;
+}
+
+.value {
+  @apply font-medium capitalize;
+}
+
+.amount {
+  @apply text-xl font-semibold;
+}
+
+.summary-divider {
+  @apply border-t border-border/50;
+}
+
+/* SECTIONS */
+.section-title {
+  @apply text-xs uppercase tracking-wide text-gray-400;
+}
+
+/* FORM GRID */
+.form-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+}
+
+.full {
+  @apply md:col-span-2;
+}
+ .select-wrapper {
+    @apply flex flex-col gap-1;
+  }
+
+  .select-label {
+    @apply text-sm text-foreground!;
+  }
+
+  .select-container {
+    @apply relative;
+  }
+
+  .custom-select .ant-select-selector {
+    @apply h-11 flex items-center rounded-xl border border-border/50 
+           bg-surface px-3 
+           shadow-sm transition-all duration-200;
+  }
+
+  .custom-select:hover .ant-select-selector {
+    @apply border-primary;
+  }
+
+  .custom-select.ant-select-focused .ant-select-selector {
+    @apply border-primary ring-2 ring-primary/20;
+  }
+
+  .custom-select .ant-select-selection-placeholder {
+    @apply text-gray-400;
+  }
+
+  .custom-select .ant-select-selection-item {
+    @apply text-gray-800 dark:text-gray-200 font-medium;
+  }
+
+  .custom-select .ant-select-arrow {
+    @apply text-gray-400;
+  }
+.review-card {
+  @apply border border-border/50 rounded-2xl bg-surface overflow-hidden;
+}
+
+.amount-box {
+  @apply bg-foreground text-surface p-5;
+}
+
+.review-item {
+  @apply space-y-1;
+}
+/* WRAPPER */
+.review-wrapper {
+  @apply space-y-5;
+}
+
+/* HEADER */
+.review-header {
+  @apply space-y-1;
+}
+
+.review-title {
+  @apply text-xl font-semibold;
+}
+
+.review-subtitle {
+  @apply text-sm text-gray-500;
+}
+
+/* CARD */
+.review-card {
+  @apply border border-border/50 rounded-2xl bg-surface overflow-hidden;
+}
+
+/* AMOUNT */
+.review-amount {
+  @apply bg-foreground text-surface p-5;
+}
+
+.review-amount-label {
+  @apply text-xs opacity-70;
+}
+
+.review-amount-value {
+  @apply text-3xl font-bold mt-1;
+}
+
+/* BODY */
+.review-body {
+  @apply p-5 space-y-4;
+}
+
+/* ROW */
+.review-row {
+  @apply flex justify-between items-center;
+}
+
+/* BADGE */
+.review-badge {
+  @apply px-3 py-1 text-xs rounded-full bg-green-100 text-green-700 capitalize;
+}
+
+/* GRID */
+.review-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4 pt-2;
+}
+
+/* ITEM */
+.review-item {
+  @apply space-y-1;
+}
+
+.review-full {
+  @apply md:col-span-2;
+}
+
+.review-item-label {
+  @apply text-xs text-gray-400;
+}
+
+.review-item-value {
+  @apply font-medium;
+}
+/* ================= ADVANCED SEARCH ================= */
+
+.advanced-search {
+  @apply rounded-xl border;
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-theme-xs);
+}
+
+/* HEADER */
+.advanced-search .ant-collapse-header {
+  @apply flex items-center justify-between px-4 py-3 cursor-pointer transition;
+  background: transparent !important;
+}
+
+.advanced-search .ant-collapse-header:hover {
+  background: var(--color-backgroundlight);
+}
+
+/* TITLE */
+.advanced-search-title {
+  @apply text-theme-sm font-medium;
+  color: var(--color-foreground);
+}
+
+/* REMOVE DEFAULT ARROW STYLE (OPTIONAL CLEAN LOOK) */
+.advanced-search .ant-collapse-arrow {
+  color: var(--color-muted);
+}
+
+/* PANEL WRAPPER */
+.advanced-search-panel {
+  @apply border-none;
+}
+
+/* BODY */
+.advanced-search-body {
+  @apply px-4 pb-4 pt-2;
+  border-top: 1px solid var(--color-border);
+}
+
+/* GRID ITEMS */
+.advanced-search .ant-col {
+  @apply transition;
+}
+
+/* ================= SELECT FIELD IMPROVEMENTS ================= */
+
+.advanced-search .ant-select-selector {
+  @apply rounded-lg text-theme-xs;
+  background: var(--color-background) !important;
+  border-color: var(--color-border) !important;
+  min-height: 36px;
+}
+
+/* HOVER */
+.advanced-search .ant-select:hover .ant-select-selector {
+  border-color: var(--color-primary) !important;
+}
+
+/* FOCUS */
+.advanced-search .ant-select-focused .ant-select-selector {
+  border-color: var(--color-primary) !important;
+  box-shadow: var(--shadow-focus-ring);
+}
+
+/* LABEL FIX (if CommonSelect uses label) */
+.advanced-search label {
+  @apply text-theme-xs mb-1 block;
+  color: var(--color-muted);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+  .advanced-search-body {
+    @apply px-3;
+  }
+}
+
+/* wallet */
+.wallet-container {
+  @apply p-6 space-y-6 bg-surface min-h-screen rounded-md;
+}
+
+.wallet-cards {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-4;
+}
+
+.wallet-card {
+  @apply rounded-2xl p-5 bg-surface shadow-theme-xs;
+}
+
+.wallet-card-title {
+  @apply text-xs text-muted;
+}
+
+.wallet-card-value {
+  @apply font-semibold;
+}
+
+.wallet-credit {
+  @apply bg-success/5;
+}
+
+.wallet-debit {
+  @apply bg-warning/5;
+}
+
+.wallet-filter {
+  @apply px-3 py-1 rounded-full text-sm border transition;
+}
+
+.wallet-filter-active {
+  @apply bg-primary text-white border-primary;
+}
+
+.wallet-filter-inactive {
+  @apply bg-surface text-muted border-border;
+}
+
+.wallet-group {
+  @apply bg-surface rounded-2xl overflow-hidden divide-y divide-border/40 shadow-theme-xs;
+}
+
+.wallet-row {
+  @apply flex justify-between px-5 py-4 hover:bg-backgroundlight/60 transition;
+}
+
+.wallet-left {
+  @apply space-y-1.5;
+}
+
+.wallet-right {
+  @apply text-right flex flex-col justify-between;
+}
+
+.wallet-type {
+  @apply px-2 py-0.5 rounded-full text-[11px] font-medium;
+}
+
+.wallet-meta {
+  @apply flex gap-2 text-[11px] text-muted;
+}
+.tra-details-page {
+  @apply p-6 bg-surface rounded-md text-[12px] text-foreground;
+}
+
+.loadingText {
+  @apply p-6 text-xs text-gray-500;
+}
+
+.errorText {
+  @apply p-6 text-xs text-red-500;
+}
+
+.tra-details-layout {
+  @apply flex flex-col lg:flex-row gap-6;
+}
+
+.tra-details-leftpanel {
+  @apply lg:w-[340px] w-full;
+}
+
+.tra-details-card .amounttext {
+  @apply text-2xl font-semibold;
+}
+
+.tra-details-card .amountlabel {
+  @apply text-[11px] text-muted;
+}
+
+.txnidbox {
+  @apply flex items-center justify-between bg-backgroundlight p-2 rounded-lg mb-3;
+}
+
+.icon-label {
+  @apply flex items-center gap-2 text-muted;
+}
+
+.tags {
+  @apply flex gap-2 flex-wrap mb-4;
+}
+
+.section {
+  @apply space-y-3;
+}
+
+.tra-details-sectionborder {
+  @apply space-y-2 border-t border-border pt-3;
+}
+
+.sectiontitle {
+  @apply text-xs uppercase text-muted mb-4;
+}
+
+.row {
+  @apply flex justify-between items-center;
+}
+
+.labeltext {
+  @apply text-muted;
+}
+
+.righttext {
+  @apply text-foreground;
+}
+.tra-details-card{
+  @apply shadow-theme-md! border-none! mb-2!;
+}
+
+/* PAGE WRAPPER */
+.tx-page {
+  @apply bg-surface text-foreground p-6 rounded-lg;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* HEADER */
+.tx-header {
+  @apply flex justify-between items-start gap-4 mb-6;
+}
+
+.tx-heading {
+  min-width: 0;
+}
+
+.tx-header-actions {
+  @apply shrink-0;
+}
+
+.tx-title {
+  @apply text-lg font-semibold;
+  overflow-wrap: anywhere;
+}
+
+.tx-subtitle {
+  @apply text-sm text-muted;
+  overflow-wrap: anywhere;
+}
+
+/* CARD */
+.tx-card {
+  @apply shadow-theme-md! rounded-xl! bg-surface border-none!;
+}
+
+.tx-card .ant-card-body {
+  @apply p-6;
+}
+
+/* PAYMENT ID */
+.tx-id-label {
+  @apply text-sm text-muted;
+}
+
+.tx-id {
+  @apply text-3xl font-bold mb-2;
+  overflow-wrap: anywhere;
+}
+
+.tx-tags {
+  max-width: 100%;
+}
+
+/* TAGS */
+.tx-tag {
+  @apply border-0 bg-surface! ;
+}
+
+/* CONTACT BOX */
+.tx-contact {
+  @apply text-center;
+}
+
+.tx-contact-stack {
+  width: 100%;
+}
+
+.tx-contact-item {
+  @apply flex items-center justify-center gap-2;
+  min-width: 0;
+}
+
+.tx-contact-item .ant-typography {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.tx-action-buttons {
+  @apply justify-center;
+  width: 100%;
+}
+
+/* AMOUNT BOX */
+.tx-amount-box {
+  @apply p-4 text-center rounded-lg border border-border/30;
+  min-width: 0;
+}
+
+.tx-amount-label {
+  @apply text-sm text-muted;
+}
+
+.tx-amount-value {
+  @apply text-2xl font-bold;
+  overflow-wrap: anywhere;
+}
+
+/* DETAILS GRID */
+.tx-grid {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-4;
+}
+
+.tx-left {
+  @apply md:col-span-1;
+}
+
+.tx-right {
+  @apply md:col-span-2 grid grid-cols-2 md:grid-cols-3 gap-4;
+}
+
+.tx-label {
+  @apply text-sm text-muted block mb-1;
+}
+
+.tx-customer-name {
+  overflow-wrap: anywhere;
+}
+
+.tx-detail-value {
+  @apply text-foreground font-medium;
+  overflow-wrap: anywhere;
+}
+.tx-divider {
+  @apply border border-border/30;
+}
+
+.tx-modal {
+  @apply text-sm;
+}
+
+.tx-modal-header {
+  @apply flex items-start justify-between gap-3;
+}
+
+.tx-amount {
+  @apply text-2xl font-bold text-foreground;
+  overflow-wrap: anywhere;
+}
+
+.tx-row {
+  @apply flex items-start justify-between gap-4 rounded-lg border border-border/20 p-3;
+}
+
+.tx-value {
+  @apply text-right font-medium text-foreground;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.tx-copy {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 768px) {
+  .common-modal {
+    max-width: calc(100vw - 24px);
+  }
+
+  .common-modal .ant-modal-content {
+    @apply p-4 rounded-xl;
+  }
+
+  .common-modal-title {
+    @apply mb-2 pb-2;
+  }
+
+  .common-modal-title h3 {
+    @apply text-base;
+  }
+
+  .tx-page {
+    @apply p-3;
+  }
+
+  .tx-header {
+    @apply flex-col items-stretch gap-2 mb-3;
+  }
+
+  .tx-header-actions {
+    @apply self-end;
+  }
+
+  .tx-card .ant-card-body {
+    @apply p-3;
+  }
+
+  .tx-id,
+  .tx-amount-value {
+    @apply text-xl;
+  }
+
+  .tx-title {
+    @apply text-base;
+  }
+
+  .tx-subtitle,
+  .tx-id-label,
+  .tx-amount-label,
+  .tx-label,
+  .tx-detail-value,
+  .tx-contact-item .ant-typography {
+    @apply text-xs;
+  }
+
+  .tx-tag {
+    @apply text-xs leading-5;
+  }
+
+  .tx-id-col,
+  .tx-contact-col,
+  .tx-customer-col {
+    @apply text-left;
+  }
+
+  .tx-contact-stack,
+  .tx-contact-item,
+  .tx-action-buttons {
+    @apply items-stretch justify-start;
+  }
+
+  .tx-action-buttons .ant-space-item,
+  .tx-action-buttons .ant-btn {
+    width: 100%;
+  }
+
+  .tx-amount-box {
+    @apply text-left p-3;
+  }
+
+  .tx-divider {
+    @apply my-3;
+  }
+
+  .tx-modal {
+    @apply text-xs;
+  }
+
+  .tx-modal-header {
+    @apply items-start;
+  }
+
+  .tx-amount {
+    @apply text-xl;
+  }
+
+  .tx-row {
+    @apply flex-col gap-1 p-2;
+  }
+
+  .tx-value {
+    @apply text-left text-xs;
+  }
+}
+
+@media (max-width: 480px) {
+  .tx-page {
+    @apply p-2;
+  }
+
+  .tx-card .ant-card-body {
+    @apply p-2;
+  }
+
+  .tx-id,
+  .tx-amount-value {
+    @apply text-lg;
+  }
+
+  .tx-title {
+    @apply text-sm;
+  }
+
+  .tx-contact-stack {
+    @apply gap-2;
+  }
+
+  .tx-action-buttons .ant-btn {
+    @apply h-8 text-xs px-2;
+  }
+
+  .common-modal .ant-modal-content {
+    @apply p-3;
+  }
+
+  .common-modal-title h3 {
+    @apply text-sm;
+  }
+
+  .tx-amount {
+    @apply text-lg;
+  }
+}
+/* ================= CONTAINER ================= */
+.wallet {
+  @apply p-6 space-y-6 bg-surface rounded-md;
+}
+
+/* ================= CARDS ================= */
+.walletCards {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-4;
+}
+
+.card {
+  @apply bg-surface rounded-2xl p-5 shadow-theme-xs;
+}
+
+.cardMuted {
+  @apply text-xs text-muted;
+}
+
+.cardBalance {
+  @apply text-3xl font-semibold;
+}
+
+.cardCredit {
+  @apply bg-success/5 rounded-2xl p-5;
+}
+
+.cardDebit {
+  @apply bg-warning/5 rounded-2xl p-5;
+}
+
+/* ================= FILTER ================= */
+.filterWrap {
+  @apply flex gap-2;
+}
+
+.filterBtn {
+  @apply px-3 py-1 rounded-full text-sm border transition;
+}
+
+.filterActive {
+  @apply bg-primary text-white border-primary;
+}
+
+.filterInactive {
+  @apply bg-surface text-muted border-border;
+}
+
+/* ================= LIST ================= */
+.groupWrap {
+  @apply space-y-6;
+}
+
+.groupDate {
+  @apply text-xs text-muted font-medium;
+}
+
+.listBox {
+  @apply bg-surface rounded-2xl shadow-theme-xs divide-y divide-border/40 overflow-hidden;
+}
+
+/* ================= ROW ================= */
+.row {
+  @apply flex justify-between px-5 py-4 cursor-pointer transition hover:bg-backgroundlight/50;
+}
+
+.rowOpen {
+  @apply bg-[var(--color-brand-50)] dark:bg-[rgba(139,92,246,0.12)];
+}
+
+/* ================= TYPE BADGE ================= */
+.badge {
+  @apply px-2 py-0.5 rounded-full text-[11px] font-medium;
+}
+
+.badgeCredit {
+  @apply bg-success/10 text-success;
+}
+
+.badgeDebit {
+  @apply bg-warning/10 text-warning;
+}
+
+/* ================= DETAILS (EXPANDED) ================= */
+.detailsWrap {
+  @apply overflow-hidden transition-all duration-300 ease-in-out;
+   @apply bg-[var(--color-brand-50)] dark:bg-[rgba(139,92,246,0.12)];
+}
+
+.detailsOpen {
+  @apply max-h-40 opacity-100 px-5 pb-4;
+}
+
+.detailsClosed {
+  @apply max-h-0 opacity-0 px-5;
+}
+
+.detailsBox {
+  @apply grid grid-cols-2 md:grid-cols-3 gap-4 text-sm pt-2 border-t border-border/30;
+ 
+}
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .print-area, .print-area * {
+    visibility: visible;
+  }
+
+  .print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  /* OPTIONAL: hide layout */
+  .sidebar,
+  .header,
+  .tx-header-actions {
+    display: none !important;
+  }
+}
 }
   

@@ -2,8 +2,9 @@ import type { CommonTableProps } from "../../../Types";
 import { Col, Input, Row, Switch, Table } from "antd";
 import { useMemo } from "react";
 import { FiSearch } from "react-icons/fi";
+import { CommonButton } from "../../../Attribute";
 
-export const CommonTable = <T extends object>({ loading = false, dataSource, columns = [], pagination = { current: 1, pageSize: 10 }, rowKey = "_id", bordered = false, size = "middle", scroll, onActive, onAdd, onSearch, ...rest }: CommonTableProps<T>) => {
+export const CommonTable = <T extends object>({ loading = false, dataSource, columns = [], pagination = { current: 1, pageSize: 10 }, rowKey = "userId", bordered = false, size = "middle", scroll, onActive, onAdd, onSearch, ...rest }: CommonTableProps<T>) => {
   const current = pagination?.current ?? 1;
   const pageSize = pagination?.pageSize ?? 10;
   const fixedColumns = useMemo(() => {
@@ -18,17 +19,10 @@ export const CommonTable = <T extends object>({ loading = false, dataSource, col
       ...columns,
     ];
   }, [columns, current, pageSize]);
-
   return (
-    <Table<T> loading={loading} dataSource={dataSource} columns={fixedColumns} rowKey={rowKey as keyof T} bordered={bordered} size={size}
-      scroll={scroll ?? { x: "max-content" }} pagination={{ ...pagination, showSizeChanger: true, showTotal: (total) => `Total ${total} items`,
-      onChange: (page, pageSize) => { rest.onPaginationChange?.(page, pageSize); }, }} className="common-table"
+    <Table<T> loading={loading} dataSource={dataSource} columns={fixedColumns} rowKey={rowKey as keyof T} bordered={bordered} size={size} scroll={scroll ?? { x: "max-content" }} onChange={(_, __, sorter: any) => { if (!rest.sort?.onChange) return; const order = sorter.order === "ascend" ? "asc" : sorter.order === "descend" ? "desc" : "desc"; rest.sort.onChange({ field: sorter.field, order, }); }} pagination={{ ...pagination, showSizeChanger: true, showTotal: (total) => `Total ${total} items`, onChange: (page, pageSize) => { rest.onPaginationChange?.(page, pageSize); }, }} className="common-table"
       title={() => (
-          <Row
-            className="rounded-lg p-2 items-center"
-            gutter={8}
-            justify="space-between"
-          >
+          <Row className="rounded-lg p-2 items-center" gutter={8} justify="space-between" >
             {onSearch && (
               <Col xs={24} md={10} lg={8} xl={8} xxl={6}>
                 <div className="flex items-center bg-surface rounded-lg border border-border/30">
@@ -38,7 +32,7 @@ export const CommonTable = <T extends object>({ loading = false, dataSource, col
             )}
             {onActive && (
               <Col xs={24} md={4} xl={3} xxl={2}>
-                <div className="flex items-center gap-3 bg-surface px-3 py-3 rounded-lg border border-border/30">
+                <div className="flex items-center gap-3 bg-surface px-3 py-3 rounded-lg ">
                   <span className="text-sm font-semibold text-foreground uppercase">Active</span>
                   <Switch size="small" checked={onActive?.value} aria-label="Toggle active status" onChange={onActive?.onChange} />
                 </div>
@@ -47,12 +41,12 @@ export const CommonTable = <T extends object>({ loading = false, dataSource, col
           {onAdd && (
             <Col>
               <div className="flex justify-end w-full">
-                <button
+                <CommonButton
                   onClick={onAdd}
-                  className="bg-primary text-white text-sm px-4 py-2 rounded-lg hover:opacity-90 transition"
+                  className="text-sm px-4 py-2 rounded-lg hover:opacity-90 transition colored-button"
                 >
-                  + Add
-                </button>
+                  {rest.onAddLabel || "+ Add"}
+                </CommonButton>
               </div>
             </Col>
           )}

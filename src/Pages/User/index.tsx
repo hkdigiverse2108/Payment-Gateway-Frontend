@@ -53,9 +53,9 @@ const User = () => {
   return (
     <>
       <CommonBreadcrumbs title={PAGE_TITLE.USERS.BASE} maxItems={1} breadcrumbs={BREADCRUMBS.USERS.BASE} />
-      <div className="pt-2">
+      <div className="">
         <CommonTable<UserFormValues>
-          rowKey="_id"
+          rowKey="userId"
           dataSource={user}
           columns={columns}
           loading={isLoading}
@@ -72,8 +72,8 @@ const User = () => {
         itemName={deleteModal.record?.name}
         onClose={() => setDeleteModal({ open: false, record: null })}
         onConfirm={() => {
-          if (!deleteModal.record?._id) return;
-          deleteUser(deleteModal.record._id, {
+          if (!deleteModal.record?.userId) return;
+          deleteUser(deleteModal.record.userId, {
           onSuccess: () => { setDeleteModal({ open: false, record: null }); },
           });
         }}

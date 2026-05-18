@@ -21,4 +21,9 @@ export const KEYS = {
         STATUS: "transaction-status",
         BASE: "transaction",
     },
+    WALLET: {
+        BASE: "wallet",
+        ACTIVITY: "wallet-activity",
+        BALANCE: "wallet-balance",
+    }
 }

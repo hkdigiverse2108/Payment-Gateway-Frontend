@@ -66,3 +66,23 @@ export const UserSchema = Yup.object({
     payinCallbackUrl: Validation("string", "Payin Callback Url", { required: true }),
     payoutCallbackUrl: Validation("string", "Payout Callback Url", { required: true }),
 });
+
+//payin customer deails form
+export const CustDetailsSchema = Yup.object({
+    amount: Yup.number()
+        .typeError("Amount must be a number")
+        .required("Amount is required")
+        .min(1, "Minimum amount is 1"),
+
+    customerName: Yup.string()
+        .required("Name is required")
+        .min(2, "Name is too short"),
+
+    customerPhone: Yup.string()
+        .required("Phone is required")
+        .matches(/^[0-9]{10}$/, "Enter valid 10 digit phone"),
+
+    customerEmail: Yup.string()
+        .email("Invalid email")
+        .required("Email is required"),
+});

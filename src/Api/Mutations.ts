@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "../Constants";
-import type { AddUserPayload, LoginPayload, LoginResponse, MessageStatus, ResetPasswordPayload, UpdateUserPayload, UserApiResponse } from "../Types";
+import { type CreateDepositResponse, type AddUserPayload, type CreateDepositPayload, type LoginPayload, type LoginResponse, type MessageStatus, type ResetPasswordPayload, type UpdateUserPayload, type UserApiResponse } from "../Types";
 import { Delete, Post, Put } from "./Method";
 import { useMutations } from "./ReactQuery";
 
@@ -13,5 +13,8 @@ export const Mutations = {
     useUpdateUser: () => useMutations<UpdateUserPayload, UserApiResponse>([KEYS.USER.UPDATE, KEYS.USER.BASE], (input) => Put(URL_KEYS.USER.UPDATE, input)),
     useDeleteUser: () => useMutations<string, void>([KEYS.USER.DELETE, KEYS.USER.BASE], (id) => Delete(`${URL_KEYS.USER.BASE}/${id}`)),
     useUpdateProfile: () => useMutations<UpdateUserPayload, UserApiResponse>([KEYS.USER.UPDATE_PROFILE, KEYS.USER.BASE], (input) => Put(URL_KEYS.USER.UPDATE_PROFILE, input)),
+
+    //transaction
+    useCreateDeposit: () => useMutations<CreateDepositPayload, CreateDepositResponse>([KEYS.TRANSACTION.PAYIN], (input) => Post(URL_KEYS.TRANSACTION.PAYIN, input, true, true)),
 
 };

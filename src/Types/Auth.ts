@@ -15,7 +15,7 @@ export interface ChangePasswordPayload {
     confirmPassword?: string;
 }
 export interface User extends LoginPayload, CommonDataType {
-    _id: string;
+    userId: string;
     name: string;
     email: string;
     mobileNumber: string;

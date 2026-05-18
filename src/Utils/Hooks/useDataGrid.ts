@@ -36,7 +36,7 @@ export const useAntTable = ({
         setAdvancedFilter((prev) => ({ ...prev, [key]: value }));
     };
     const [rowToDelete, setRowToDelete] = useState<{
-        _id?: string;
+        userId?: string;
         title?: string;
     } | null>(null);
     const { page: currentPage, pageSize: pageLimit } = pagination;

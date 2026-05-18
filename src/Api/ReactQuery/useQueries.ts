@@ -8,7 +8,9 @@ export function useQueries<T, P = void>(queryKey: any[], callback: (param?: P) =
         refetchOnWindowFocus: false,
         placeholderData: (previousData) => previousData,
         retry: 0,
-        staleTime: 1000 * 60,
+        staleTime: 5 * 60 * 1000, 
+        gcTime: 10 * 60 * 1000, 
+        refetchOnMount: false,
         ...options,
     });
 }

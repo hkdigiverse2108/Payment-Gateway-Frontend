@@ -17,7 +17,7 @@ export const CommonValidationSelect: FC<CommonValidationSelectProps> = ({ name, 
 export const CommonSelect: FC<CommonSelectProps> = ({ label, options = [], value, onChange, multiple = false, placeholder, disabled, isLoading }) => {
   return (
     <Form.Item label={label}>
-      <Select mode={multiple ? "multiple" : undefined} value={value} options={options.map((o: SelectOptionType) => ({ label: o.label, value: o.value, }))} placeholder={placeholder} disabled={disabled} loading={isLoading} onChange={onChange} allowClear />
+      <Select mode={multiple ? "multiple" : undefined} value={value} options={options.map((o: SelectOptionType) => ({ label: o.label, value: o.value, }))} placeholder={placeholder} disabled={disabled} loading={isLoading} onChange={(val) => {if (multiple) { onChange?.(val as string[])} else { onChange?.(val as string);}}} allowClear />
     </Form.Item>
   );
 };

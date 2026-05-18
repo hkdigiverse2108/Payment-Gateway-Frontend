@@ -11,12 +11,13 @@ export const PAGE_TITLE = {
         BASE: "Payments",
     },
     TRANSACTIONS: {
-        BASE: "All Transactions",
+        BASE: "Transactions",
         STATUS: "Transaction Status",
         PAYIN: "Pay In",
+        DETAILS: "Details"
     },
     WALLET: {
-        BALANCE: "Wallet Balance",
+        BALANCE: "Wallet",
     },
     USERS: {
         BASE: "Users",

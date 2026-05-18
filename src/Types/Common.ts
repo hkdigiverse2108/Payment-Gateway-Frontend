@@ -128,7 +128,7 @@ export interface CommonTableProps<T extends object>
     loading?: boolean;
     dataSource: T[];
     columns?: TableProps<T>["columns"];
-
+    onAddLabel?: string;
     pagination?: {
         current?: number;
         pageSize?: number;
@@ -137,12 +137,17 @@ export interface CommonTableProps<T extends object>
     };
     onPaginationChange?: (page: number, pageSize: number) => void;
     rowKey?: string | ((record: T) => string);
-
+    sort?: {
+        default?: string; // "amount:asc"
+        onChange?: (sort: { field?: string; order?: "asc" | "desc" }) => void;
+    };
+    onExportExcel?: () => void;
+    onExportPDF?: () => void;
     bordered?: boolean;
     size?: "small" | "middle" | "large";
 
     scroll?: TableProps<T>["scroll"];
-
+    
     onSearch?: SearchControl;
     onActive?: ActiveControl;
     onAdd?: () => void;
@@ -247,8 +252,8 @@ export type SelectOptionType = {
 export interface CommonSelectProps {
     label?: string;
     options: SelectOptionType[];
-    value: string[];
-    onChange: (values: string[]) => void;
+    value?: string | string[];
+    onChange: (values: string | string[]) => void;
     multiple?: boolean;
     limitTags?: number;
     size?: "small" | "middle" | "large";
@@ -275,12 +280,34 @@ export interface CommonValidationCreatableSelectProps {
     disabled?: boolean;
     grid?: ColProps;
 }
+export const TRANSACTION_TYPE = {
+    DEPOSIT: "deposit",
+    WITHDRAW: "withdraw"
+} as const;
+
+export const STATUS = {
+    PENDING: "pending",
+    SUCCESS: "success",
+    FAILED: "failed",
+    EXPIRED: "expired",
+    PROCESSING: "processing",
+    REJECTED: "rejected"
+} as const;
+
+export const PAYMENT_STATUS = {
+    PENDING: "pending",
+    SUCCESS: "success",
+    FAILED: "failed",
+    EXPIRED: "expired",
+    APPROVED: "approved",
+    PROCESSING: "processing"
+} as const;
 
 export interface AdvancedSearchFilterOption {
     label: string;
     options: SelectOptionType[];
-    value: string[];
-    onChange: (values: string[]) => void;
+    value?: string | string[];
+    onChange: (values: string | string[]) => void;
     multiple?: boolean;
     limitTags?: number;
     grid?: ColProps; 
@@ -473,3 +500,17 @@ export type SidebarIconKey =
   | "wallet"
   | "users"
   | "settings";
+  
+export const statusColorMap: Record<string, "success" | "warning" | "error" | "default"> = {
+    success: "success",
+    pending: "warning",
+    failed: "error",
+};
+export type CommonLoaderProps = {
+  fullPage?: boolean;
+  size?: "small" | "default" | "large";
+  tip?: string;
+  className?: string;
+};
+
+export const WALLETFILTERS = ["all", "credit", "debit"];

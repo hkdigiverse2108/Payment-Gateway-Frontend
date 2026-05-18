@@ -15,7 +15,7 @@ const ChangePassword = () => {
   const { mutate: resetPassword, isPending: isLoading } = Mutations.useResetPassword();
   const navigate = useNavigate();
   const initialValues: ResetPasswordPayload = {
-    userId: user?._id || "",
+    userId: user?.userId || "",
     oldPassword: "",
     newPassword: "",
     confirmPassword: ""

@@ -46,7 +46,7 @@ const UserForm = () => {
       if (_submitAction === "saveAndNew") resetForm(); else navigate(-1); };
       if (isEditing) {
         await editUser(
-          RemoveEmptyFields({ ...payload, _id: data._id, }) as UserFormValues,
+          RemoveEmptyFields({ ...payload, userId: data._id, }) as UserFormValues,
           { onSuccess: handleSuccess}
         );
       } else {
@@ -56,7 +56,7 @@ const UserForm = () => {
   return (
     <>
       <CommonBreadcrumbs  title={PAGE_TITLE.USERS[pageMode]} maxItems={3} breadcrumbs={BREADCRUMBS.USERS[pageMode]} />
-      <div style={{ padding: 24, backgroundColor: "var(--surface)" }}>
+      <div style={{ padding: 24, backgroundColor: "var(--surface)"}} className="rounded-md">
         <Formik<UserFormValues> enableReinitialize initialValues={initialValues} validationSchema={UserSchema} onSubmit={handleSubmit} >
           {({ setFieldValue, resetForm, dirty, submitForm }) => {
             return (

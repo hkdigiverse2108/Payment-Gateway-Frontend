@@ -21,4 +21,9 @@ export const URL_KEYS = {
         PAYIN: "/transaction/payin",
         STATUS: "/transaction/status",
     },
+    WALLET: {
+        BASE: "/wallet",
+        ACTIVITY: "/wallet/activity",
+        BALANCE: "/wallet/balance",
+    },
 } as const;

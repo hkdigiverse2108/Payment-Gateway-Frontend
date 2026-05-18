@@ -15,4 +15,5 @@ export const sidebarIconMap: Record<SidebarIconKey, JSX.Element> = {
   wallet: <BsFillWalletFill />,
   users: <FaUser />,
   settings: <IoSettingsSharp />,
+  
 };

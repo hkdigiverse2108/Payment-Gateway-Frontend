@@ -24,9 +24,12 @@ export const ROUTES = {
     },
     TRANSACTIONS: {
         BASE: "/transaction/all",
+        DEPOSIT: "/transaction/create-deposit",
+        DETAILS: "/transaction/details"
     },
     WALLET: {
         BALANCE: "/wallet/balance",
+        ACTIVITY: "/wallet/activity",
     },
     USERS: {
         BASE: "/user",

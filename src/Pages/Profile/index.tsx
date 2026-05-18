@@ -21,7 +21,7 @@ const Profile = () => {
   const [editingField, setEditingField] = useState<string | null>(null);
   const [activeKey, setActiveKey] = useState< "api" | "secret" | null>(null);
   const initialValues: UserFormValues = {
-    _id: user?._id || "",
+    userId: user?.userId || "",
     name: user?.name || "",
     email: user?.email || "",
     mobileNumber: user?.mobileNumber || "",

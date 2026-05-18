@@ -3,3 +3,5 @@ export * from "./Auth";
 export * from "./User";
 export * from "./Profile";
 export * from "./ChangePassword";
+export * from "./Transaction";
+export * from "./WalletBalance";

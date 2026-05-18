@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import type { CommonActionColumnProps } from "../../Types";
 
 const CommonActionColumn = < T extends {
-    _id?: string;
+    userId?: string;
     isActive?: boolean;
     isFeatured?: boolean;
     creditsRemaining?: number;

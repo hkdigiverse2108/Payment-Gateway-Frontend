@@ -66,7 +66,7 @@ export const useAntTable = ({
         order,
         active,
     ]);
-    const handleTableChange = (pagination: any, filters: any, sorter: any) => {
+    const handleTableChange = (pagination: any, _filters: any, sorter: any) => {
         setPagination({
             page: pagination.currentPage,
             pageSize: pagination.pageSize,

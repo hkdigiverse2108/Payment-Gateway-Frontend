@@ -19,7 +19,7 @@ const CommonBottomActionBar: FC<CommonBottomActionBarProps> = ({ children, isLoa
         {clear && (
           <>
             <div className="flex gap-2">
-              <CommonButton variant="outlined" onClick={() => navigate(-1)}  title="Cancel" />
+              <CommonButton variant="ghost" onClick={() => navigate(-1)}  title="Cancel" />
               <CommonButton type="primary" onClick={onClear} title="Clear" />
             </div>
             <div className="commonbutton-actionbar-div">

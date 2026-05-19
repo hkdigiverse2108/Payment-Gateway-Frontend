@@ -27,19 +27,31 @@ const Sidebar = ({ openDrawer, setOpenDrawer }: SidebarProps) => {
     <>
       {!isMobile && (
         <Sider collapsed={!isExpanded} trigger={null} className="sidebar" width={260} >
-          <div className="sidebar-logo-wrapper">
-            <div className="sidebar-logo-text">
-              {isExpanded ? "PAYMENT GATEWAY" : "PG"}
+          <div className="sidebar-logo-wrapper flex items-center gap-3 px-4 h-16 border-b border-border/10">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-500 to-brand-600 flex items-center justify-center text-white font-black text-sm shadow-md shadow-brand-500/25 flex-shrink-0">
+              PG
             </div>
+            {isExpanded && (
+              <span className="sidebar-logo-text font-bold text-foreground text-sm tracking-wide">
+                Payment Gateway
+              </span>
+            )}
           </div>
           {menu}
         </Sider>
       )}
       {isMobile && (
         <Drawer placement="right" open={openDrawer} onClose={() => setOpenDrawer(false)} closable={false} rootClassName="mobile-sidebar-drawer" destroyOnHidden mask={{ closable: true }} styles={{ body: { padding: 12 }, }} >
-          <div className="sidebar-header">
-            <div> PAYMENT GATEWAY </div>
-            <Button icon={<CloseOutlined />} type="text" onClick={() => setOpenDrawer(false)} />
+          <div className="sidebar-header flex items-center justify-between pb-4 border-b border-border/10">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-500 to-brand-600 flex items-center justify-center text-white font-black text-sm shadow-md shadow-brand-500/25">
+                PG
+              </div>
+              <span className="font-bold text-foreground text-sm tracking-wide">
+                Payment Gateway
+              </span>
+            </div>
+            <Button icon={<CloseOutlined />} type="text" onClick={() => setOpenDrawer(false)} className="text-muted hover:text-foreground" />
           </div>
           {menu}
         </Drawer>

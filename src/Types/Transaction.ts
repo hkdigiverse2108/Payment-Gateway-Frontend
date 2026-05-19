@@ -55,6 +55,9 @@ export interface CreateDepositPayload {
     customerEmail?: string;
     returnUrl?: string;
     notifyUrl?: string;
+    gateway?: string;
+    apiKey?: string;
+    secretKey?: string;
 }
 
 export interface TransactionStatusData {

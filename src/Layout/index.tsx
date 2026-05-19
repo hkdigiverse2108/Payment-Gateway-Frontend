@@ -28,7 +28,7 @@ const AppLayout = () => {
           <Content className="layout-content">
             <div className="layout-contant-main">
               <div className="layout-contant-center">
-                <div className="layout-contant-inner">
+                <div className="layout-contant-inner max-w-[1400px] mx-auto px-6 w-full">
                   <Outlet />
                 </div>
               </div>

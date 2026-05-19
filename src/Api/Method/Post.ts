@@ -8,14 +8,29 @@ export async function Post< TInput, TResponse>( url: string, data?: TInput, isTo
     const authToken = getToken();
     const isFormData = data instanceof FormData;
     const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+    let apiKey: string | undefined;
+    let secretKey: string | undefined;
+    let cleanData = data;
+
+    if (data && typeof data === "object" && !(data instanceof FormData)) {
+        const dataObj = data as any;
+        if ("apiKey" in dataObj || "secretKey" in dataObj) {
+            apiKey = dataObj.apiKey;
+            secretKey = dataObj.secretKey;
+            const { apiKey: _, secretKey: __, ...rest } = dataObj;
+            cleanData = rest as TInput;
+        }
+    }
+
     const config: AxiosRequestConfig = {
         method: "POST",
         url: BASE_URL + url,
         headers: { ...(isToken ? { Authorization: authToken } : {}),
             ...(isFormData ? {} : { "Content-Type": "application/json", }),
-            ...(useApiSignature ? getApiHeaders(data) : {}),
+            ...(useApiSignature ? getApiHeaders(cleanData, apiKey && secretKey ? { apiKey, secretKey } : undefined) : {}),
         },
-        data,
+        data: cleanData,
     };
     try {
         const response = await axios(config);

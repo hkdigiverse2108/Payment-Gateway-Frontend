@@ -107,12 +107,13 @@ export interface CommonProfileButtonProps {
     avatar?: ReactNode;
 }
 
-export interface CommonButtonProps extends ButtonProps {
+export interface CommonButtonProps extends Omit<ButtonProps, "variant"> {
   loading?: boolean;
   title?: string;
   children?: ReactNode;
   className?: string;
   disabled?: boolean;
+  variant?: "primary" | "ghost" | "danger" | "icon-only";
 }
 export type SearchControl = {
     value?: string;

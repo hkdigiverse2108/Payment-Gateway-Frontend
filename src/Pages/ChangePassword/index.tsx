@@ -52,7 +52,7 @@ const ChangePassword = () => {
                      </CommonCard>
                      <CommonBottomActionBar>
                        <div className="flex gap-2 ml-auto">
-                         <CommonButton variant="outlined" onClick={() => navigate(-1)} title="Cancel" />
+                         <CommonButton variant="ghost" onClick={() => navigate(-1)} title="Cancel" />
                          <CommonButton htmlType="submit" type="primary" title="Save" loading={isLoading} disabled={!dirty} />
                        </div>
                      </CommonBottomActionBar>

@@ -30,7 +30,7 @@ const WalletBalance = () => {
   return (
     <>
       <CommonBreadcrumbs title={PAGE_TITLE.WALLET.BALANCE} breadcrumbs={BREADCRUMBS.WALLET.BALANCE} />
-      <Wallet balance={balance} stats={stats} grouped={grouped} filter={filter} setFilter={setFilter} copy={copy} />
+      <Wallet balance={balance} stats={stats} grouped={grouped} filter={filter} setFilter={setFilter} copy={copy} activities={activities} />
     </>
   );
 };

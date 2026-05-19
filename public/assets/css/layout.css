@@ -214,15 +214,15 @@ html, body, #root {
 }
 .login-form .ant-input,
 .login-form .ant-input-affix-wrapper {
-  @apply w-full h-11 rounded-md transition bg-surface text-(--foreground) border border-border/30;
+  @apply w-full rounded-md transition bg-surface text-(--foreground) border border-border/30;
 }
 
 .login-form .ant-input {
-  @apply bg-transparent border-none shadow-none px-3;
+  @apply bg-transparent border-none shadow-none;
 }
 
 .login-form .ant-input-affix-wrapper .ant-input {
-  @apply bg-transparent border-none shadow-none px-2;
+  @apply bg-transparent border-none shadow-none;
 }
 .login-form .ant-input-affix-wrapper:hover,
 .login-form .ant-input-affix-wrapper:hover .ant-input,
@@ -260,10 +260,7 @@ html, body, #root {
 .login-btn:hover {
   @apply bg-brand-800!;
 }
-.login-form .ant-input {
-  @apply h-full flex items-center;
-  line-height: normal !important;
-}
+
 .password-toggle-icon {
   @apply flex items-center cursor-pointer text-brand-500;
 }
@@ -527,20 +524,22 @@ html, body, #root {
 
   .sidebar-menu.ant-menu .ant-menu-item:hover {
     @apply text-brand-300;
-    background: linear-gradient(
-      90deg,
-      rgba(139, 92, 246, 0.12),
-      rgba(167, 139, 250, 0.08)
-    ) !important;
+    background: rgba(139, 92, 246, 0.08) !important;
   }
 
   .sidebar-menu.ant-menu .ant-menu-item-selected {
-    @apply text-brand-300 font-medium;
-    background: linear-gradient(
-      90deg,
-      rgba(139, 92, 246, 0.25),
-      rgba(124, 58, 237, 0.15)
-    ) !important;
+    @apply text-brand-500 font-semibold relative;
+    background: rgba(139, 92, 246, 0.06) !important;
+  }
+  .sidebar-menu.ant-menu .ant-menu-item-selected::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 15%;
+    height: 70%;
+    width: 4px;
+    background: linear-gradient(to bottom, #8B5CF6, #c4b5fd);
+    border-radius: 4px;
   }
   .sidebar-menu .ant-menu-item::after {
     display: none !important;

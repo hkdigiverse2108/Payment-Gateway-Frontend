@@ -4,7 +4,7 @@ import { PAGE_TITLE } from "../Constants/PageTitle";
 import User from "../Pages/User";
 import Profile from "../Pages/Profile";
 import UserForm from "../Pages/User/UserForm";
-import Login from "../Pages/Auth/Login";
+import Login from "../Pages/auth/Login";
 import ChangePassword from "../Pages/ChangePassword";
 import Dashboard from "../Pages/Dashboard";
 import Transaction from "../Pages/Transaction";

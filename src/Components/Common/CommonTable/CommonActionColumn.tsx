@@ -15,21 +15,21 @@
         {onActive &&
           (onActive.isPermission?.(record) ?? true) && (
             <Tooltip title={record.isActive ? "Deactivate" : "Activate"} >
-              <CommonButton onClick={() => onActive.onHandle(record)} icon={record.isActive ? <FaEyeSlash /> : <FaEye />} variant="dashed" />
+              <CommonButton onClick={() => onActive.onHandle(record)} icon={record.isActive ? <FaEyeSlash /> : <FaEye />} variant="ghost" />
             </Tooltip>
           )}
 
         {onEdit &&
           (onEdit.isPermission?.(record) ?? true) && (
             <Tooltip title="Edit">
-              <CommonButton onClick={() => onEdit.onHandle(record)} icon={<FiEdit3 />} variant="dashed" />
+              <CommonButton onClick={() => onEdit.onHandle(record)} icon={<FiEdit3 />} variant="ghost" />
             </Tooltip>
           )}
 
         {onDelete &&
           (onDelete.isPermission?.(record) ?? true) && (
             <Tooltip title="Delete">
-              <CommonButton onClick={() => onDelete.onHandle(record)} icon={<BiTrash />} variant="dashed" />
+              <CommonButton onClick={() => onDelete.onHandle(record)} icon={<BiTrash />} variant="ghost" />
             </Tooltip>
           )}
       </Flex>

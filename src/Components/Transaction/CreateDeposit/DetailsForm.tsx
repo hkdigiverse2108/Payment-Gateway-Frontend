@@ -44,12 +44,21 @@ const DetailsForm = forwardRef( ({ onNext, initialValues, users = [], isAdmin }:
                   <CommonSelect
                     value={values.userId || undefined}
                     options={users.map((user: any) => ({ label: user.websiteName || user.name, value: user._id, }))}
-                    onChange={(val: string[]) => {
+                    onChange={(val: any) => {
                       const selectedUser = users.find((u: any) => u._id === val);
                       setFieldValue("userId", val);
                       setFieldValue("customerName", selectedUser?.name || "");
                       setFieldValue("customerPhone", selectedUser?.mobileNumber || "");
                       setFieldValue("customerEmail", selectedUser?.email || "");
+                      
+                      if (selectedUser) {
+                        localStorage.setItem("selectedUserKeys", JSON.stringify({
+                          apiKey: selectedUser.apiKey || "",
+                          secretKey: selectedUser.secretKey || ""
+                        }));
+                      } else {
+                        localStorage.removeItem("selectedUserKeys");
+                      }
                     }}
                     placeholder="Choose a website..."
                   />

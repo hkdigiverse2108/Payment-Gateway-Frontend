@@ -17,7 +17,9 @@
     @apply !bg-surface !text-foreground !border-border/30;
   }
   .common-table .ant-table-thead > tr > th {
-    @apply !bg-gray-100 dark:!bg-backgroundlight bg-transparent  !border-border/30;
+    background-color: var(--background-light) !important;
+    color: var(--foreground) !important;
+    border-bottom: 1px solid var(--border) !important;
   }
   .common-table .ant-table-selection-column {
     @apply !bg-surface !border-border/0;
@@ -46,45 +48,47 @@
 .common-table:not(.table-bordered) .ant-table-container table > thead > tr > th,
 .common-table:not(.table-bordered) .ant-table-container table > tbody > tr > td {
   border: none;
-  .ant-input,
-  .ant-input-affix-wrapper {
-    @apply bg-surface text-foreground border border-border;
-  }
-  .ant-input:focus,
-  .ant-input-focused,
-  .ant-input-affix-wrapper-focused {
-    @apply shadow-focus-ring;
-  }
-  .ant-select-selector {
-    @apply bg-surface text-foreground border border-border rounded-none;
-  }
-  .ant-select-selection-placeholder {
-    @apply text-muted;
-  }
-  .ant-form-item-label > label {
-    @apply text-foreground;
-  }
-  .ant-btn-primary {
-    @apply bg-primary border-primary text-white;
-  }
-  .ant-btn-primary:hover {
-    @apply bg-primary-dark border-primary-dark;
-  }
-  .ant-card {
-    @apply bg-surface text-foreground border border-border;
-  }
-  .ant-table {
-    @apply bg-surface text-foreground;
-  }
-  .ant-table-thead > tr > th {
-    @apply bg-gray-100 text-foreground dark:bg-gray-900;
-  }
-  .ant-table-tbody > tr > td {
-    @apply border-border;
-  }
-  .ant-modal-header {
-    @apply bg-surface text-foreground;
-  }
+}
+
+.ant-input,
+.ant-input-affix-wrapper {
+  @apply bg-surface text-foreground border border-border;
+}
+.ant-input:focus,
+.ant-input-focused,
+.ant-input-affix-wrapper-focused {
+  @apply shadow-focus-ring;
+}
+.ant-select-selector {
+  @apply bg-surface text-foreground border border-border rounded-none;
+}
+.ant-select-selection-placeholder {
+  @apply text-muted;
+}
+.ant-form-item-label > label {
+  @apply text-foreground;
+}
+.ant-btn-primary {
+  @apply bg-primary border-primary text-white;
+}
+.ant-btn-primary:hover {
+  @apply bg-primary-dark border-primary-dark;
+}
+.ant-card {
+  @apply bg-surface text-foreground border border-border;
+}
+.ant-table {
+  @apply bg-surface text-foreground;
+}
+.ant-table-thead > tr > th {
+  background-color: var(--background-light) !important;
+  color: var(--foreground) !important;
+}
+.ant-table-tbody > tr > td {
+  @apply border-border;
+}
+.ant-modal-header {
+  @apply bg-surface text-foreground;
 }
   .common-table .ant-table-title {
     @apply bg-surface!;

@@ -20,6 +20,8 @@ export const URL_KEYS = {
         EXPORT: "/transaction/export",
         PAYIN: "/transaction/payin",
         STATUS: "/transaction/status",
+        VERIFY_RAZORPAY: "/transaction/verify/razorpay",
+        VERIFY_PAYU: "/transaction/verify/payu",
     },
     WALLET: {
         BASE: "/wallet",

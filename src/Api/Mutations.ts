@@ -17,4 +17,7 @@ export const Mutations = {
     //transaction
     useCreateDeposit: () => useMutations<CreateDepositPayload, CreateDepositResponse>([KEYS.TRANSACTION.PAYIN], (input) => Post(URL_KEYS.TRANSACTION.PAYIN, input, true, true)),
 
+
+    //payment
+    useVerifyPayU: () => useMutations<{ txnid: string }, any>(["verify-payu"], (input) => Post(URL_KEYS.TRANSACTION.VERIFY_PAYU, input, false)),
 };

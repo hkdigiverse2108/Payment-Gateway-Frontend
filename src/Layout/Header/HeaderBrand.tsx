@@ -1,7 +1,7 @@
 const HeaderBrand = () => {
   return (
     <div className="headerbrand">
-      PAYMENT GATEWAY
+      {/* PAYMENT GATEWAY */}
     </div>
   );
 };

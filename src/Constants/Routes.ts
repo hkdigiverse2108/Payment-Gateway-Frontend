@@ -21,7 +21,10 @@ export const ROUTES = {
     },
     PAYMENT: {
         BASE: "/payment",
+        SUCCESS: "/payment/success",
+        FAILED: "/payment/failure",
     },
+    PAYMENT_RESULT: "/payment/result",
     TRANSACTIONS: {
         BASE: "/transaction/all",
         DEPOSIT: "/transaction/create-deposit",

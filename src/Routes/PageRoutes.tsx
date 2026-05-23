@@ -6,10 +6,12 @@ import Profile from "../Pages/Profile";
 import UserForm from "../Pages/User/UserForm";
 import Login from "../Pages/auth/Login";
 import ChangePassword from "../Pages/ChangePassword";
+
 import Dashboard from "../Pages/Dashboard";
 import Transaction from "../Pages/Transaction";
 import CreateDeposit from "../Pages/Transaction/CreateDeposit";
 import TransactionDetails from "../Components/Transaction/TransactionDetails";
+
 import WalletBalance from "../Pages/WalletBalance";
 
 export const pageRoutes = [
@@ -21,7 +23,7 @@ export const pageRoutes = [
   { path: ROUTES.TRANSACTIONS.BASE, element: <Transaction />, roles: ["admin", "user"], showInSidebar: true, sidebarKey: "transactions", name: PAGE_TITLE.TRANSACTIONS.BASE },
   { path: ROUTES.TRANSACTIONS.DEPOSIT, element: <CreateDeposit />, roles: ["admin", "user"], showInSidebar: false, sidebarKey: "create-deposit", name: PAGE_TITLE.TRANSACTIONS.PAYIN },
   { path: `${ROUTES.TRANSACTIONS.DETAILS}/:id`, element: <TransactionDetails />, roles: ["admin", "user"], showInSidebar: false, sidebarKey: "create-deposit", name: PAGE_TITLE.TRANSACTIONS.DETAILS },
-  { path: ROUTES.WALLET.BALANCE, element: <WalletBalance />, roles: ["user", "admin"], showInSidebar: true, sidebarKey: "wallet", name: PAGE_TITLE.WALLET.BALANCE } 
+  { path: ROUTES.WALLET.BALANCE, element: <WalletBalance />, roles: ["user", "admin"], showInSidebar: true, sidebarKey: "wallet", name: PAGE_TITLE.WALLET.BALANCE },
 ]
 
 export const AuthRoutes = [

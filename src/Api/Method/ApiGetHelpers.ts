@@ -8,8 +8,14 @@ export const getApiHeaders = ( data?: unknown, customKeys?: { apiKey: string; se
 
     const apiKey = customKeys?.apiKey || selectedUserKeys?.apiKey || user?.apiKey || "";
     const secretKey = customKeys?.secretKey || selectedUserKeys?.secretKey || user?.secretKey || "";
+    // const payload =
+    //     data === undefined ? "undefined" : JSON.stringify(data);
     const payload =
-        data === undefined ? "undefined" : JSON.stringify(data);
+        typeof data === "string"
+            ? data
+            : data
+                ? JSON.stringify(data)
+                : "";
     const signature = CryptoJS.HmacSHA256(payload, secretKey)
         .toString(CryptoJS.enc.Hex);
     return {

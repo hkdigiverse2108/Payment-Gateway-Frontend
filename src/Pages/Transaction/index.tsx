@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CommonTable } from "../../Components";
 import { Queries } from "../../Api";
 import { PAYMENT_STATUS, STATUS, TRANSACTION_TYPE, type TransactionFormValues } from "../../Types";
@@ -6,16 +6,15 @@ import { PAGE_TITLE, ROUTES } from "../../Constants";
 import CommonBreadcrumbs from "../../Components/Common/CommonBreadcrumbs";
 import { BREADCRUMBS } from "../../Data";
 import { useDebounce } from "../../Utils";
-import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../Store";
 import { Row, Col, Tooltip } from "antd";
 import { Eye, RefreshCw, Copy, CheckCircle2, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import AdvancedSearch from "../../Components/Common/AdvancedSearch";
 import ExportToExcel from "../../Components/Common/CommonTable/ExportToExcel";
 import ExportToPDF from "../../Components/Common/CommonTable/ExportToPDF";
-
-import TransactionStatusModal from "../../Components/Transaction/TransactionStatusModal";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useToast } from "../../Components/Common/ToastProvider";
+import TransactionStatusModal from "../../Components/Transaction/TransactionStatusModal";
 
 const Transaction = () => {
   const toast = useToast();
@@ -29,6 +28,7 @@ const Transaction = () => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
 
@@ -52,7 +52,6 @@ const Transaction = () => {
   const { data: transactionData, isLoading: isTransactionLoading } = Queries.useGetTransaction(queryParams);
   const allTransactions = transactionData?.data?.data || [];
 
-  // Fetch a larger set to calculate accurate KPIs at the top
   const { data: transAllData } = Queries.useGetTransaction({ limit: 1000 });
   const transAllList = transAllData?.data?.data || [];
 
@@ -239,14 +238,25 @@ const Transaction = () => {
     navigate(ROUTES.TRANSACTIONS.DEPOSIT); 
   };
 
-  // Calculate active filter badge count
+  useEffect(() => {
+    const urlOrderId = searchParams.get("order_id");
+
+    if (urlOrderId) {
+      setSelectedOrderId(urlOrderId);
+      setIsStatusModalOpen(true);
+      
+      // Clear routing variables to avoid infinite loops on manual refreshes
+      searchParams.delete("order_id");
+      setSearchParams(searchParams, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
+
   const activeFiltersCount = [typeFilter, statusFilter, paymentStatusFilter].filter(Boolean).length;
 
   return (
     <div className="space-y-6 animate-fade">
       <CommonBreadcrumbs title={PAGE_TITLE.TRANSACTIONS.BASE} maxItems={1} breadcrumbs={ BREADCRUMBS.TRANSACTIONS.BASE } />
 
-      {/* 3 Metric Summary Cards at the Top */}
       <Row gutter={[20, 20]}>
         <Col xs={24} sm={8}>
           <div className="bg-surface border border-border/20 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex items-center justify-between">

@@ -515,3 +515,10 @@ export type CommonLoaderProps = {
 };
 
 export const WALLETFILTERS = ["all", "credit", "debit"];
+
+export interface PaymentContext {
+    data: any;
+    response: any;
+    payload: any;
+    toast: any;
+}

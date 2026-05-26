@@ -1,8 +1,10 @@
 import type { CommonDataType, MessageStatus, PageStatus } from "./Common";
 
 export interface TransactionFormValues {
+    _id?: string;
     orderId?: string;
     amount?: number;
+    userId?: string;
     type?: string;
     status?: string;
     paymentStatus?: string;
@@ -58,6 +60,10 @@ export interface CreateDepositPayload {
     gateway?: string;
     apiKey?: string;
     secretKey?: string;
+}
+
+export interface VerifyPayuPayload {
+    txnid: string;
 }
 
 export interface TransactionStatusData {

@@ -1,10 +1,10 @@
 import type { CommonTableProps } from "../../../Types";
-import { Col, Input, Row, Switch, Table } from "antd";
+import { Table } from "antd";
 import { useMemo } from "react";
 import { FiSearch } from "react-icons/fi";
 import { CommonButton } from "../../../Attribute";
 
-export const CommonTable = <T extends object>({ loading = false, dataSource, columns = [], pagination = { current: 1, pageSize: 10 }, rowKey = "userId", bordered = false, size = "middle", scroll, onActive, onAdd, onSearch, ...rest }: CommonTableProps<T>) => {
+export const CommonTable = <T extends object>({ loading = false, dataSource, columns = [], pagination = { current: 1, pageSize: 10 }, rowKey = "userId", bordered = false, size = "middle", scroll, onAdd, ...rest }: CommonTableProps<T>) => {
   const current = pagination?.current ?? 1;
   const pageSize = pagination?.pageSize ?? 10;
   const fixedColumns = useMemo(() => {
@@ -37,38 +37,38 @@ export const CommonTable = <T extends object>({ loading = false, dataSource, col
           </div>
         )
       }}
-      title={() => (
-          <Row className="rounded-lg p-2 items-center" gutter={8} justify="space-between" >
-            {onSearch && (
-              <Col xs={24} md={10} lg={8} xl={8} xxl={6}>
-                <div className="flex items-center bg-surface rounded-lg border border-border/30">
-                  <Input value={onSearch?.value} type="text" placeholder="Search..." aria-label="Search" prefix={<FiSearch className="text-foreground mr-2" />} onChange={(e) => onSearch?.onChange?.(e.target.value)} className="bg-transparent text-foreground placeholder:text-muted border-none shadow-none w-full text-sm" />
-                </div>
-              </Col>
-            )}
-            {onActive && (
-              <Col xs={24} md={4} xl={3} xxl={2}>
-                <div className="flex items-center gap-3 bg-surface px-3 py-3 rounded-lg ">
-                  <span className="text-sm font-semibold text-foreground uppercase">Active</span>
-                  <Switch size="small" checked={onActive?.value} aria-label="Toggle active status" onChange={onActive?.onChange} />
-                </div>
-              </Col>
-          )}
-          {onAdd && (
-            <Col>
-              <div className="flex justify-end w-full">
-                <CommonButton
-                  variant="primary"
-                  onClick={onAdd}
-                  className="text-sm px-4 py-2 rounded-lg hover:opacity-90 transition"
-                >
-                  {rest.onAddLabel || "+ Add"}
-                </CommonButton>
-              </div>
-            </Col>
-          )}
-        </Row>
-      )}
+      // title={() => (
+      //     <Row className="rounded-lg p-2 items-center" gutter={8} justify="space-between" >
+      //       {onSearch && (
+      //         <Col xs={24} md={10} lg={8} xl={8} xxl={6}>
+      //           <div className="flex items-center bg-surface rounded-lg border border-border/30">
+      //             <Input value={onSearch?.value} type="text" placeholder="Search..." aria-label="Search" prefix={<FiSearch className="text-foreground mr-2" />} onChange={(e) => onSearch?.onChange?.(e.target.value)} className="bg-transparent text-foreground placeholder:text-muted border-none shadow-none w-full text-sm" />
+      //           </div>
+      //         </Col>
+      //       )}
+      //       {onActive && (
+      //         <Col xs={24} md={4} xl={3} xxl={2}>
+      //           <div className="flex items-center gap-3 bg-surface px-3 py-3 rounded-lg ">
+      //             <span className="text-sm font-semibold text-foreground uppercase">Active</span>
+      //             <Switch size="small" checked={onActive?.value} aria-label="Toggle active status" onChange={onActive?.onChange} />
+      //           </div>
+      //         </Col>
+      //     )}
+      //     {onAdd && (
+      //       <Col>
+      //         <div className="flex justify-end w-full">
+      //           <CommonButton
+      //             variant="primary"
+      //             onClick={onAdd}
+      //             className="text-sm px-4 py-2 rounded-lg hover:opacity-90 transition"
+      //           >
+      //             {rest.onAddLabel || "+ Add"}
+      //           </CommonButton>
+      //         </div>
+      //       </Col>
+      //     )}
+      //   </Row>
+      // )}
       {...rest}
     />
   );

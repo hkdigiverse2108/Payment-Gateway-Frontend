@@ -6,21 +6,21 @@ export const CommonButton: FC<CommonButtonProps> = ({ loading, title, children, 
   let variantClasses = "";
   switch (variant) {
     case "primary":
-      variantClasses = "bg-brand-500 text-white hover:bg-brand-600 border-none";
+      variantClasses = "commonbtn-primary";
       break;
     case "ghost":
-      variantClasses = "bg-transparent text-brand-500 border border-brand-500 hover:bg-brand-50 hover:text-brand-600";
+      variantClasses = "commonbtn-ghost";
       break;
     case "danger":
-      variantClasses = "bg-red-500 text-white hover:bg-red-600 border-none";
+      variantClasses = "commonbtn-danger";
       break;
     case "icon-only":
-      variantClasses = "p-2 flex items-center justify-center bg-transparent border-none shadow-none text-foreground hover:text-brand-500";
+      variantClasses = "commonbtn-icon-only";
       break;
   }
 
   return (
-    <Button {...props} loading={loading} disabled={disabled || loading} className={`rounded-md font-semibold transition-all ${variant !== "icon-only" ? "h-10 px-4" : ""} ${variantClasses} ${className}`} >
+    <Button {...props} loading={loading} disabled={disabled || loading} className={`commonbtn ${variant !== "icon-only" ? "commonbtn-base" : ""} ${variantClasses} ${(disabled || loading) ? "commonbtn-disabled" : ""} ${className}`} >
       {children || title}
     </Button>
   );

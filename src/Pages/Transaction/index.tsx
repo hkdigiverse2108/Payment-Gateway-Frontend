@@ -1,23 +1,25 @@
 import { useEffect, useMemo, useState } from "react";
-import { CommonTable } from "../../Components";
-import { Queries } from "../../Api";
+import { AdvancedSearch, CommonTable } from "../../Components";
+import { Mutations, Queries } from "../../Api";
 import { PAYMENT_STATUS, STATUS, TRANSACTION_TYPE, type TransactionFormValues } from "../../Types";
 import { PAGE_TITLE, ROUTES } from "../../Constants";
 import CommonBreadcrumbs from "../../Components/Common/CommonBreadcrumbs";
 import { BREADCRUMBS } from "../../Data";
 import { useDebounce } from "../../Utils";
 import { useAppSelector } from "../../Store";
-import { Row, Col, Tooltip } from "antd";
-import { Eye, RefreshCw, Copy, CheckCircle2, ArrowUpRight, ArrowDownRight } from "lucide-react";
-import AdvancedSearch from "../../Components/Common/AdvancedSearch";
-import ExportToExcel from "../../Components/Common/CommonTable/ExportToExcel";
-import ExportToPDF from "../../Components/Common/CommonTable/ExportToPDF";
+import { Row, Col } from "antd";
+import { Eye, RefreshCw, CheckCircle2, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useToast } from "../../Components/Common/ToastProvider";
 import TransactionStatusModal from "../../Components/Transaction/TransactionStatusModal";
+import StatCard from "../../Components/Common/StatCard";
+import CommonActionColumn from "../../Components/Common/CommonActionColumn";
+import CopyableText from "../../Components/Common/CopyableText";
+import { CommonBadge, CommonStatusBadge } from "../../Components/Common/CommonStatusBadge";
+import CommonTableToolbar from "../../Components/Common/CommonTable/CommonTableToolbar";
+import { useDateRangeFilter } from "../../Utils/Hooks/useDateRangeFilter";
+import CommonDateRangePicker from "../../Attribute/FormFields/CommonDateRangePicker";
 
 const Transaction = () => {
-  const toast = useToast();
   const [search, setSearch] = useState<string>("");
   const currentUser = useAppSelector((state) => state.auth.user);
   const debouncedSearch = useDebounce(search, 500);
@@ -27,46 +29,41 @@ const Transaction = () => {
   const [paymentStatusFilter, setPaymentStatusFilter] = useState<string>();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [columnVisibility, setColumnVisibility] = useState<any>({});
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
-  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
-
-  const handleCheckStatus = (orderId: string) => {
-    setSelectedOrderId(orderId);
-    setIsStatusModalOpen(true);
-  };
-
+  const { dateRange, setDateRange, dateQuery } = useDateRangeFilter();
+  const orderIdFromUrl = searchParams.get("order_id");
+  const isStatusModalOpen = Boolean(orderIdFromUrl);
+  const handleCheckStatus = (orderId: string) => { setSearchParams({ order_id: orderId })};
   const queryParams = useMemo(() => ({ 
     ...(debouncedSearch ? { search: debouncedSearch } : {}),
     ...(typeFilter ? { type: typeFilter } : {}),
     ...(statusFilter ? { status: statusFilter } : {}),
     ...(paymentStatusFilter ? { paymentStatus: paymentStatusFilter } : {}),
-    page, 
-    limit: pageSize,
-  }), [debouncedSearch, typeFilter, statusFilter, paymentStatusFilter, page, pageSize]);
-
+    ...dateQuery,
+    page, limit: pageSize,
+  }), [debouncedSearch, typeFilter, statusFilter, paymentStatusFilter, dateQuery, page, pageSize]);
+  const { mutate: verifyPhonePe } = Mutations.useVerifyPhonePe();
   const { data: userData } = Queries.useGetUser();
   const users = useMemo(() => { return userData?.data?.data || []; }, [userData]);
-  
   const { data: transactionData, isLoading: isTransactionLoading } = Queries.useGetTransaction(queryParams);
   const allTransactions = transactionData?.data?.data || [];
-
   const { data: transAllData } = Queries.useGetTransaction({ limit: 1000 });
   const transAllList = transAllData?.data?.data || [];
-
-  const totalDeposits = transAllList
-    .filter(t => t.type?.toLowerCase() === "deposit" && (t.status === "success" || t.paymentStatus === "success"))
-    .reduce((acc, t) => acc + t.amount, 0);
-
-  const totalWithdrawals = transAllList
-    .filter(t => t.type?.toLowerCase() === "withdrawal" && (t.status === "success" || t.paymentStatus === "success"))
-    .reduce((acc, t) => acc + t.amount, 0);
-
-  const successTransCount = transAllList
-    .filter(t => t.status === "success" || t.paymentStatus === "success")
-    .length;
-
+  const stats = useMemo(() => {
+  const isSuccess = (t: any) =>
+    t.status === "success" || t.paymentStatus === "success";
+  let totalDeposits = 0;
+  let totalWithdrawals = 0;
+  let successCount = 0;
+  for (const t of transAllList) {
+    if (isSuccess(t)) { successCount++}
+    if (t.type?.toLowerCase() === "deposit" && isSuccess(t)) { totalDeposits += t.amount }
+    if (t.type?.toLowerCase() === "withdrawal" && isSuccess(t)) { totalWithdrawals += t.amount;}
+  }
+  return { totalDeposits, totalWithdrawals, successCount };
+}, [transAllList]);
   const filteredTransactions = useMemo(() => {
     let data = [...allTransactions];
     const role = currentUser?.role?.toLowerCase();
@@ -90,245 +87,155 @@ const Transaction = () => {
     }
     return data;
   }, [allTransactions, currentUser, sort]);
-
   const totalData = currentUser?.role === "user" ? filteredTransactions.length : transactionData?.data?.totalData || 0;
-
   const userMap = useMemo(() => {
     const map = new Map();
     users.forEach((u: any) => {
-      map.set(String(u._id), u.username || u.userName || u.name); 
+      map.set(String(u._id), u.username || u.userName || u.name);
     });
     return map;
   }, [users]);
-
   const columns = useMemo(() => [
       { 
-        title: "Transaction ID", 
-        dataIndex: "traId", 
-        key: "traId",
-        render: (val: string) => (
-          <div className="font-mono text-xs flex items-center gap-1.5">
-            {val ? val.substring(0, 12) + "..." : "-"}
-            {val && (
-              <button 
-                onClick={() => { navigator.clipboard.writeText(val); toast.success("Copied Transaction ID"); }} 
-                className="p-1 hover:bg-tableback/30 rounded text-muted hover:text-foreground transition-all"
-              >
-                <Copy className="w-3 h-3" />
-              </button>
-            )}
-          </div>
-        )
+        title: "Transaction ID",  dataIndex: "traId", key: "traId",
+        render: (val: string) => <CopyableText value={val} label="Transaction ID" />
       },
       { 
-        title: "Order ID", 
-        dataIndex: "orderId", 
-        key: "orderId",
-        render: (val: string) => (
-          <div className="font-mono text-xs flex items-center gap-1.5">
-            {val ? val.substring(0, 12) + "..." : "-"}
-            {val && (
-              <button 
-                onClick={() => { navigator.clipboard.writeText(val); toast.success("Copied Order ID"); }} 
-                className="p-1 hover:bg-tableback/30 rounded text-muted hover:text-foreground transition-all"
-              >
-                <Copy className="w-3 h-3" />
-              </button>
-            )}
-          </div>
-        )
+        title: "Order ID", dataIndex: "orderId", key: "orderId",
+        render: (val: string) => <CopyableText value={val} label="Order ID" />
       },
       { 
-        title: "User Name", 
-        key: "userName", 
-        render: (_: any, record: any) => { 
-          return userMap.get(record.userId) || "-"; 
-        } 
+        title: "User Name",  key: "userName", render: (_: any, record: any) => { return userMap.get(record.userId) || "-"} 
       },
       { 
-        title: "Amount", 
-        dataIndex: "amount", 
-        key: "amount", 
-        sorter: true, 
-        showSorterTooltip: false,
-        render: (val: number) => (
-          <span className="font-bold text-foreground">
-            {val.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })}
-          </span>
-        )
+        title: "Amount", dataIndex: "amount", key: "amount", sorter: true, showSorterTooltip: false,
+        render: (val: number) => ( <span className="font-bold text-foreground"> {val.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })} </span> )
       },
       { 
-        title: "Type", 
-        dataIndex: "type", 
-        key: "type", 
+        title: "Type", dataIndex: "type", key: "type", 
         render: (type: string) => {
           const isDeposit = type?.toLowerCase() === "deposit";
           return (
-            <span className={`inline-flex px-2.5 py-0.5 text-xs font-bold rounded-full uppercase ${
-              isDeposit 
-                ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20" 
-                : "bg-rose-500/10 text-rose-500 border border-rose-500/20"
-            }`}>
-              {type}
-            </span>
+            <CommonBadge label={type} variant={isDeposit ? "success" : "danger"} uppercase />
           );
-        }
+        },
       },
       { 
         title: "Status", 
         dataIndex: "status", 
         key: "status", 
-        render: (status: string) => {
-          const s = status?.toLowerCase();
-          return (
-            <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-semibold rounded-full ${
-              s === "success" || s === "completed"
-                ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
-                : s === "pending"
-                ? "bg-amber-500/10 text-amber-500 border border-amber-500/20"
-                : "bg-rose-500/10 text-rose-500 border border-rose-500/20"
-            }`}>
-              <span className={`w-1.5 h-1.5 rounded-full ${
-                s === "success" || s === "completed"
-                  ? "bg-emerald-500"
-                  : s === "pending"
-                  ? "bg-amber-500"
-                  : "bg-rose-500"
-              }`} />
-              {status}
-            </span>
-          );
-        },
+        render: (status: string) => <CommonStatusBadge status={status} />,
       },
-      {
-        title: "Action",
-        key: "action",
-        width: 150,
-        render: (_: any, record: any) => (
-          <div className="flex items-center gap-2">
-            <Tooltip title="View Transaction Details">
-              <button 
-                onClick={() => navigate(`${ROUTES.TRANSACTIONS.DETAILS}/${record._id}`)}
-                className="px-2.5 py-1.5 rounded-lg border border-border/20 text-xs font-bold text-foreground hover:bg-tableback/20 transition-all flex items-center gap-1"
-              >
-                <Eye className="w-3.5 h-3.5" /> View
-              </button>
-            </Tooltip>
-            <Tooltip title="Check Live Status">
-              <button
-                onClick={() => handleCheckStatus(record.orderId)}
-                className="p-1.5 rounded-lg border border-border/20 text-brand-500 hover:text-brand-600 hover:bg-brand-500/5 transition-all"
-              >
-                <RefreshCw className="w-3.5 h-3.5" />
-              </button>
-            </Tooltip>
-          </div>
-        )
-      }
-    ], [userMap, toast, navigate]);
-
+      CommonActionColumn<TransactionFormValues>({
+        extraActions: [
+          {
+            icon: <Eye className="w-3.5 h-3.5" />,
+            tooltip: "View Transaction Details",
+            onClick: (record) => {navigate(`${ROUTES.TRANSACTIONS.DETAILS}/${record._id}`)},
+          },
+          {
+            icon: <RefreshCw className="w-3.5 h-3.5" />,
+            tooltip: "Check Live Status",
+            onClick: (record) => {if (record.orderId) {handleCheckStatus(record.orderId)}},
+          }
+        ],
+      })
+    ], [userMap, navigate]);
   const buildOptions = (obj: Record<string, string>) => {
     return Object.values(obj).map((val) => ({
       label: val.charAt(0).toUpperCase() + val.slice(1),
       value: val,
     }));
   };
+  useEffect(() => {
+    const merchantTxnId = searchParams.get("txn") || searchParams.get("merchantTransactionId");
+    if (!merchantTxnId) return;
 
-  const handleCreateDeposit = () => { 
-    navigate(ROUTES.TRANSACTIONS.DEPOSIT); 
-  };
+    verifyPhonePe(
+      { merchantTransactionId: merchantTxnId },
+      {
+        onSuccess: (res: any) => {
+          console.log("PhonePe Verified:", res);
+          const transaction = res?.data?.transaction || res?.data?.data?.transaction || res?.transaction;
+          const orderId = transaction?.orderId;
+          if (orderId) {
+            setSearchParams({ order_id: orderId }, { replace: true });
+          }
+        },
+        onError: (err: any) => {
+          console.error("PhonePe verify failed:", err);
+        },
+      }
+    );
+  }, [searchParams, setSearchParams, verifyPhonePe]);
+  const handleCreateDeposit = () => { navigate(ROUTES.TRANSACTIONS.DEPOSIT) };
+  const initialVisibility = useMemo(() => {
+    const obj: any = {};
+    columns.forEach((col: any) => {
+      const key = col.key ?? col.dataIndex;
+      obj[key] = true;
+    });
+    return obj;
+  }, [columns]);
 
   useEffect(() => {
-    const urlOrderId = searchParams.get("order_id");
-
-    if (urlOrderId) {
-      setSelectedOrderId(urlOrderId);
-      setIsStatusModalOpen(true);
-      
-      // Clear routing variables to avoid infinite loops on manual refreshes
-      searchParams.delete("order_id");
-      setSearchParams(searchParams, { replace: true });
-    }
-  }, [searchParams, setSearchParams]);
-
-  const activeFiltersCount = [typeFilter, statusFilter, paymentStatusFilter].filter(Boolean).length;
-
+    setColumnVisibility(initialVisibility);
+  }, [initialVisibility]);
+  const filteredColumns = useMemo(() => {
+    return columns.filter((col: any) => {
+      const key = col.key ?? col.dataIndex;
+      return columnVisibility[key] !== false;
+    });
+  }, [columns, columnVisibility]);
+  // const activeFiltersCount = [typeFilter, statusFilter, paymentStatusFilter].filter(Boolean).length;
   return (
     <div className="space-y-6 animate-fade">
       <CommonBreadcrumbs title={PAGE_TITLE.TRANSACTIONS.BASE} maxItems={1} breadcrumbs={ BREADCRUMBS.TRANSACTIONS.BASE } />
-
       <Row gutter={[20, 20]}>
         <Col xs={24} sm={8}>
-          <div className="bg-surface border border-border/20 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex items-center justify-between">
-            <div className="space-y-1">
-              <span className="text-muted text-xs font-semibold uppercase tracking-wider">Total Deposits</span>
-              <h3 className="text-2xl font-bold text-emerald-500">
-                {totalDeposits.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 })}
-              </h3>
-            </div>
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500">
-              <ArrowUpRight className="w-5 h-5" />
-            </div>
-          </div>
+          <StatCard title="Total Deposits" value={stats.totalDeposits.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 })} icon={<ArrowUpRight className="w-5 h-5" />} color="green" />
         </Col>
         <Col xs={24} sm={8}>
-          <div className="bg-surface border border-border/20 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex items-center justify-between">
-            <div className="space-y-1">
-              <span className="text-muted text-xs font-semibold uppercase tracking-wider">Total Withdrawals</span>
-              <h3 className="text-2xl font-bold text-rose-500">
-                {totalWithdrawals.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 })}
-              </h3>
-            </div>
-            <div className="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center text-rose-500">
-              <ArrowDownRight className="w-5 h-5" />
-            </div>
-          </div>
+          <StatCard title="Total Withdrawals" value={stats.totalWithdrawals.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 })} icon={<ArrowDownRight className="w-5 h-5" />} color="red" />
         </Col>
         <Col xs={24} sm={8}>
-          <div className="bg-surface border border-border/20 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex items-center justify-between">
-            <div className="space-y-1">
-              <span className="text-muted text-xs font-semibold uppercase tracking-wider">Successful Payments</span>
-              <h3 className="text-2xl font-bold text-foreground">
-                {successTransCount}
-              </h3>
-            </div>
-            <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-500">
-              <CheckCircle2 className="w-5 h-5" />
-            </div>
-          </div>
+          <StatCard title="Successful Payments" value={stats.successCount} icon={<CheckCircle2 className="w-5 h-5" />} color="blue" />
         </Col>
       </Row>
-
       <div className="bg-surface border border-border/20 rounded-2xl p-6 shadow-sm">
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center gap-2">
-            <span className="text-base font-bold text-foreground">Filter Transactions</span>
-            {activeFiltersCount > 0 && (
-              <span className="bg-brand-500 text-white font-bold text-xs px-2 py-0.5 rounded-full">
-                {activeFiltersCount} active
-              </span>
-            )}
-          </div>
-          <div className="flex gap-2">
-            <ExportToExcel params={queryParams} />
-            <ExportToPDF params={queryParams} />
-          </div>
-        </div>
-
-        <AdvancedSearch 
-          defaultExpanded 
-          filter={[ 
+        <AdvancedSearch  defaultExpanded  filter={[ 
             { label: "Type", value: typeFilter, onChange: (val) => { setTypeFilter(val as string); setPage(1); }, options: buildOptions(TRANSACTION_TYPE)}, 
             { label: "Status", value: statusFilter, onChange: (val) => { setStatusFilter(val as string); setPage(1); }, options: buildOptions(STATUS)}, 
             { label: "Payment Status", value: paymentStatusFilter, onChange: (val) => { setPaymentStatusFilter(val as string); setPage(1); }, options: buildOptions(PAYMENT_STATUS)}
           ]} 
         />
-
+        <CommonDateRangePicker
+  value={dateRange}
+  onChange={(dates) => {
+    setDateRange(dates);
+    setPage(1);
+  }}
+/>
+        <CommonTableToolbar
+          onSearch={{
+            value: search,
+            onChange: (val: any) => {
+              setSearch(String(val));
+              setPage(1);
+            },
+          }}
+          onAdd={handleCreateDeposit}
+          addLabel="Create Deposit"
+          columns={columns}
+          columnVisibility={columnVisibility}
+          setColumnVisibility={setColumnVisibility}
+        />
+        
         <div className="mt-6">
           <CommonTable<TransactionFormValues> 
             rowKey="_id" 
             dataSource={filteredTransactions} 
-            columns={columns} 
+            columns={filteredColumns} 
             loading={isTransactionLoading} 
             pagination={{ current: page, pageSize, total: totalData, showSizeChanger: true }} 
             onPaginationChange={(newPage: number, newPageSize: number) => { setPage(newPage); setPageSize(newPageSize); }} 
@@ -342,12 +249,7 @@ const Transaction = () => {
           />
         </div>
       </div>
-
-      <TransactionStatusModal
-        isOpen={isStatusModalOpen}
-        onClose={() => setIsStatusModalOpen(false)}
-        orderId={selectedOrderId}
-      />
+      <TransactionStatusModal isOpen={isStatusModalOpen} onClose={() => { const newParams = new URLSearchParams(searchParams); newParams.delete("order_id"); setSearchParams(newParams, { replace: true }); }} orderId={orderIdFromUrl} />
     </div>
   );
 };

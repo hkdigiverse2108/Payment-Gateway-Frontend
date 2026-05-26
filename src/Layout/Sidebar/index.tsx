@@ -41,7 +41,22 @@ const Sidebar = ({ openDrawer, setOpenDrawer }: SidebarProps) => {
         </Sider>
       )}
       {isMobile && (
-        <Drawer placement="right" open={openDrawer} onClose={() => setOpenDrawer(false)} closable={false} rootClassName="mobile-sidebar-drawer" destroyOnHidden mask={{ closable: true }} styles={{ body: { padding: 12 }, }} >
+        <Drawer
+          placement="right"
+          open={openDrawer}
+          onClose={() => setOpenDrawer(false)}
+          closable={false}
+          rootClassName="mobile-sidebar-drawer"
+          destroyOnHidden
+          styles={{
+            mask: {
+              backgroundColor: "rgba(0, 0, 0, 0.45)",
+            },
+            body: {
+              padding: 12,
+            },
+          }}
+        >
           <div className="sidebar-header flex items-center justify-between pb-4 border-b border-border/10">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-500 to-brand-600 flex items-center justify-center text-white font-black text-sm shadow-md shadow-brand-500/25">

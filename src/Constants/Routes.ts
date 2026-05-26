@@ -24,6 +24,7 @@ export const ROUTES = {
         SUCCESS: "/payment/success",
         FAILED: "/payment/failure",
     },
+    PHONEPE_SUCCESS: "/payment-success",
     PAYMENT_RESULT: "/payment/result",
     TRANSACTIONS: {
         BASE: "/transaction/all",

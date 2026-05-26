@@ -227,14 +227,10 @@
 .password-toggle-icon {
   @apply flex items-center justify-center text-muted cursor-pointer;
 }
-
-/* Clear icon */
-.ant-input-clear-icon,
-.ant-input-suffix .anticon-close-circle {
+.ant-input-clear-icon, .ant-input-suffix .anticon-close-circle {
   cursor: pointer;
   color: rgba(0,0,0,0.45);
 }
-
 .ant-input-suffix .anticon-close-circle:hover {
   color: rgba(0,0,0,0.75);
 }
@@ -247,62 +243,32 @@
 .ant-select-item-option-selected{
   @apply bg-foreground! text-surface!;
 }
-.anticon-left,
-.anticon-right{
+.anticon-left, .anticon-right{
   @apply text-foreground!;
 }
 .cb-wrapper {
-  @apply flex items-center justify-between rounded-md px-6 py-3 bg-surface! sticky! top-0 z-10 mb-3;
+  @apply mb-6;
 }
-
-/* LEFT */
-.cb-left {
-  @apply flex items-center gap-3;
+.cb-header {
+  @apply flex items-center justify-between bg-surface px-5 py-4 rounded-xl border border-border/20 shadow-sm;
 }
-
-/* ICON */
-.cb-home-icon {
-  @apply text-muted!;  font-size: 15px;
-}
-
-/* TITLE (fix hierarchy clearly) */
 .cb-title {
-  @apply text-base font-semibold capitalize text-foreground! m-0!;
+  @apply text-lg font-semibold text-foreground;
 }
-
-/* RIGHT */
 .cb-right {
-  @apply flex items-center;
+  @apply text-sm;
 }
-
-/* LINKS */
+.cb-home {
+  @apply text-muted! hover:text-foreground! transition-colors;
+}
 .cb-link {
-  @apply text-xs capitalize text-foreground!;
-  transition: color 0.2s ease;
+  @apply text-muted! hover:text-foreground! transition-colors;
 }
-
-.cb-link:hover {
-  @apply text-foreground!;
-}
-
-/* ACTIVE LINK */
-.cb-link.active {
-  @apply text-sm capitalize text-foreground!;
-}
-
-/* CURRENT */
 .cb-current {
-  @apply text-xs font-medium capitalize text-foreground!;
+  @apply text-foreground font-medium;
 }
-
-/* ANTD RESET (important for consistency) */
-.cb-wrapper .ant-breadcrumb {
-  font-size: 12px;
-}
-
-.cb-wrapper .ant-breadcrumb-separator {
-  @apply text-foreground!;
-  opacity: 0.6;
+.cb-separator {
+  @apply mx-2 text-muted;
 }
 
 /* common */
@@ -331,7 +297,7 @@
   @apply fixed left-0 top-0 z-999999 flex h-screen w-screen items-center justify-center bg-white/70 dark:bg-black/70 backdrop-blur-sm transition-opacity duration-300 ease-in-out;
 }
 .common-card {
-  @apply rounded-lg border-none bg-surface;
+  @apply rounded-2xl! border-none bg-surface;
 }
 .common-card-header {
   @apply flex items-center border-none justify-between p-3 max-sm:flex-col gap-2;
@@ -1429,6 +1395,54 @@
   @apply grid grid-cols-2 md:grid-cols-3 gap-4 text-sm pt-2 border-t border-border/30;
  
 }
+.table-toolbar {
+    @apply flex items-center justify-between gap-3 p-3;
+    @apply bg-surface rounded-xl shadow-theme-sm;
+  }
+  .toolbar-left {
+    @apply flex items-center flex-1;
+  }
+  .toolbar-search {
+    @apply flex items-center gap-2 px-3 py-2;
+    @apply bg-background border border-border/30 rounded-lg;
+    @apply w-[320px];
+  }
+  .toolbar-search input {
+    @apply bg-transparent text-foreground;
+  }
+  .toolbar-search svg {
+    @apply text-muted;
+  }
+  .toolbar-center {
+    @apply flex items-center justify-center flex-1;
+  }
+  .toolbar-active {
+    @apply flex items-center gap-2 px-3 py-2;
+    @apply bg-background border border-border/30 rounded-full text-sm;
+  }
+  .toolbar-active span {
+    @apply text-muted;
+  }
+  .toolbar-right {
+    @apply flex items-center justify-end gap-2 flex-1;
+  }
+  .icon-btn {
+    @apply px-3 py-2 bg-background border border-border/30;
+    @apply hover:bg-backgroundlight rounded-lg;
+  }
+  .add-btn {
+    @apply bg-primary text-white px-4 py-2 rounded-lg;
+    @apply hover:opacity-90 transition;
+  }
+  .column-menu {
+    @apply p-3 w-[220px];
+    @apply bg-surface border border-border/30 rounded-xl shadow-theme-md;
+  }
+  .column-item {
+    @apply flex items-center gap-2 text-sm cursor-pointer;
+    @apply hover:bg-backgroundlight px-2 py-1 rounded-md;
+  }
+
 @media print {
   body * {
     visibility: hidden;

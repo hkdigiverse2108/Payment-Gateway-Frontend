@@ -39,29 +39,13 @@ const DetailsForm = forwardRef( ({ onNext, initialValues, users = [], isAdmin }:
             </div>
             <div className="space-y-4">
               {isAdmin && (
-                <div>
-                  <label className="block text-sm font-medium mb-1"> Select Website / User </label>
-                  <CommonSelect
-                    value={values.userId || undefined}
-                    options={users.map((user: any) => ({ label: user.websiteName || user.name, value: user._id, }))}
-                    onChange={(val: any) => {
-                      const selectedUser = users.find((u: any) => u._id === val);
-                      setFieldValue("userId", val);
-                      setFieldValue("customerName", selectedUser?.name || "");
-                      setFieldValue("customerPhone", selectedUser?.mobileNumber || "");
-                      setFieldValue("customerEmail", selectedUser?.email || "");
-                      
-                      if (selectedUser) {
-                        localStorage.setItem("selectedUserKeys", JSON.stringify({
-                          apiKey: selectedUser.apiKey || "",
-                          secretKey: selectedUser.secretKey || ""
-                        }));
-                      } else {
-                        localStorage.removeItem("selectedUserKeys");
-                      }
-                    }}
-                    placeholder="Choose a website..."
-                  />
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-foreground"> Select Website / User </label>
+                  <CommonSelect value={values.userId || undefined} options={users.map((user: any) => ({ label: user.websiteName || user.name, value: user._id }))} onChange={(val: any) => {
+                    const selectedUser = users.find((u: any) => u._id === val); setFieldValue("userId", val); setFieldValue("customerName", selectedUser?.name || ""); setFieldValue("customerPhone", selectedUser?.mobileNumber || ""); setFieldValue("customerEmail", selectedUser?.email || "");
+                    if (selectedUser) { localStorage.setItem( "selectedUserKeys", JSON.stringify({ apiKey: selectedUser.apiKey || "", secretKey: selectedUser.secretKey || "" }));
+                      } else { localStorage.removeItem("selectedUserKeys"); }
+                    }} placeholder="Choose a website..." />
                 </div>
               )}
               <div className="text-xs uppercase tracking-wide text-gray-400"> Payment Info </div>

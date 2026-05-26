@@ -1,23 +1,28 @@
 import { KEYS, URL_KEYS } from "../Constants";
-import { type CreateDepositResponse, type AddUserPayload, type CreateDepositPayload, type LoginPayload, type LoginResponse, type MessageStatus, type ResetPasswordPayload, type UpdateUserPayload, type UserApiResponse } from "../Types";
+import { type CreateDepositResponse, type AddUserPayload, type CreateDepositPayload, type LoginPayload, type LoginResponse, type MessageStatus, type ResetPasswordPayload, type UpdateUserPayload, type UserApiResponse, type VerifyPayuPayload } from "../Types";
 import { Delete, Post, Put } from "./Method";
 import { useMutations } from "./ReactQuery";
 
 export const Mutations = {
     //auth
     useLogin: () => useMutations<LoginPayload, LoginResponse>([KEYS.AUTH.LOGIN], (input) => Post(URL_KEYS.AUTH.LOGIN, input, false)),
+
     useResetPassword: () => useMutations<ResetPasswordPayload, MessageStatus>([KEYS.AUTH.CHANGE_PASSWORD], (input) => Post(URL_KEYS.AUTH.CHANGE_PASSWORD, input)),
 
     // user
     useAddUser: () => useMutations<AddUserPayload, void>([KEYS.USER.ADD, KEYS.USER.BASE], (input) => Post(URL_KEYS.USER.ADD, input)),
+
     useUpdateUser: () => useMutations<UpdateUserPayload, UserApiResponse>([KEYS.USER.UPDATE, KEYS.USER.BASE], (input) => Put(URL_KEYS.USER.UPDATE, input)),
+
     useDeleteUser: () => useMutations<string, void>([KEYS.USER.DELETE, KEYS.USER.BASE], (id) => Delete(`${URL_KEYS.USER.BASE}/${id}`)),
+
     useUpdateProfile: () => useMutations<UpdateUserPayload, UserApiResponse>([KEYS.USER.UPDATE_PROFILE, KEYS.USER.BASE], (input) => Put(URL_KEYS.USER.UPDATE_PROFILE, input)),
 
     //transaction
     useCreateDeposit: () => useMutations<CreateDepositPayload, CreateDepositResponse>([KEYS.TRANSACTION.PAYIN], (input) => Post(URL_KEYS.TRANSACTION.PAYIN, input, true, true)),
 
-
     //payment
-    useVerifyPayU: () => useMutations<{ txnid: string }, any>(["verify-payu"], (input) => Post(URL_KEYS.TRANSACTION.VERIFY_PAYU, input, false)),
+    // useVerifyPayU: () => useMutations<{ txnid: string }, any>(["verify-payu"], (input) => Post(URL_KEYS.TRANSACTION.VERIFY_PAYU, input, false)),
+    useVerifyPayU: () => useMutations<VerifyPayuPayload, any>([KEYS.TRANSACTION.VERIFYPAYU], (input) => Post(URL_KEYS.TRANSACTION.VERIFY_PAYU, input, false)),
+    useVerifyPhonePe: () => useMutations<{ merchantTransactionId: string; apiKey?: string; secretKey?: string }, any>( [KEYS.TRANSACTION.VERIFY_PHONEPE], (input) => Post(URL_KEYS.TRANSACTION.VERIFY_PHONEPE, input, false, true)),
 };

@@ -34,15 +34,12 @@ const layoutSlice = createSlice({
         setToggleMobileSidebar: (state) => {
             state.isMobileOpen = !state.isMobileOpen;
         },
-
         setIsHovered: (state, action) => {
             state.isHovered = action.payload;
         },
-
         setApplicationMenuOpen: (state) => {
             state.isApplicationMenuOpen = !state.isApplicationMenuOpen;
         },
-
         setToggleSubmenu: (state, action) => {
             state.openSubmenu = state.openSubmenu === action.payload ? null : action.payload;
         },

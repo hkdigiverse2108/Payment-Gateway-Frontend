@@ -177,6 +177,12 @@ export interface ActionHandler<T> {
     onHandle: (row: T) => void;
     isPermission?: (row: T) => boolean;
 }
+
+export type ExtraAction<T> = {
+    icon: React.ReactNode;
+    tooltip?: string;
+    onClick: (row: T) => void;
+};
 export interface CommonActionColumnProps<T> {
     editRoute?: string;
     permissionRoute?: string;
@@ -185,6 +191,7 @@ export interface CommonActionColumnProps<T> {
     onActive?: ActionHandler<T>;
     onFeatured?: ActionHandler<T>;
     onRefund?: (row: T) => void;
+    extraActions?: ExtraAction<T>[];
 }
 
 export interface BreadcrumbItem {
@@ -265,6 +272,7 @@ export interface CommonSelectProps {
     placeholder?: string;
     isLoading?: boolean;
     searchKeys?: string[];
+    
 }
 
 
@@ -522,3 +530,31 @@ export interface PaymentContext {
     payload: any;
     toast: any;
 }
+
+
+export type UserFormProps = {
+    open: boolean;
+    onClose: () => void;
+    editingRecord: any;
+    onAdd: any;
+    onEdit: any;
+    isAddLoading: boolean;
+    isEditLoading: boolean;
+};
+
+
+export type CopyableTextProps = {
+    value?: string;
+    label?: string;
+};
+
+export type CommonStatusBadgeProps = {
+    status?: string;
+};
+
+export type CommonBadgeVariant = "success" | "danger" | "warning" | "default";
+export type CommonBadgeProps = {
+    label?: string;
+    variant?: CommonBadgeVariant;
+    uppercase?: boolean;
+};

@@ -9,34 +9,18 @@ import { useQueries } from "./ReactQuery";
 
 export const Queries = {
 
-    //user
-    useGetUser: (params?: Params) => useQueries<UserApiResponse>([KEYS.USER.BASE, params], () => Get(URL_KEYS.USER.GET, params)),
+  //user
+  useGetUser: (params?: Params) => useQueries<UserApiResponse>([KEYS.USER.BASE, params], () => Get(URL_KEYS.USER.GET, params)),
 
-    //transaction
-    useGetTransaction: (params?: Params) => useQueries<TransactionApiResponse>([KEYS.TRANSACTION.BASE, params], () => Get(URL_KEYS.TRANSACTION.GET, params, undefined, false)),
-    useTransactionStatus: (params?: Params, customKeys?: { apiKey: string; secretKey: string }, options?: any) =>
-      useQueries<TransactionStatusResponse>(
-        [KEYS.TRANSACTION.STATUS, params, customKeys],
-        () => {
-          const signatureHeaders = getApiHeaders("", customKeys);
-          return Get(
-            URL_KEYS.TRANSACTION.STATUS,
-            params,
-            signatureHeaders,
-            false,
-            true
-          );
-        },
-        { enabled: !!params?.orderId, ...options }
-      ),
-    exportTransaction: (params?: Params) => Get(URL_KEYS.TRANSACTION.EXPORT, params, { responseType: "blob", }),
+  //transaction
+  useGetTransaction: (params?: Params) => useQueries<TransactionApiResponse>([KEYS.TRANSACTION.BASE, params], () => Get(URL_KEYS.TRANSACTION.GET, params, undefined, false)),
+    
+  useTransactionStatus: (params?: Params, customKeys?: { apiKey: string; secretKey: string }, options?: any) => useQueries<TransactionStatusResponse>([KEYS.TRANSACTION.STATUS, params, customKeys], () => { const signatureHeaders = getApiHeaders("", customKeys); return Get(URL_KEYS.TRANSACTION.STATUS, params, signatureHeaders, false, true) }, { enabled: !!params?.orderId, ...options }),
+    
+  exportTransaction: (params?: Params) => Get(URL_KEYS.TRANSACTION.EXPORT, params, { responseType: "blob", }),
 
-    useGetWalletActivity: (params?: Params) => useQueries<WalletActivityApiResponse>( [KEYS.WALLET.ACTIVITY, params], () => { const authHeaders = getApiHeaders("");
-            return Get( URL_KEYS.WALLET.ACTIVITY, params ?? {}, authHeaders, true, true);
-        }
-    ),
-    useGetWalletBalance: (params?: Params) => useQueries<WalletBalanceResponse>([KEYS.WALLET.BALANCE], () => { const authHeaders = getApiHeaders("");
-            return Get( URL_KEYS.WALLET.BALANCE, params ?? {}, authHeaders, true, true 
-            );
-        }),
+  //wallet
+  useGetWalletActivity: (params?: Params) => useQueries<WalletActivityApiResponse>([KEYS.WALLET.ACTIVITY, params], () => { const authHeaders = getApiHeaders(""); return Get(URL_KEYS.WALLET.ACTIVITY, params ?? {}, authHeaders, true, true) }),
+
+  useGetWalletBalance: (params?: Params) => useQueries<WalletBalanceResponse>([KEYS.WALLET.BALANCE], () => { const authHeaders = getApiHeaders(""); return Get( URL_KEYS.WALLET.BALANCE, params ?? {}, authHeaders, true, true )}),
 };

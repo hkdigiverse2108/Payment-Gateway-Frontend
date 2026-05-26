@@ -159,24 +159,35 @@ html, body, #root {
 }
 /* ----------------------login ---------------------- */
 .login-main {
-  @apply min-h-screen flex items-center justify-center p-3 md:p-4 bg-(--blue-50);
+  @apply min-h-screen! flex! items-center! justify-center! p-4! md:p-4 bg-(--blue-50) bg-backgroundlight! select-none!;
 }
 .form-error {
   @apply text-xs text-red-500 min-h-[16px] mt-1;
 }
 .login-container {
-  @apply flex flex-col md:flex-row w-full max-w-4xl rounded-lg overflow-hidden bg-surface border border-border/20 shadow-(--shadow-theme-xl);
+  @apply flex! flex-col! md:flex-row! w-full! max-w-5xl! rounded-3xl! overflow-hidden! bg-surface! border! border-border/20! shadow-(--shadow-theme-xl)! shadow-2xl!;
 }
 .login-left {
-  @apply hidden md:flex md:w-1/2 items-center justify-center p-10 text-white bg-brand-600;
+  @apply hidden! md:flex! md:w-1/2! items-center! justify-center! p-12! text-white! bg-brand-600! relative! overflow-hidden! flex! ;
 }
-
+.login-left-main {
+  @apply absolute inset-0 pointer-events-none opacity-20;
+}
+.login-svg1{
+  @apply absolute top-10 left-10 w-48 h-48 text-brand-400;
+}
+.login-svg2{
+  @apply absolute -bottom-20 -right-20 w-80 h-80 text-brand-300;
+}
+.login-svg3 {
+  @apply absolute top-1/3 right-10 w-24 h-24 text-brand-400;
+}
 .login-left-content {
-  @apply max-w-md;
+  @apply relative z-10 flex flex-col gap-6 max-w-md w-full;
 }
 
 .login-logo {
-  @apply w-16 h-16 rounded-xl flex items-center justify-center font-bold text-xl bg-surface text-brand-600;
+  @apply w-16 h-16 rounded-2xl flex items-center justify-center font-bold text-xl bg-surface text-brand-600 shadow-lg shadow-black/10 select-none;
 }
 
 .login-left h2 {
@@ -186,70 +197,98 @@ html, body, #root {
 .login-left p {
   @apply mt-4 text-sm opacity-90;
 }
-
+.login-left-text-main{
+  @apply text-3xl font-extrabold tracking-tight leading-tight;
+}
+.login-left-text-base{
+  @apply text-brand-100 text-sm leading-relaxed;
+}
+.login-left-stats-card {
+  @apply relative h-44 mt-8;
+}
+.login-left-stats-card1{
+  @apply absolute top-0 left-0 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2.5 rounded-2xl text-xs font-semibold text-white shadow-xl rotate-[-4deg] flex items-center gap-2 select-none;
+}
+.login-left-stats-card2{
+  @apply absolute top-14 right-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2.5 rounded-2xl text-xs font-semibold text-white shadow-xl rotate-[3deg] flex items-center gap-2 select-none;
+}
+.login-left-stats-card3{
+  @apply absolute bottom-4 left-6 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2.5 rounded-2xl text-xs font-semibold text-white shadow-xl rotate-[-2deg] flex items-center gap-2 select-none;
+}
 .login-footer-text {
-  @apply block mt-10 text-sm opacity-90;
+  @apply block text-brand-200 mt-6 select-none text-sm opacity-90 ;
 }
 .login-right {
-  @apply w-full md:w-1/2 flex items-center justify-center p-6 md:p-10;
+  @apply w-full md:w-1/2 flex items-center justify-center p-6 md:p-10 bg-surface;
 }
 .login-box {
   @apply w-full max-w-md mx-auto;
 }
-
+.loginin-text {
+  @apply text-3xl font-extrabold text-foreground relative inline-block;
+}
+.loginin-span{
+  @apply absolute bottom-[-6px] left-1/4 right-1/4 h-[3px] bg-brand-500 rounded-full;
+}
+.loginin-welcome{
+  @apply text-sm text-muted mt-3;
+}
 .login-box h2 {
   @apply text-4xl font-light text-center text-(--foreground) mb-2;
 }
-
 .login-box p {
   @apply text-sm mb-6 text-center text-muted;
 }
-
 .login-form {
   @apply space-y-5 w-full;
 }
-
 .form-group {
   @apply flex flex-col gap-1;
 }
-.login-form .ant-input,
-.login-form .ant-input-affix-wrapper {
-  @apply w-full rounded-md transition bg-surface text-(--foreground) border border-border/30;
+.login-from-below{
+  @apply flex justify-between items-center text-sm mb-4;
+}
+.login-form-spanb{
+  @apply text-brand-500 hover:text-brand-600 font-semibold cursor-pointer select-none;
+}
+/* Make BOTH look identical */
+.commoninput-container .ant-input,
+.commoninput-container .ant-input-affix-wrapper {
+  @apply w-full h-12 px-3 rounded-lg bg-surface text-foreground border border-border/30 transition;
 }
 
-.login-form .ant-input {
-  @apply bg-transparent border-none shadow-none;
+/* Remove inner input border */
+.commoninput-container .ant-input,
+.commoninput-container .ant-input-affix-wrapper .ant-input {
+  @apply bg-transparent border-none shadow-none outline-none;
 }
 
-.login-form .ant-input-affix-wrapper .ant-input {
-  @apply bg-transparent border-none shadow-none;
-}
-.login-form .ant-input-affix-wrapper:hover,
-.login-form .ant-input-affix-wrapper:hover .ant-input,
-.login-form .ant-input:hover {
-  @apply border-(--color-brand-500);
-}
-.login-form .ant-input-affix-wrapper-focused,
-.login-form .ant-input-affix-wrapper-focused .ant-input,
-.login-form .ant-input:focus {
-  @apply border-(--color-brand-500)
-         ring-2 ring-(--color-brand-500)/30;
-}
-.login-form .ant-input-prefix,
-.login-form .ant-input-suffix {
-  @apply flex items-center gap-1;
+/* Hover */
+.commoninput-container .ant-input:hover,
+.commoninput-container .ant-input-affix-wrapper:hover {
+  @apply border-brand-500;
 }
 
-.login-form .ant-input-suffix span {
-  @apply cursor-pointer text-muted;
+/* Focus */
+.commoninput-container .ant-input:focus,
+.commoninput-container .ant-input-affix-wrapper-focused {
+  @apply border-brand-500 ring-2 ring-brand-500/30;
 }
-
-.login-form .ant-input-suffix span:hover {
-  @apply text-(--foreground);
+.commonsearch-container .ant-input,
+.commonsearch-container .ant-input-affix-wrapper {
+  @apply w-full! h-8 px-3 rounded-lg bg-surface text-foreground border border-border/30 transition;
 }
-.login-form .ant-form-item-has-error .ant-input,
-.login-form .ant-form-item-has-error .ant-input-affix-wrapper {
-  @apply border-red-500;
+.commonsearch-container .ant-input,
+.commonsearch-container .ant-input-affix-wrapper .ant-input {
+  @apply bg-transparent border-none shadow-none outline-none;
+}
+.commonsearch-container .ant-input:hover,
+.commonsearch-container .ant-input-affix-wrapper:hover {
+  @apply border-brand-500;
+}
+.commonsearch-container .ant-input:focus,
+.commonsearch-container .ant-input-affix-wrapper-focused {
+  @apply border-brand-500 ring-2 ring-brand-500/30;
 }
 .form-options {
   @apply flex items-center justify-between text-sm;
@@ -269,10 +308,37 @@ html, body, #root {
   @apply text-brand-600;
 }
 
-/* AntD icon override */
 .password-toggle-icon .anticon {
   @apply text-brand-500;
 }
+/* change-password */
+.password-card-wrapper {
+    @apply bg-surface text-foreground rounded-3xl p-6;
+  }
+
+  .password-profile-header {
+    @apply flex items-center gap-4 pb-4 border-b border-border;
+  }
+
+  .password-avatar {
+    @apply flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white text-lg font-semibold;
+  }
+
+  .password-role-badge {
+    @apply px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-foreground;
+  }
+
+  .password-form-container {
+    @apply pt-6;
+  }
+
+  .password-form-fields {
+    @apply flex flex-col gap-4 mb-8;
+  }
+
+  .password-actions {
+    @apply flex justify-end gap-2;
+  }
 /* ----------------------- Profile -------------------------------- */
 .profilepage-layout {
   @apply grid grid-cols-1 lg:grid-cols-3 gap-6 items-start;
@@ -366,7 +432,8 @@ html, body, #root {
 .ant-input {
   @apply w-full p-2 rounded-md transition
          bg-(--surface)
-         border border-border/50;
+         border border-border/50
+         text-foreground;
 }
 .ant-input {
   @apply px-3;
@@ -446,38 +513,151 @@ html, body, #root {
     @apply text-theme-sm font-semibold text-foreground tracking-wide;
   }
   /* common-css */
-  .commonbtn-base {
-    @apply flex items-center justify-center gap-2;
-    @apply rounded-xl border border-border;
-    @apply transition-all duration-200 ease-in-out;
-
-    /* IMPORTANT */
-    @apply bg-transparent;
-    color: var(--foreground) !important;
-  }
-
-  .commonbtn-base:hover {
-    background-color: var(--surface);
-    color: var(--foreground);
-  }
-
-  .commonbtn-base .anticon {
-    color: var(--foreground);
-  }
-
-  .commonbtn-icon-only {
-    @apply w-10 h-10 p-0;
-  }
-
+.commonbtn {
+  @apply rounded-md! font-semibold! transition-all!;
+}
+.commonbtn-base {
+  @apply h-10! px-4!;
+}
+.commonbtn-primary {
+  @apply bg-brand-500! text-white! hover:bg-brand-600! border-none!;
+}
+.commonbtn-ghost {
+  @apply bg-transparent! text-brand-500! border! border-brand-500! hover:bg-brand-50! hover:text-brand-600!;
+}
+.commonbtn-danger {
+  @apply bg-red-500! text-white! hover:bg-red-600! border-none!;
+}
+.commonbtn-icon-only {
+  @apply p-2! flex! items-center! justify-center! bg-transparent! border-none! shadow-none! text-foreground! hover:text-brand-300!;
+}
+.commonbtn-lg {
+  @apply h-11! px-6! rounded-xl! font-bold!;
+}
   .commonbtn-disabled {
-    @apply opacity-50 cursor-not-allowed;
+    @apply opacity-50! cursor-not-allowed!;
   }
- .app-dropdown-menu {
-    @apply rounded-xl p-1 border shadow-theme-md bg-surface! border-border/20!;
-  }
+.commoninput-wrapper {
+  @apply relative mb-5;
+}
+.commoninput-container {
+  @apply relative w-full;
+}
+.commoninput.ant-input-affix-wrapper {
+  @apply h-12 px-3 rounded-lg bg-surface text-foreground border border-border transition-all flex items-center;
+}
+.commoninput.ant-input-affix-wrapper .ant-input {
+  @apply bg-transparent border-none shadow-none p-0 text-base;
+}
+.commoninput-with-label {
+  @apply pt-5 pb-2;
+}
+.commoninput.ant-input-affix-wrapper:hover {
+  @apply border-brand-400;
+}
+.commoninput .ant-input, .commoninput .ant-input-affix-wrapper {
+  color: var(--foreground);
+}
+.commoninput.ant-input-affix-wrapper-focused {
+  @apply border-brand-500 ring-4 ring-brand-500/20;
+}
+.commoninput-error.ant-input-affix-wrapper {
+  @apply border-red-500;
+}
+.commoninput-label {
+  @apply absolute left-3 transition-all duration-200 pointer-events-none select-none z-10;
+}
+.commoninput-label-default {
+  @apply top-1/2 -translate-y-1/2 text-sm text-muted;
+}
+.commoninput-label-floating {
+  @apply top-1 text-[11px] text-brand-500 font-medium translate-y-0;
+}
+.commoninput-label-error {
+  @apply text-red-500;
+}
+.commoninput-icon {
+  @apply text-muted hover:text-foreground cursor-pointer;
+}
+.commoninput-dummy {
+  @apply w-4 inline-block;
+}
+.commoncheckbox {
+  @apply flex! items-center! gap-2! text-sm! text-foreground! h-25!;
+}
+.commoncheckbox-label {
+  @apply select-none!;
+}
+.commoncheckbox-disabled {
+  @apply opacity-50! cursor-not-allowed!;
+}
+.commoncheckbox .ant-checkbox-inner {
+  @apply border-border! bg-surface!;
+}
+.commoncheckbox:hover .ant-checkbox-inner {
+  @apply border-brand-400!;
+}
+.commoncheckbox .ant-checkbox-checked .ant-checkbox-inner {
+  @apply bg-brand-500! border-brand-500!;
+}
+.commoncheckbox .ant-checkbox-checked .ant-checkbox-inner::after {
+  @apply border-white!;
+}
+.commoncheckbox .ant-checkbox-input:focus + .ant-checkbox-inner {
+  @apply ring-2! ring-brand-500/20!;
+} 
+.commonselect-container {
+  @apply relative! w-full! block!;
+}
+.commonselect .ant-select-selector {
+  @apply h-12! px-3! rounded-lg! bg-surface! text-foreground! border-border! flex! items-center!;
+}
+.common-notification {
+  @apply !rounded-xl !shadow-lg border-none!;
+  background: var(--surface);
+  color: var(--foreground);
+}
 
+/* Main container */
+.common-notification.ant-notification-notice {
+  @apply !rounded-xl !shadow-lg border;
+  background: var(--surface) !important;
+  color: var(--foreground) !important;
+  border-color: var(--border) !important;
+}
+
+/* Title (FIXED) */
+.common-notification.ant-notification-notice .ant-notification-notice-message {
+  @apply font-semibold;
+  color: var(--foreground) !important;
+}
+
+/* Description */
+.common-notification.ant-notification-notice .ant-notification-notice-description {
+  @apply text-sm;
+  color: var(--text-muted) !important;
+}
+.ant-notification-notice-message {
+  color: var(--foreground) !important;
+}
+.ant-notification-notice-title{
+  @apply text-foreground!;
+}
+
+.ant-notification-notice-description {
+  color: var(--text-muted) !important;
+}
+.ant-notification-notice-close {
+  @apply text-muted!;
+}
+.common-notification .ant-notification-notice-close:hover {
+  @apply text-foreground!;
+}
+  .app-dropdown-menu {
+    @apply rounded-xl! p-1! border! shadow-theme-md! bg-surface! border-border/20!;
+  }
   .app-dropdown-menu .ant-dropdown-menu-item {
-    @apply text-theme-sm rounded-lg px-3 py-2 text-foreground!;
+    @apply text-theme-sm! rounded-lg! px-3! py-2! text-foreground!;
   }
 
   .app-dropdown-menu .ant-dropdown-menu-item:hover,
@@ -623,12 +803,34 @@ html, body, #root {
   .app-header {
     @apply bg-surface text-foreground border-b border-border/40;
   }
-   .ant-drawer,
+  .ant-drawer-content,
+  .ant-drawer-header,
+  .ant-drawer-body,
+  .ant-drawer-footer,
+  .ant-modal-content,
+  .ant-modal-header,
+  .ant-modal-body,
+  .ant-modal-footer,
   .ant-dropdown,
   .ant-dropdown-menu,
-  .ant-modal,
   .ant-popover {
-    @apply bg-surface! text-foreground!;
+    background-color: var(--surface) !important;
+    color: var(--foreground) !important;
+  }
+
+  .ant-drawer-title,
+  .ant-modal-title {
+    color: var(--foreground) !important;
+  }
+
+  .ant-drawer-close,
+  .ant-modal-close {
+    color: var(--text-muted) !important;
+  }
+
+  .ant-drawer-close:hover,
+  .ant-modal-close:hover {
+    color: var(--foreground) !important;
   }
   .mobile-sidebar-drawer .ant-drawer-content,
   .mobile-sidebar-drawer .ant-drawer-body {

@@ -1,17 +1,11 @@
 import { StarOutlined, StarFilled, EditOutlined, DeleteOutlined, EyeOutlined, EyeInvisibleOutlined, KeyOutlined } from "@ant-design/icons";
-import { Button, Space } from "antd";
+import { Button, Space, Tooltip } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Link } from "react-router-dom";
 import type { CommonActionColumnProps } from "../../Types";
+import { CommonButton } from "../../Attribute";
 
-const CommonActionColumn = < T extends {
-    userId?: string;
-    isActive?: boolean;
-    isFeatured?: boolean;
-    creditsRemaining?: number;
-  }
->({
-  onFeatured, onActive, editRoute, onDelete, onEdit, permissionRoute, }: CommonActionColumnProps<T>): ColumnsType<T>[number] => ({
+const CommonActionColumn = < T extends { userId?: string; isActive?: boolean; isFeatured?: boolean; creditsRemaining?: number; } >({ onFeatured, onActive, editRoute, onDelete, onEdit, permissionRoute, extraActions }: CommonActionColumnProps<T>): ColumnsType<T>[number] => ({
   title: "Actions",
   key: "actions",
   align: "center",
@@ -46,6 +40,16 @@ const CommonActionColumn = < T extends {
         {onDelete?.onHandle && (
           <Button type="text" danger icon={<DeleteOutlined />} onClick={() => onDelete.onHandle(row)} />
         )}
+        {extraActions?.map((action, i) => {
+          const btn = (
+            <CommonButton key={i} type="text" onClick={() => action.onClick(row)} icon={action.icon} variant="icon-only" />
+          );
+          return action.tooltip ? (
+            <Tooltip key={i} title={action.tooltip}> {btn} </Tooltip>
+          ) : (
+            btn
+          );
+        })}
       </Space>
     );
   },

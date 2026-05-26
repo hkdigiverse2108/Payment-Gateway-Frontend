@@ -20,6 +20,8 @@ export const KEYS = {
         PAYIN: "transaction-payin",
         STATUS: "transaction-status",
         BASE: "transaction",
+        VERIFYPAYU: "verify-payu",
+        VERIFY_PHONEPE: "verify-phonepe"
     },
     WALLET: {
         BASE: "wallet",

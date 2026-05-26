@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../Store";
 import { Mutations } from "../../Api";
 import { ResetPasswordSchema } from "../../Utils";
-import { CommonButton, CommonInput } from "../../Attribute";
+import { CommonButton } from "../../Attribute";
+import { CommonInput } from "../../Attribute/FormFields/CommonTextField"; // use same component as login
 import type { ResetPasswordPayload } from "../../Types";
 import CommonBreadcrumbs from "../../Components/Common/CommonBreadcrumbs";
 import { BREADCRUMBS } from "../../Data";
@@ -15,54 +16,51 @@ const ChangePassword = () => {
   const { mutate: resetPassword, isPending: isLoading } = Mutations.useResetPassword();
   const navigate = useNavigate();
   const initialValues: ResetPasswordPayload = {
-    userId: user?.userId || "",
+    userId: user?._id || "",
     oldPassword: "",
     newPassword: "",
-    confirmPassword: ""
+    confirmPassword: "",
   };
-  const handleSubmit = async ( values: ResetPasswordPayload, { resetForm }: FormikHelpers<ResetPasswordPayload> ) => {
-    await resetPassword(values, { onSuccess: () => { resetForm(); navigate(-1); }});
+  const handleSubmit = async ( values: ResetPasswordPayload, { resetForm }: FormikHelpers<ResetPasswordPayload>, ) => {
+    await resetPassword(values, {
+      onSuccess: () => {
+        resetForm();
+        navigate(-1);
+      },
+    });
   };
   return (
-    <div className="change-password-page">
+    <div className="space-y-6">
       <CommonBreadcrumbs title="Change Password" breadcrumbs={BREADCRUMBS.CHANGE_PASSWORD.BASE} />
-      <div className="change-password-layout">
-        <div className="change-password-card">
-          <div className="change-password-profile">
-            <div className="avatar">
-              {user?.name?.charAt(0)?.toUpperCase()}
+      <CommonCard className="p-0">
+        <div className="password-card-wrapper">
+          <div className="password-profile-header">
+            <div className="password-avatar"> {user?.name?.charAt(0)?.toUpperCase()} </div>
+            <div className="flex-1">
+              <p className="font-medium text-foreground">{user?.name}</p>
+              <p className="text-sm text-muted">{user?.email}</p>
             </div>
-            <div>
-              <p className="name"> {user?.name} </p>
-              <p className="email"> {user?.email} </p>
-            </div>
-            <div className="role"> {user?.role} </div>
+            <span className="password-role-badge">{user?.role}</span>
           </div>
-          <Formik<ResetPasswordPayload> enableReinitialize initialValues={initialValues} validationSchema={ResetPasswordSchema} onSubmit={handleSubmit}>
-             {({ dirty }) => (
-               <Form noValidate>
-                 <div className="flex justify-center">
-                   <div className="w-full md:w-8/12 lg:w-6/12">
-                     <CommonCard title="Change Password" >
-                       <div className="p-4 flex flex-col gap-4">
-                         <CommonInput name="oldPassword" label="Old Password" type="password" />
-                         <CommonInput name="newPassword" label="New Password" type="password" />
-                         <CommonInput name="confirmPassword" label="Confirm Password" type="password" />
-                       </div>
-                     </CommonCard>
-                     <CommonBottomActionBar>
-                       <div className="flex gap-2 ml-auto">
-                         <CommonButton variant="ghost" onClick={() => navigate(-1)} title="Cancel" />
-                         <CommonButton htmlType="submit" type="primary" title="Save" loading={isLoading} disabled={!dirty} />
-                       </div>
-                     </CommonBottomActionBar>
-                   </div>
-                 </div>
-               </Form>
-             )}
-           </Formik>
+          <Formik enableReinitialize initialValues={initialValues} validationSchema={ResetPasswordSchema} onSubmit={handleSubmit} >
+            {({ dirty }) => (
+              <Form noValidate className="password-form-container">
+                <div className="password-form-fields">
+                  <CommonInput name="oldPassword" type="password" label="Old Password" required showPasswordToggle className="border border-red" />
+                  <CommonInput name="newPassword" label="New Password" type="password" required showPasswordToggle />
+                  <CommonInput name="confirmPassword" label="Confirm Password" type="password" required showPasswordToggle />
+                </div>
+                <CommonBottomActionBar>
+                  <div className="password-actions">
+                    <CommonButton variant="ghost" onClick={() => navigate(-1)} title="Cancel" />
+                    <CommonButton htmlType="submit" type="primary" title="Save" loading={isLoading} disabled={!dirty} />
+                  </div>
+                </CommonBottomActionBar>
+              </Form>
+            )}
+          </Formik>
         </div>
-      </div>
+      </CommonCard>
     </div>
   );
 };

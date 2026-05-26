@@ -1,0 +1,4 @@
+/* src/styles/drawer.css */
+.custom-drawer .ant-drawer-mask {
+  @apply bg-black/45 !important; /* Tailwind utility with !important */
+}

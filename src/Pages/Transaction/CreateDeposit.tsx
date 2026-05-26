@@ -63,14 +63,13 @@ const CreateDeposit = () => {
           </div>
         )}
         {!clientSecret && (
-          <div className="flex justify-between items-center pt-6 border-t border-border/10">
-            <CommonButton disabled={step === 0} onClick={back} variant="ghost" icon={<ArrowLeft className="w-4 h-4" />} > Back </CommonButton>
+          <div className="flex justify-between items-center pt-6 border-t border-border/10">          
+            <CommonButton disabled={step === 0} onClick={back} variant="ghost" icon={<ArrowLeft className="w-4 h-4" />}
+            > Back </CommonButton>
             {step < 2 ? (
-              <CommonButton onClick={next} variant="primary" icon={<ArrowRight className="w-4 h-4" />} >
-                Continue
-              </CommonButton>
+              <CommonButton onClick={next} variant="primary" icon={<ArrowRight className="w-4 h-4" />} > Continue </CommonButton>
             ) : (
-              <CommonButton onClick={onConfirm} variant="primary" className="bg-brand-500 hover:bg-brand-600 text-white font-bold h-11 px-6 rounded-xl" >
+              <CommonButton onClick={onConfirm} variant="primary" className="commonbtn-lg"  >
                 {data.gateway === "stripe" ? "Proceed to Payment" : "Confirm & Pay"}
               </CommonButton>
             )}

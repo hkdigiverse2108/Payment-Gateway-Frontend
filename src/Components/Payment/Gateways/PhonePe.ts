@@ -1,26 +1,28 @@
-export const handlePhonePe = async ({ response }: any) => {
-    console.log("PhonePe Handler Received:", response);
+export const handlePhonePe = ({ response }: any) => {
     const redirectUrl = response?.redirectUrl;
-
     if (!redirectUrl) {
-        console.error("PhonePe Error: redirectUrl is missing in the response object.");
-        alert("Payment initiation failed: No redirect URL received.");
+        alert("Payment initiation failed");
         return;
     }
-    window.location.href = redirectUrl;
-    const urlParams = new URLSearchParams(window.location.search);
-    const orderId = urlParams.get("order_id") || response?.orderId;
-    if (orderId) {
-        // Small delay to allow backend processing
-        setTimeout(async () => {
-            try {
-                const apiBase = import.meta.env.VITE_API_BASE_URL || "";
-                const res = await fetch(`${apiBase}/transaction/status?order_id=${orderId}`);
-                const data = await res.json();
-                console.log("PhonePe status after return:", data);
-            } catch (e) {
-                console.error("Failed to fetch PhonePe transaction status:", e);
-            }
-        }, 2000);
+
+    const merchantTransactionId =
+        response?.merchantTransactionId ||
+        response?.merchantOrderId ||
+        response?.merchant_transaction_id;
+    const orderId = response?.orderId || response?.order_id;
+    const transactionId = response?.transactionId || response?.transaction_id;
+
+    if (merchantTransactionId) {
+        localStorage.setItem(
+            "phonePePendingPayment",
+            JSON.stringify({
+                merchantTransactionId,
+                orderId,
+                transactionId,
+                createdAt: Date.now(),
+            })
+        );
     }
+
+    window.location.assign(redirectUrl);
 };

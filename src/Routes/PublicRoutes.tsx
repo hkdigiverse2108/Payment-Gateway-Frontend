@@ -4,14 +4,9 @@ import { useAppSelector } from "../Store";
 
 const PublicRoutes = () => {
   const { isAuthenticated } = useAppSelector((s) => s.auth);
-
   if (!isAuthenticated) return <Outlet />;
-
   return (
-    <Navigate
-      to={ROUTES.DASHBOARD}
-      replace
-    />
+    <Navigate to={ROUTES.DASHBOARD} replace />
   );
 };
 

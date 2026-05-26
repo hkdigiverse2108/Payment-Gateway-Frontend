@@ -22,18 +22,17 @@ const Row = ({ label, value }: any) => (
 
 const TransactionStatusModal = ({ isOpen, onClose, orderId }: Props) => {
   const [resolvedOrderId, setResolvedOrderId] = useState<string | null>(orderId);
+  const [fallbackTransactionId, setFallbackTransactionId] = useState<string | null>(null);
 
-  // Sync orderId from URL or props
+  // Sync orderId and transaction_id from URL or props
   useEffect(() => {
     if (isOpen) {
       const params = new URLSearchParams(window.location.search);
       // Support both `orderId` (new) and `order_id` (legacy) query keys
       const urlOrderId = params.get("orderId") || params.get("order_id");
-      const urlStatus = params.get("status");
-
-      console.log("CCAvenue redirect:", { urlOrderId, urlStatus });
-
+      const urlTransactionId = params.get("transaction_id");
       setResolvedOrderId(urlOrderId || orderId);
+      setFallbackTransactionId(urlTransactionId);
     }
   }, [isOpen, orderId]);
 
@@ -64,7 +63,7 @@ const TransactionStatusModal = ({ isOpen, onClose, orderId }: Props) => {
       refetchOnWindowFocus: true,
       enabled: !!effectiveOrderId,
       // Show more detailed error info if the backend returns 404.
-      onError: (err) => {
+      onError: (err: any) => {
         console.error('Transaction status fetch error:', err);
       },
     }
@@ -136,9 +135,9 @@ const TransactionStatusModal = ({ isOpen, onClose, orderId }: Props) => {
             <Row
               label="Transaction ID"
               value={
-                d.traId ? (
+                d.traId || d.transactionId || fallbackTransactionId ? (
                   <Text copyable={{ icon: [<MdContentCopy />, <CheckOutlined />] }}>
-                    {d.traId}
+                    {d.traId || d.transactionId || fallbackTransactionId}
                   </Text>
                 ) : "-"
               }

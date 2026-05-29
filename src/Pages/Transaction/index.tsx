@@ -16,8 +16,7 @@ import CommonActionColumn from "../../Components/Common/CommonActionColumn";
 import CopyableText from "../../Components/Common/CopyableText";
 import { CommonBadge, CommonStatusBadge } from "../../Components/Common/CommonStatusBadge";
 import CommonTableToolbar from "../../Components/Common/CommonTable/CommonTableToolbar";
-import { useDateRangeFilter } from "../../Utils/Hooks/useDateRangeFilter";
-import CommonDateRangePicker from "../../Attribute/FormFields/CommonDateRangePicker";
+import { exportToCSV, exportToExcel } from "../../Components/Common/CommonTable/ExportToCSV";
 
 const Transaction = () => {
   const [search, setSearch] = useState<string>("");
@@ -32,21 +31,39 @@ const Transaction = () => {
   const [columnVisibility, setColumnVisibility] = useState<any>({});
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { dateRange, setDateRange, dateQuery } = useDateRangeFilter();
   const orderIdFromUrl = searchParams.get("order_id");
   const isStatusModalOpen = Boolean(orderIdFromUrl);
-  const handleCheckStatus = (orderId: string) => { setSearchParams({ order_id: orderId })};
   const queryParams = useMemo(() => ({ 
     ...(debouncedSearch ? { search: debouncedSearch } : {}),
     ...(typeFilter ? { type: typeFilter } : {}),
     ...(statusFilter ? { status: statusFilter } : {}),
     ...(paymentStatusFilter ? { paymentStatus: paymentStatusFilter } : {}),
-    ...dateQuery,
     page, limit: pageSize,
-  }), [debouncedSearch, typeFilter, statusFilter, paymentStatusFilter, dateQuery, page, pageSize]);
+  }), [debouncedSearch, typeFilter, statusFilter, paymentStatusFilter, page, pageSize]);
   const { mutate: verifyPhonePe } = Mutations.useVerifyPhonePe();
   const { data: userData } = Queries.useGetUser();
   const users = useMemo(() => { return userData?.data?.data || []; }, [userData]);
+  const getRecordUserId = (record: any) => {
+    return typeof record.userId === "object" ? record.userId?._id : record.userId;
+  };
+  const handleCheckStatus = (record: any) => {
+    const recordUserId = getRecordUserId(record);
+    const selectedUser: any = users.find((user: any) => String(user._id) === String(recordUserId));
+
+    if (currentUser?.role?.toLowerCase() === "admin" && selectedUser) {
+      localStorage.setItem(
+        "selectedUserKeys",
+        JSON.stringify({
+          apiKey: selectedUser.apiKey || "",
+          secretKey: selectedUser.secretKey || "",
+        })
+      );
+    } else {
+      localStorage.removeItem("selectedUserKeys");
+    }
+
+    setSearchParams({ order_id: record.orderId });
+  };
   const { data: transactionData, isLoading: isTransactionLoading } = Queries.useGetTransaction(queryParams);
   const allTransactions = transactionData?.data?.data || [];
   const { data: transAllData } = Queries.useGetTransaction({ limit: 1000 });
@@ -136,11 +153,11 @@ const Transaction = () => {
           {
             icon: <RefreshCw className="w-3.5 h-3.5" />,
             tooltip: "Check Live Status",
-            onClick: (record) => {if (record.orderId) {handleCheckStatus(record.orderId)}},
+            onClick: (record) => {if (record.orderId) {handleCheckStatus(record)}},
           }
         ],
       })
-    ], [userMap, navigate]);
+    ], [userMap, navigate, users, currentUser, setSearchParams]);
   const buildOptions = (obj: Record<string, string>) => {
     return Object.values(obj).map((val) => ({
       label: val.charAt(0).toUpperCase() + val.slice(1),
@@ -187,7 +204,23 @@ const Transaction = () => {
       return columnVisibility[key] !== false;
     });
   }, [columns, columnVisibility]);
-  // const activeFiltersCount = [typeFilter, statusFilter, paymentStatusFilter].filter(Boolean).length;
+  const exportData = useMemo(() => {
+    return filteredTransactions.map((t: any) => ({
+      traId: t.traId,
+      orderId: t.orderId,
+      userName: userMap.get(t.userId) || "-",
+      amount: t.amount,
+      type: t.type,
+      status: t.status,
+    }));
+  }, [filteredTransactions, userMap]);
+  const handleCSVExport = () => {
+    exportToCSV(exportData, "transactions.csv");
+  };
+
+  const handleExcelExport = () => {
+    exportToExcel(exportData, "transactions.xlsx");
+  };
   return (
     <div className="space-y-6 animate-fade">
       <CommonBreadcrumbs title={PAGE_TITLE.TRANSACTIONS.BASE} maxItems={1} breadcrumbs={ BREADCRUMBS.TRANSACTIONS.BASE } />
@@ -209,13 +242,6 @@ const Transaction = () => {
             { label: "Payment Status", value: paymentStatusFilter, onChange: (val) => { setPaymentStatusFilter(val as string); setPage(1); }, options: buildOptions(PAYMENT_STATUS)}
           ]} 
         />
-        <CommonDateRangePicker
-  value={dateRange}
-  onChange={(dates) => {
-    setDateRange(dates);
-    setPage(1);
-  }}
-/>
         <CommonTableToolbar
           onSearch={{
             value: search,
@@ -229,6 +255,10 @@ const Transaction = () => {
           columns={columns}
           columnVisibility={columnVisibility}
           setColumnVisibility={setColumnVisibility}
+          onExport={{
+            csv: handleCSVExport,
+            excel: handleExcelExport,
+          }}
         />
         
         <div className="mt-6">
@@ -243,8 +273,7 @@ const Transaction = () => {
               value: search, 
               onChange: (value) => { setSearch(String(value)); setPage(1); }, 
             }} 
-            onAdd={handleCreateDeposit} 
-            onAddLabel="Create Deposit" 
+            
             sort={{ default: "amount:desc", onChange: setSort }} 
           />
         </div>

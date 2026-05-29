@@ -428,43 +428,7 @@ html, body, #root {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.ant-input-affix-wrapper,
-.ant-input {
-  @apply w-full p-2 rounded-md transition
-         bg-(--surface)
-         border border-border/50
-         text-foreground;
-}
-.ant-input {
-  @apply px-3;
-}
-.ant-input-affix-wrapper .ant-input {
-  @apply bg-transparent border-none shadow-none px-2;
-}
-.ant-input-affix-wrapper:hover,
-.ant-input:hover {
-  @apply border-(--color-brand-500);
-}
-.ant-input-affix-wrapper-focused,
-.ant-input:focus {
-  @apply border-(--color-brand-500)
-         ring-2 ring-(--color-brand-500)/30;
-}
-.ant-input-affix-wrapper .ant-input:focus {
-  @apply ring-0 shadow-none;
-}
-.ant-input-prefix,
-.ant-input-suffix {
-  @apply flex items-center;
-}
 
-.ant-input-suffix span {
-  @apply cursor-pointer text-(--text-muted);
-}
-
-.ant-input-suffix span:hover {
-  @apply text-(--foreground);
-}
 .ant-form-item-has-error .ant-input,
 .ant-form-item-has-error .ant-input-affix-wrapper {
   @apply border-red-500;
@@ -487,9 +451,6 @@ html, body, #root {
   }
   .app-header-right {
     @apply flex items-center gap-3;
-  }
-  .ant-input-prefix {
-    @apply text-(--foreground) bg-transparent border-0 shadow-none hover:bg-surface transition-colors;
   }
   .app-header-icon-btn svg {
     @apply text-(--foreground);
@@ -523,7 +484,7 @@ html, body, #root {
   @apply bg-brand-500! text-white! hover:bg-brand-600! border-none!;
 }
 .commonbtn-ghost {
-  @apply bg-transparent! text-brand-500! border! border-brand-500! hover:bg-brand-50! hover:text-brand-600!;
+  @apply bg-transparent! text-brand-500! border! border-brand-500! hover:bg-brand-500/10! hover:text-brand-600!;
 }
 .commonbtn-danger {
   @apply bg-red-500! text-white! hover:bg-red-600! border-none!;
@@ -867,12 +828,12 @@ html, body, #root {
   .layout-main .layout-content .layout-contant-main {
     @apply w-full bg-backgroundlight shadow-theme-sm;
   }
-  .layout-main .layout-content .layout-contant-center {
-    @apply flex-1 flex flex-col;
-  }
-  .layout-main .layout-content .layout-contant-inner {
-    @apply flex-1 m-4 rounded-lg ;
-  }
+   .layout-main .layout-content .layout-contant-center {
+     @apply flex-1 flex flex-col items-center justify-center;
+   }
+   .layout-main .layout-content .layout-contant-inner {
+     @apply flex-1 w-full max-w-5xl mx-auto p-4 md:p-6 lg:p-8 overflow-x-auto;
+   }
   /* theme button */
   .dashboard-theme {
     @apply w-10 h-10 flex items-center justify-center rounded-xl bg-surface! text-foreground! hover:bg-surface! hover:text-foreground! border-foreground!;
@@ -883,5 +844,446 @@ html, body, #root {
   .ant-btn{
     @apply border-none!;
 }
+.card {
+  @apply bg-surface border border-border rounded-2xl shadow-theme-sm p-5 transition-all;
+}
+.card-hover {
+  @apply hover:shadow-theme-md hover:-translate-y-0.5 transition;
+}
+.kpi-card {
+  @apply bg-surface border border-border rounded-2xl p-5 flex flex-col justify-between h-36;
+}
+.badge {
+  @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold;
+}
+.btn-primary {
+  @apply bg-brand-500 text-white font-semibold px-4 py-2.5 rounded-xl hover:bg-brand-600 transition active:scale-95;
+}
 
+.btn-outline {
+  @apply border border-border bg-transparent text-foreground px-4 py-2.5 rounded-xl hover:bg-tableback transition;
+}
+.icon-box {
+  @apply w-10 h-10 rounded-xl flex items-center justify-center;
+}
+.banner {
+  @apply relative overflow-hidden rounded-3xl p-6 md:p-8 text-white shadow-xl;
+}
+.banner-primary {
+  @apply bg-gradient-to-r from-brand-600 to-brand-900;
+}
+.banner-glow-1 {
+  @apply absolute -top-20 -right-20 w-72 h-72 bg-white/10 rounded-full blur-3xl pointer-events-none;
+}
+.banner-glow-2 {
+  @apply absolute bottom-0 right-10 w-52 h-52 bg-brand-400/20 rounded-full blur-2xl pointer-events-none;
+}
+.btn-banner-primary {
+  @apply flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white text-brand-900 font-semibold text-sm shadow-md hover:bg-white/90 active:scale-95 transition;
+}
+.btn-banner-secondary {
+  @apply flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-semibold text-sm hover:bg-white/20 active:scale-95 transition;
+}
+.btn-icon {
+  @apply p-3 rounded-xl bg-white/10 border border-white/20 hover:bg-white/20 active:scale-95 transition;
+}
+.banner-title {
+  @apply text-2xl md:text-4xl font-bold tracking-tight;
+}
+.banner-subtitle {
+  @apply text-white/80 text-sm md:text-base max-w-xl;
+}
+.chart-card {
+  @apply bg-surface border border-border/20 rounded-2xl p-5 shadow-sm min-h-[400px] flex flex-col;
+}
+.chart-header {
+  @apply mb-4;
+}
+.chart-title {
+  @apply text-base font-bold text-foreground;
+}
+.chart-subtitle {
+  @apply text-xs text-muted;
+}
+.chart-empty {
+  @apply flex-1 flex items-center justify-center text-muted text-sm;
+}
+.chart-loading {
+  @apply flex-1 flex items-center justify-center;
+}
+.recent-transactions-card {
+  @apply bg-surface border border-border/20 rounded-2xl p-5 shadow-sm;
+}
+.recent-transactions-header {
+  @apply mb-4;
+}
+.recent-transactions-title {
+  @apply text-base font-bold text-foreground;
+}
+.recent-transactions-subtitle {
+  @apply text-xs text-muted;
+}
+.recent-transactions-table {
+  @apply w-full text-sm;
+}
+.recent-transactions-thead {
+  @apply text-xs text-muted border-b border-border/10;
+}
+.recent-transactions-row {
+  @apply border-b border-border/10 transition hover:bg-tableback/10;
+}
+.recent-transactions-cell {
+  @apply py-3;
+}
+.recent-transactions-id {
+  @apply font-mono text-xs text-foreground;
+}
+.recent-status-badge {
+  @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold border;
+}
+.recent-status-success {
+  @apply text-green-500 bg-green-500/10 border-green-500/20;
+}
+.recent-status-pending {
+  @apply text-amber-500 bg-amber-500/10 border-amber-500/20;
+}
+.recent-status-failed {
+  @apply text-red-500 bg-red-500/10 border-red-500/20;
+}
+.recent-status-default {
+  @apply text-gray-500 bg-gray-500/10 border-gray-500/20;
+}
+.recent-status-dot {
+  @apply w-1.5 h-1.5 rounded-full;
+}
+.wallet-summary-card {
+  @apply bg-surface border border-border/20 rounded-2xl p-5 shadow-sm h-full;
+}
+.wallet-summary-header {
+  @apply flex justify-between items-center mb-4;
+}
+.wallet-summary-title {
+  @apply font-bold text-foreground;
+}
+.wallet-summary-icon {
+  @apply text-brand-500;
+}
+.wallet-summary-balance-wrap {
+  @apply mb-5;
+}
+.wallet-summary-balance-label {
+  @apply text-xs text-muted;
+}
+.wallet-summary-balance-value {
+  @apply text-3xl font-bold text-foreground mt-1;
+}
+.wallet-summary-section {
+  @apply space-y-3;
+}
+.wallet-summary-row {
+  @apply flex justify-between items-center p-3 rounded-xl;
+}
+.wallet-summary-credit {
+  @apply bg-emerald-500/10;
+}
+.wallet-summary-debit {
+  @apply bg-rose-500/10;
+}
+.wallet-summary-net {
+  @apply bg-brand-500/10;
+}
+.wallet-summary-row-left {
+  @apply flex items-center gap-2 text-xs font-semibold;
+}
+
+.wallet-summary-credit-text {
+  @apply text-emerald-500;
+}
+.wallet-summary-debit-text {
+  @apply text-rose-500;
+}
+.wallet-summary-net-text {
+  @apply text-brand-500;
+}
+.wallet-summary-footer {
+  @apply text-[11px] text-muted mt-4;
+}
+.notification-mobile {
+  width: 90vw !important;
+  font-size: 13px;
+}
+
+.notification-mobile .ant-notification-notice-message {
+  font-size: 14px;
+}
+
+.notification-mobile .ant-notification-notice-description {
+  font-size: 12px;
+}
+.ct-toolbar {
+  @apply flex flex-col lg:flex-row gap-3 w-full lg:items-center lg:justify-between;
+}
+
+.ct-toolbar-left {
+  @apply flex flex-col sm:flex-row gap-3 w-full lg:w-auto;
+}
+
+.ct-search-box {
+  @apply flex items-center gap-2 border border-border/30 rounded-lg px-3 py-2 w-full min-w-0;
+}
+
+@media (min-width: 768px) {
+  .ct-search-box {
+    width: 260px;
+  }
+}
+
+.ct-search-input {
+  @apply w-full min-w-0 border-none!;
+}
+
+.ct-active-box {
+  @apply flex items-center gap-2;
+}
+
+.ct-toolbar-right {
+  @apply flex items-center gap-2 flex-wrap lg:flex-nowrap;
+}
+
+.ct-icon-btn {
+  @apply flex items-center justify-center;
+}
+
+.ct-add-btn {
+  @apply px-3 md:px-4;
+}
+.status-chart-card {
+  @apply bg-surface border border-border/20 rounded-2xl shadow-sm
+  p-3 sm:p-4 md:p-5
+  flex flex-col
+  min-h-[420px] lg:min-h-[500px]
+  w-full overflow-hidden;
+}
+
+.status-chart-header {
+  @apply mb-4;
+}
+
+.status-chart-title {
+  @apply text-sm sm:text-base font-bold text-foreground;
+}
+
+.status-chart-subtitle {
+  @apply text-[11px] sm:text-xs text-muted;
+}
+
+.status-chart-loading {
+  @apply flex-1 flex items-center justify-center;
+}
+
+.status-chart-empty {
+  @apply flex-1 flex items-center justify-center text-muted text-sm;
+}
+
+.status-chart-wrapper {
+  @apply relative w-full
+  h-[240px]
+  sm:h-[200px]
+  md:h-[340px]
+  lg:h-[380px]
+  min-w-0;
+}
+
+.status-chart-center {
+  @apply absolute inset-0
+  flex flex-col
+  items-center justify-center
+  pointer-events-none;
+}
+
+.status-chart-total-label {
+  @apply text-[10px] sm:text-xs
+  text-muted font-semibold
+  uppercase tracking-wider;
+}
+
+.status-chart-total {
+  @apply text-2xl sm:text-3xl
+  font-extrabold text-foreground;
+}
+
+.status-chart-legend {
+  @apply grid
+  grid-cols-1 sm:grid-cols-3
+  gap-2 mt-4
+  text-center text-xs;
+}
+
+.status-chart-legend-card {
+  @apply rounded-xl
+  border border-border/20
+  p-2 sm:p-3
+  bg-surface
+  hover:shadow-sm
+  transition;
+}
+
+.status-chart-legend-top {
+  @apply flex items-center justify-center gap-1 mb-1;
+}
+
+.status-chart-legend-title {
+  @apply text-muted font-semibold truncate;
+}
+
+.status-chart-legend-value {
+  @apply text-foreground font-bold text-sm sm:text-base;
+}
+
+.status-dot {
+  @apply w-2 h-2 rounded-full;
+}
+
+.status-dot-0 {
+  @apply bg-green-500;
+}
+
+.status-dot-1 {
+  @apply bg-amber-500;
+}
+
+.status-dot-2 {
+  @apply bg-red-500;
+}
+
+.status-chart-tooltip {
+  @apply text-[11px] sm:text-xs rounded-xl border;
+}
+
+.status-chart-tooltip .recharts-default-tooltip {
+  @apply rounded-xl border text-xs;
+  
+  background-color: var(--surface) !important;
+  border-color: var(--border) !important;
+}
+.dashboard-grid {
+  @apply grid
+  grid-cols-1
+  xl:grid-cols-12
+  gap-5;
+}
+
+.dashboard-grid-large {
+  @apply xl:col-span-8;
+}
+
+.dashboard-grid-small {
+  @apply xl:col-span-4;
+}
+
+.dashboard-grid-table {
+  @apply xl:col-span-9;
+}
+
+.dashboard-grid-wallet {
+  @apply xl:col-span-3;
+}
+.ct-toolbar {
+  @apply flex
+  flex-col
+  gap-3
+  w-full;
+}
+
+.ct-mobile-search {
+  @apply w-full;
+}
+
+.ct-search-box {
+  @apply flex
+  items-center
+  gap-2
+
+  h-10
+
+  w-full
+
+  rounded-xl
+  border border-border/20
+
+  px-3
+
+  bg-surface;
+}
+
+.ct-search-icon {
+  @apply text-muted shrink-0;
+}
+
+.ct-search-input {
+  @apply bg-transparent
+  border-none!
+  shadow-none;
+}
+
+.ct-search-input {
+  box-shadow: none !important;
+}
+
+.ct-search-input:focus,
+.ct-search-input:focus-within,
+.ct-search-input.ant-input-focused {
+  box-shadow: none !important;
+  outline: none !important;
+  border: none !important;
+}
+.ct-toolbar-actions {
+  @apply flex
+  items-center
+  justify-between
+  lg:justify-end
+
+  gap-2
+
+  w-full;
+}
+
+.ct-active-box {
+  @apply flex
+  items-center
+  gap-2
+
+  h-10
+  px-3
+
+  rounded-xl
+  border border-border/20
+
+  bg-surface;
+}
+
+.ct-icon-toggle {
+  @apply flex
+  items-center
+  justify-center
+
+  w-10
+  h-10
+
+  rounded-xl
+  border border-border/20
+
+  bg-surface;
+}
+
+.ct-icon-btn {
+  @apply !w-10
+  !h-10
+  shrink-0;
+}
+
+.ct-add-btn {
+  @apply whitespace-nowrap
+  shrink-0;
+}
 }

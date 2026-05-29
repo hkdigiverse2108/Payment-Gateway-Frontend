@@ -50,15 +50,6 @@
   border: none;
 }
 
-.ant-input,
-.ant-input-affix-wrapper {
-  @apply bg-surface text-foreground border border-border;
-}
-.ant-input:focus,
-.ant-input-focused,
-.ant-input-affix-wrapper-focused {
-  @apply shadow-focus-ring;
-}
 .ant-select-selector {
   @apply bg-surface text-foreground border border-border rounded-none;
 }
@@ -75,7 +66,10 @@
   @apply bg-primary-dark border-primary-dark;
 }
 .ant-card {
-  @apply bg-surface text-foreground border border-border;
+  @apply bg-surface text-foreground! border! border-border/30!;
+}
+.ant-divider{
+  @apply bg-foreground!;
 }
 .ant-table {
   @apply bg-surface text-foreground;
@@ -226,13 +220,6 @@
 /* Password toggle */
 .password-toggle-icon {
   @apply flex items-center justify-center text-muted cursor-pointer;
-}
-.ant-input-clear-icon, .ant-input-suffix .anticon-close-circle {
-  cursor: pointer;
-  color: rgba(0,0,0,0.45);
-}
-.ant-input-suffix .anticon-close-circle:hover {
-  color: rgba(0,0,0,0.75);
 }
 .ant-pagination-prev .ant-pagination-disabled{
   @apply bg-surface;
@@ -1466,5 +1453,9 @@
     display: none !important;
   }
 }
+.gateway-tag {
+  @apply bg-surface! text-active! border! border-border/20!;
+}
+
 }
   

@@ -1,7 +1,7 @@
 import { Input, Switch, Dropdown, Checkbox } from "antd";
-import { FiSearch, FiColumns } from "react-icons/fi";
+import { FiSearch } from "react-icons/fi";
 import { CommonButton } from "../../../Attribute";
-import { IoSettingsSharp } from "react-icons/io5";
+import { IoSettingsSharp, IoDownloadOutline } from "react-icons/io5";
 
 const CommonTableToolbar = ({
   onSearch,
@@ -11,7 +11,9 @@ const CommonTableToolbar = ({
   columns,
   columnVisibility,
   setColumnVisibility,
+  onExport,
 }: any) => {
+
   const columnOptions = (columns ?? []).map((col: any) => ({
     label: col.title ?? col.dataIndex ?? "",
     value: col.key ?? col.dataIndex,
@@ -22,7 +24,8 @@ const CommonTableToolbar = ({
     .map(([k]) => k);
 
   const allSelected =
-    checkedList.length === columnOptions.length && columnOptions.length > 0;
+    checkedList.length === columnOptions.length &&
+    columnOptions.length > 0;
 
   const columnMenu = (
     <div className="column-menu">
@@ -42,7 +45,7 @@ const CommonTableToolbar = ({
           });
 
           setColumnVisibility(map);
-              }}
+        }}
       >
         Select All
       </Checkbox>
@@ -60,6 +63,7 @@ const CommonTableToolbar = ({
                   : checkedList.filter((v) => v !== opt.value);
 
                 const map: any = {};
+
                 columns.forEach((col: any) => {
                   const key = col.key ?? col.dataIndex;
                   map[key] = newList.includes(key);
@@ -75,26 +79,42 @@ const CommonTableToolbar = ({
     </div>
   );
 
-  return (
-    <div className="table-toolbar">
-      {/* LEFT */}
-      <div className="toolbar-left">
-        {onSearch && (
-          <div className="toolbar-search">
-            <FiSearch />
-            <Input
-              value={onSearch.value}
-              placeholder="Search..."
-              onChange={(e) => onSearch.onChange(e.target.value)}
-              bordered={false}
-            />
-          </div>
-        )}
+  const exportMenu = (
+    <div className="column-menu">
+      <div className="column-item cursor-pointer" onClick={onExport?.csv}>
+        Download CSV
       </div>
+      <div className="column-item cursor-pointer" onClick={onExport?.excel}>
+        Download Excel
+      </div>
+    </div>
+  );
+return (
+  <div className="ct-toolbar flex items-center w-full justify-between">
 
-      <div className="toolbar-center">
-        {onActive && (
-          <div className="toolbar-active">
+    {/* LEFT SIDE */}
+    <div className="ct-mobile-search flex-1 min-w-0">
+      {onSearch && (
+        <div className="ct-search-box flex items-center w-full">
+          <FiSearch className="ct-search-icon" />
+
+          <Input
+            className="ct-search-input border-none w-full"
+            value={onSearch.value}
+            placeholder="Search..."
+            onChange={(e) => onSearch.onChange(e.target.value)}
+          />
+        </div>
+      )}
+    </div>
+
+    {/* RIGHT SIDE */}
+    <div className="ct-toolbar-actions flex items-center gap-2 flex-shrink-0">
+
+      {/* ACTIVE SWITCH */}
+      {onActive && (
+        <>
+          <div className="hidden lg:flex items-center gap-2">
             <span>Active</span>
             <Switch
               size="small"
@@ -102,27 +122,49 @@ const CommonTableToolbar = ({
               onChange={onActive.onChange}
             />
           </div>
-        )}
-      </div>
 
-      {/* RIGHT */}
-      <div className="toolbar-right">
-        {columns && (
-          <Dropdown trigger={["click"]} dropdownRender={() => columnMenu}>
-            <CommonButton variant="icon-only" className="icon-btn">
+          <div className="lg:hidden">
+            <Switch
+              size="small"
+              checked={onActive.value}
+              onChange={onActive.onChange}
+            />
+          </div>
+        </>
+      )}
+
+      {/* EXPORT */}
+      {onExport && (
+        <Dropdown trigger={["click"]} popupRender={() => exportMenu}>
+          <div>
+            <CommonButton variant="icon-only" className="ct-icon-btn">
+              <IoDownloadOutline />
+            </CommonButton>
+          </div>
+        </Dropdown>
+      )}
+
+      {/* SETTINGS */}
+      {columns && (
+        <Dropdown trigger={["click"]} popupRender={() => columnMenu}>
+          <div>
+            <CommonButton variant="icon-only" className="ct-icon-btn">
               <IoSettingsSharp />
             </CommonButton>
-          </Dropdown>
-        )}
+          </div>
+        </Dropdown>
+      )}
 
-        {onAdd && (
-          <CommonButton className="add-btn">
-            {addLabel || "+ Add"}
-          </CommonButton>
-        )}
-      </div>
+      {/* ADD BUTTON */}
+      {onAdd && (
+        <CommonButton className="ct-add-btn" onClick={onAdd}>
+          {addLabel || "+ Add"}
+        </CommonButton>
+      )}
+
     </div>
-  );
+  </div>
+);
 };
 
 export default CommonTableToolbar;

@@ -4,7 +4,7 @@ export const handleCashfree = async ({ response, traId, payload }: any) => {
     const session = response?.paymentSession;
     const sessionId = session?.payment_session_id || response?.payment_session_id;
     const cashfreeOrderId = session?.order_id || response?.order_id;
-    const statusOrderId = traId || cashfreeOrderId || payload?.orderId;
+    const statusOrderId = payload?.orderId || cashfreeOrderId || traId;
 
     if (!sessionId) {
         console.error("Missing Cashfree Session ID");

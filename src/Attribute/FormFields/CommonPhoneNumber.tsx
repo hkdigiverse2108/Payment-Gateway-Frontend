@@ -35,13 +35,12 @@ export const CommonPhoneNumber = ({ name, label, required }: CommonPhoneNumberPr
       validateStatus={hasError ? "error" : ""}
       help={hasError ? meta.error : ""}
       className="commoninput-wrapper"
-    >
+    > 
       <div
         className={`commoninput-container flex items-center border rounded-lg bg-surface transition-all h-12 relative ${
           hasError ? "border-red-500" : isFocused ? "border-brand-500 ring-4 ring-brand-500/20" : "border-border/50"
         }`}
       >
-        {/* Country Selector */}
         <Select
           showSearch
           value={country}
@@ -49,7 +48,6 @@ export const CommonPhoneNumber = ({ name, label, required }: CommonPhoneNumberPr
           options={countryOptions}
           placeholder="Country"
           variant="borderless"
-          dropdownStyle={{ zIndex: 10000 }}
           style={{
             width: 130,
             height: "100%",
@@ -61,10 +59,12 @@ export const CommonPhoneNumber = ({ name, label, required }: CommonPhoneNumberPr
         />
 
         {/* Divider */}
-        <div className="w-[1px] h-6 bg-border/30 self-center" />
+        <div className="w-px h-6 bg-border/30 self-center" />
 
         {/* Phone Input */}
         <Input
+          name={name}
+          id={name}
           value={field.value}
           onChange={handlePhoneChange}
           onFocus={() => setIsFocused(true)}

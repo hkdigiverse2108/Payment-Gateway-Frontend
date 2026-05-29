@@ -11,7 +11,6 @@ const WalletBalance = () => {
   const { data: activityData, isLoading } = Queries.useGetWalletActivity({});
   const [filter, setFilter] = useState<"all" | "credit" | "debit">("all");
   const balance = balanceData?.data?.walletBalance ?? 0;
-  console.log("balance: ", balance);
   const activities = activityData?.data?.data || [];
   const stats = activityData?.data?.stats || { totalCredits: 0, totalDebits: 0 };
   const filtered = useMemo(

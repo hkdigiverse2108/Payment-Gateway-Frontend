@@ -9,7 +9,7 @@ const CommonBottomActionBar: FC<CommonBottomActionBarProps> = ({ children, isLoa
   const navigate = useNavigate();
   return (
     <div
-      className={`commonbutton-actionbar-main ${isExpanded || isHovered
+      className={`c-action-bar ${isExpanded || isHovered
         ? "lg:ml-[273px] lg:w-[calc(100%-290px)]"
         : "lg:ml-[90px] lg:w-[calc(100%-90px)]"
       }`}

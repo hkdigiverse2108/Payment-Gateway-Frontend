@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { ReactNode, FocusEvent } from "react";
+import type { ReactNode, FocusEvent, ElementType } from "react";
 import * as Yup from "yup";
 import type { ColumnsType, ColumnType } from "antd/es/table";
 import type { ColProps, InputProps, TableProps, MenuProps, ButtonProps } from "antd";
 import type { SorterResult, FilterValue } from "antd/es/table/interface";
+import type { UserFormValues } from "./User";
 
 export type ApiResponse<T = unknown> = {
     status: number;
@@ -557,4 +558,32 @@ export type CommonBadgeProps = {
     label?: string;
     variant?: CommonBadgeVariant;
     uppercase?: boolean;
+};
+
+export type EditableField = {
+    name: keyof UserFormValues;
+    label: string;
+    type?: "number" | "text" | "password" | "email";
+    icon: ElementType;
+    prefix?: string;
+};
+
+export type FieldSection = {
+    title: string;
+    description: string;
+    icon: ElementType;
+    fields: EditableField[];
+};
+
+
+export type TransactionStatusModalProps = {
+    isOpen: boolean;
+    onClose: () => void;
+    orderId: string | null;
+};
+
+export type DetailItemProps = {
+    label: string;
+    value?: string | number | null;
+    copyable?: boolean;
 };

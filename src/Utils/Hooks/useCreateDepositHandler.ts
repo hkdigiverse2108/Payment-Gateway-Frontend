@@ -48,7 +48,7 @@ export const useCreateDepositHandler = ({ users, currentUser, createDeposit, toa
                 localStorage.setItem(
                     "paymentSession",
                     JSON.stringify({
-                        orderId: dataRes?.orderId || dataRes?.traId,
+                        orderId: dataRes?.orderId || payload.orderId,
                         traId: dataRes?.traId,
                         gateway: activeGateway,
                         merchantTransactionId: dataRes?.merchantTransactionId || sessionData?.merchantTransactionId,

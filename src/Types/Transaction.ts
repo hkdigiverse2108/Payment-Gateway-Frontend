@@ -19,16 +19,29 @@ export interface TransactionBase extends CommonDataType {
     orderId: string;
     traId: string;
     type: string;
+    gateway?: string;
+    paymentMethod?: string;
     amount: number;
     status: string;
     paymentStatus: string;
+    accountDetails?: {
+        bankName?: string;
+        accountNumber?: string;
+        ifscCode?: string;
+        accountHolderName?: string;
+        branch?: string;
+    };
     utr?: string;
     brand?: string;
+    remarks?: string;
+    rejectionReason?: string;
+    isSandbox?: boolean;
     userId?: string;
     metadata?: {
         customerName?: string;
         customerPhone?: string;
         customerEmail?: string;
+        [key: string]: unknown;
     };
 }
 export interface TransactionDataResponse extends PageStatus {

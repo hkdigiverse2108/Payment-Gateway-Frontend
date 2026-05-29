@@ -179,7 +179,7 @@ const User = () => {
           columnVisibility={columnVisibility}
           setColumnVisibility={setColumnVisibility}
       />
-        <CommonTable<UserFormValues>
+        <CommonTable<any>
           rowKey={(record) => record._id?.toString() ?? ''}
           dataSource={userList}
           columns={filteredColumns}

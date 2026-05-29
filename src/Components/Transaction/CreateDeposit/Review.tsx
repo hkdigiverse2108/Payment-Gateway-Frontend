@@ -1,4 +1,5 @@
 import { ShieldCheck, Mail, Phone, User, Landmark } from "lucide-react";
+import { GATEWAYS } from "../../../Data";
 
 const Review = ({ data }: any) => {
   const formattedAmount = Number(data.amount || 0).toLocaleString('en-IN', {
@@ -6,6 +7,8 @@ const Review = ({ data }: any) => {
     currency: 'INR',
     minimumFractionDigits: 2
   });
+
+  const gatewayInfo = GATEWAYS.find((g) => g.key === data.gateway);
 
   return (
     <div className="review-wrapper max-w-md mx-auto space-y-6 animate-fade">
@@ -28,9 +31,13 @@ const Review = ({ data }: any) => {
             <span className="text-[10px] font-bold text-brand-500 uppercase tracking-wider">Deposit Invoice</span>
             <h4 className="text-xs font-mono text-muted mt-0.5">INV-{Date.now().toString().slice(-8)}</h4>
           </div>
-          <span className="inline-flex px-2.5 py-0.5 text-[10px] font-bold rounded-full uppercase bg-brand-500/10 text-brand-500 border border-brand-500/20">
-            {data.gateway || "SANDBOX"}
-          </span>
+          {gatewayInfo ? (
+            <img src={gatewayInfo.logo} alt={gatewayInfo.name} className="h-6 object-contain" />
+          ) : (
+            <span className="inline-flex px-2.5 py-0.5 text-[10px] font-bold rounded-full uppercase bg-brand-500/10 text-brand-500 border border-brand-500/20">
+              {data.gateway || "SANDBOX"}
+            </span>
+          )}
         </div>
 
         {/* Big Amount */}

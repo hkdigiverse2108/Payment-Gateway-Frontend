@@ -33,7 +33,7 @@ const ChangePassword = () => {
     <div className="space-y-6">
       <CommonBreadcrumbs title="Change Password" breadcrumbs={BREADCRUMBS.CHANGE_PASSWORD.BASE} />
       <CommonCard className="p-0">
-        <div className="password-card-wrapper">
+        <div className="password-card-wrapper border-red">
           <div className="password-profile-header">
             <div className="password-avatar"> {user?.name?.charAt(0)?.toUpperCase()} </div>
             <div className="flex-1">
@@ -64,5 +64,5 @@ const ChangePassword = () => {
     </div>
   );
 };
-
+ 
 export default ChangePassword;

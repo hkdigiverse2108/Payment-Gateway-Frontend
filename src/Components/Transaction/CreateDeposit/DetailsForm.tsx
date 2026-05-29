@@ -3,11 +3,13 @@ import { forwardRef, useImperativeHandle, useRef } from "react";
 import { CommonInput, CommonSelect } from "../../../Attribute";
 import { CustDetailsSchema } from "../../../Utils";
 import { useAppSelector } from "../../../Store";
+import { GATEWAYS } from "../../../Data";
 
 const DetailsForm = forwardRef( ({ onNext, initialValues, users = [], isAdmin }: any, ref) => {
     const formikRef = useRef<any>(null);
     const currentUser = useAppSelector((state) => state.auth.user);
     useImperativeHandle(ref, () => ({ submitForm: () => formikRef.current?.submitForm(), }));
+    const gatewayInfo = GATEWAYS.find((g) => g.key === initialValues.gateway);
     return (
       <Formik innerRef={formikRef} enableReinitialize validationSchema={CustDetailsSchema} initialValues={{
           userId: currentUser.userId,
@@ -26,11 +28,15 @@ const DetailsForm = forwardRef( ({ onNext, initialValues, users = [], isAdmin }:
               </p>
             </div>
             <div className="border border-border/50 rounded-2xl p-4 bg-surface space-y-3">
-              <div className="flex justify-between text-sm">
+              <div className="flex justify-between items-center text-sm">
                 <span className="text-gray-500">Gateway</span>
-                <span className="font-medium capitalize">
-                  {initialValues.gateway || "-"}
-                </span>
+                {gatewayInfo ? (
+                  <img src={gatewayInfo.logo} alt={gatewayInfo.name} className="h-6 object-contain" />
+                ) : (
+                  <span className="font-medium capitalize">
+                    {initialValues.gateway || "-"}
+                  </span>
+                )}
               </div>
               <div className="pt-3 border-t border-border/50 flex justify-between items-center">
                 <span className="text-gray-500 text-sm">Amount</span>

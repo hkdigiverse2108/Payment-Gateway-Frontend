@@ -4,41 +4,51 @@ import type { AdvancedSearchProps } from "../../Types";
 import { CommonSelect } from "../../Attribute/FormFields/CommonSelect";
 import { useState } from "react";
 
-const { Panel } = Collapse;
-
 export const AdvancedSearch: FC<AdvancedSearchProps> = ({ children, filter = [] }) => {
   const [activeKey, setActiveKey] = useState<string[]>([]);
   if (!filter.length && !children) return null;
   return (
-    <Collapse activeKey={activeKey} onChange={(keys) => setActiveKey(keys as string[])} className="advanced-search" bordered={false} style={{ background: "transparent" }} >
-      <Panel header={
-          <span className="text-sm font-bold text-foreground">
-            Advanced Search
-          </span>
-        }
-        key="1" className="advanced-search-panel" style={{ border: "none" }} >
-        <div className="advanced-search-body" style={{ width: "100%" }}>
-          <Row gutter={[16, 12]} align="top" style={{ width: "100%", margin: 0 }} >
-            {filter.map((item, i) => (
-              <Col key={i}
-                {...(item.grid || { xs: 24, sm: 12, md: 8 })}
-                style={{ display: "flex", flexDirection: "column", gap: "4px", marginBottom: 0 }} >
-                {item.label && (
-                  <span className="text-xs font-semibold uppercase tracking-wider text-muted">
-                    {item.label}
-                  </span>
+    <Collapse
+      activeKey={activeKey}
+      onChange={(keys) => setActiveKey(keys as string[])}
+      className="advanced-search"
+      bordered={false}
+      style={{ background: "transparent" }}
+      items={[
+        {
+          key: "1",
+          label: (
+            <span className="text-sm font-bold text-foreground"> Advanced Search </span>
+          ),
+          className: "advanced-search-panel",
+          children: (
+            <div className="advanced-search-body" style={{ width: "100%" }} >
+              <Row gutter={[16, 12]} align="top" style={{ width: "100%", margin: 0 }} >
+                {filter.map((item, i) => (
+                  <Col
+                    key={i}
+                    {...(item.grid || { xs: 24, sm: 12, md: 8 })}
+                    style={{ display: "flex", flexDirection: "column", gap: "4px", marginBottom: 0 }} >
+                    {item.label && (
+                      <span className=" text-xs font-semibold uppercase tracking-wider text-muted " >
+                        {item.label}
+                      </span>
+                    )}
+                    <div className="commonselect-container">
+                      <CommonSelect label="" options={item.options} value={item.value} onChange={(val) => item.onChange?.(val) } multiple={item.multiple} limitTags={item.limitTags ?? 1} isLoading={item.isLoading} />
+                    </div>
+                  </Col>
+                ))}
+                {children && (
+                  <Col span={24} style={{ marginTop: "4px" }} >
+                    {children}
+                  </Col>
                 )}
-                <div className="commonselect-container">
-                  <CommonSelect label="" options={item.options} value={item.value} onChange={(val) => item.onChange?.(val)} multiple={item.multiple} limitTags={item.limitTags ?? 1} isLoading={item.isLoading} />
-                </div>
-              </Col>
-            ))}
-            {children && (
-              <Col span={24} style={{ marginTop: "4px" }}> {children} </Col>
-            )}
-          </Row>
-        </div>
-      </Panel>
-    </Collapse>
+              </Row>
+            </div>
+          ),
+        },
+      ]}
+    />
   );
 };

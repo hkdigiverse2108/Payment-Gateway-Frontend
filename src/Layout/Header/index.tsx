@@ -53,7 +53,7 @@ const Header = ({ onOpenDrawer }: HeaderProps) => {
         <HeaderBrand />
       </div>
 
-      {!isMobile && (
+      {/* {!isMobile && (
         <div className="flex-1 max-w-md mx-8">
           <Input
             ref={searchInputRef}
@@ -67,7 +67,7 @@ const Header = ({ onOpenDrawer }: HeaderProps) => {
             className="h-10 w-full rounded-xl bg-surface border-border/20 text-foreground placeholder:text-muted focus:ring-4 focus:ring-brand-500/20 focus:border-brand-500 transition-all"
           />
         </div>
-      )}
+      )} */}
 
       <div className="app-header-right">
         <HeaderActions />

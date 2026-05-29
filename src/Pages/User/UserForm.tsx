@@ -36,8 +36,7 @@ const UserForm = ({ open, onClose, editingRecord, onAdd, onEdit, isAddLoading, i
       title={editingRecord ? "Edit User" : "Create User"}
       open={open}
       onClose={onClose}
-      width={500}
-      destroyOnClose
+      size={500}
       mask={true}
       styles={{
         mask: {

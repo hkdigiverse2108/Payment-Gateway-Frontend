@@ -143,6 +143,15 @@
 
   --tableback: rgb(237, 237, 225);
 
+  --dashboard-chart-blue: #8b5cf6;
+  --dashboard-chart-blue-soft: rgba(37, 99, 235, 0.38);
+  --dashboard-chart-deposit: #8b5cf6;
+  --dashboard-chart-withdraw: #ef4444;
+  --dashboard-chart-grid: rgba(102, 112, 133, 0.2);
+  --dashboard-chart-axis: rgba(31, 31, 31, 0.38);
+  --dashboard-chart-border: rgba(102, 112, 133, 0.24);
+  --dashboard-chart-hover: rgba(37, 99, 235, 0.08);
+
   --ant-layout-body-bg: var(--background);
 
   --cb-hover: rgba(0, 0, 0, 0.06);
@@ -179,6 +188,15 @@
   --blue-100: var(--color-brand-100);
 
   --tableback: rgb(37, 37, 36);
+
+  --dashboard-chart-blue: #8b5cf6;
+  --dashboard-chart-blue-soft: rgba(96, 165, 250, 0.34);
+  --dashboard-chart-deposit: #8b5cf6;
+  --dashboard-chart-withdraw: #f87171;
+  --dashboard-chart-grid: rgba(160, 160, 176, 0.22);
+  --dashboard-chart-axis: rgba(255, 255, 255, 0.36);
+  --dashboard-chart-border: rgba(160, 160, 176, 0.24);
+  --dashboard-chart-hover: rgba(96, 165, 250, 0.12);
 
   --ant-layout-body-bg: var(--background);
 

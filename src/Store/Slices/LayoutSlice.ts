@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { STORAGE_KEYS } from "../../Constants";
-import { Storage } from "../../Utils";
+import { Storage as StorageUtil } from "../../Utils";
 import type { LayoutStateProps } from "../../Types";
 
-const storedTheme = Storage.getItem(STORAGE_KEYS.THEME) || "light";
+const storedTheme = StorageUtil.getItem(STORAGE_KEYS.THEME) || "light";
 if (storedTheme === "dark") document.documentElement.classList.add("dark");
 else document.documentElement.classList.remove("dark");
 const initialState: LayoutStateProps = {
@@ -45,7 +45,7 @@ const layoutSlice = createSlice({
         },
         setToggleTheme: (state, action) => {
             state.isToggleTheme = action.payload;
-            Storage.setItem(STORAGE_KEYS.THEME, action.payload);
+            StorageUtil.setItem(STORAGE_KEYS.THEME, action.payload);
             if (action.payload === "dark") document.documentElement.classList.add("dark");
             else document.documentElement.classList.remove("dark");
         },

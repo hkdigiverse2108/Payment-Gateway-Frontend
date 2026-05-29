@@ -32,6 +32,10 @@ const CreateDeposit = () => {
   const [clientSecret] = useState<string | null>(null);
   const back = () => setStep((s) => Math.max(s - 1, 0));
   const next = () => {
+    if (step === 0 && !data.gateway) {
+      toast.error("Please select a payment gateway to continue.");
+      return;
+    }
     if (step === 1) formRef.current?.submitForm();
     else setStep((s) => Math.min(s + 1, 2));
   };
@@ -67,7 +71,14 @@ const CreateDeposit = () => {
             <CommonButton disabled={step === 0} onClick={back} variant="ghost" icon={<ArrowLeft className="w-4 h-4" />}
             > Back </CommonButton>
             {step < 2 ? (
-              <CommonButton onClick={next} variant="primary" icon={<ArrowRight className="w-4 h-4" />} > Continue </CommonButton>
+              <CommonButton 
+                onClick={next} 
+                disabled={step === 0 && !data.gateway} 
+                variant="primary" 
+                icon={<ArrowRight className="w-4 h-4" />} 
+              > 
+                Continue 
+              </CommonButton>
             ) : (
               <CommonButton onClick={onConfirm} variant="primary" className="commonbtn-lg"  >
                 {data.gateway === "stripe" ? "Proceed to Payment" : "Confirm & Pay"}

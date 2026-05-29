@@ -1,15 +1,34 @@
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { PhoneOutlined, MailOutlined, PrinterOutlined, DownloadOutlined, DropboxOutlined, ShareAltOutlined, ReloadOutlined } from "@ant-design/icons";
-import { Card, Button, Typography, Tag, Space, Divider, Row, Col } from "antd";
+import { Download, Mail, Phone, Printer, ReceiptText, RefreshCw, Share2, User, } from "lucide-react";
+import { message } from "antd";
 import { Queries } from "../../Api";
 import CommonLoader from "../Common/CommonLoader";
 import CommonBreadcrumbs from "../Common/CommonBreadcrumbs";
 import { PAGE_TITLE } from "../../Constants";
-import { BREADCRUMBS } from "../../Data";
-import { statusColorMap } from "../../Types";
+import { BREADCRUMBS, statusStyles } from "../../Data";
+import { CommonBadge, CommonStatusBadge } from "../Common/CommonStatusBadge";
+import { CommonButton } from "../../Attribute";
+import CopyableText from "../Common/CopyableText";
+import { DetailItem } from "../Common/CommonDetailRow";
 
-const { Text, Title } = Typography;
+const normalizeStatus = (status?: string) => {
+  const value = String(status || "failed").toLowerCase();
+  if (["success", "completed", "succeeded"].includes(value)) return "success";
+  if (["pending", "processing"].includes(value)) return "pending";
+  return "failed";
+};
+
+const formatAmount = (amount?: string | number | null) => {
+  const numericAmount = Number(amount);
+  if (!Number.isFinite(numericAmount)) return "-";
+
+  return numericAmount.toLocaleString("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 2,
+  });
+};
 
 const TransactionDetails = () => {
   const { id } = useParams();
@@ -20,111 +39,133 @@ const TransactionDetails = () => {
   if (isLoading) return <CommonLoader fullPage tip="Loading..." />;
   if (error || !transaction) return <CommonLoader fullPage tip="Not found" />;
   const isDeposit = transaction.type?.toLowerCase() === "deposit";
+  const statusKey = normalizeStatus(transaction.status || transaction.paymentStatus);
+  const StatusIcon = statusStyles[statusKey].icon;
+  const customer = transaction?.metadata || {};
+  const referenceId = transaction.orderId || transaction.traId || transaction._id;
   const handleExport = () => {
-  const row = {
-    id: transaction._id,
-    orderId: transaction.orderId,
-    amount: transaction.amount,
-    type: transaction.type,
-    status: transaction.status,
-  };
+    const row = {
+      id: transaction._id,
+      orderId: transaction.orderId,
+      transactionId: transaction.traId,
+      amount: transaction.amount,
+      type: transaction.type,
+      status: transaction.status,
+      paymentStatus: transaction.paymentStatus,
+      utr: transaction.utr,
+      customerName: customer.customerName,
+      customerPhone: customer.customerPhone,
+      customerEmail: customer.customerEmail,
+    };
 
-  const csv = Object.entries(row)
-      .map(([k, v]) => `${k},${v}`)
+    const csv = Object.entries(row)
+      .map(([key, value]) => `${key},${value ?? ""}`)
       .join("\n");
 
     const blob = new Blob([csv], { type: "text/csv" });
-
     const url = window.URL.createObjectURL(blob);
+
     const a = document.createElement("a");
     a.href = url;
     a.download = `transaction-${id}.csv`;
     a.click();
+
+    window.URL.revokeObjectURL(url);
   };
-  const handleShare = () => {
-    navigator.clipboard.writeText(window.location.href);
+
+  const handleShare = async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    message.success("Link copied");
   };
+
   return (
     <>
       <CommonBreadcrumbs title={PAGE_TITLE.TRANSACTIONS.DETAILS} maxItems={1} breadcrumbs={BREADCRUMBS.TRANSACTIONS.DETAILS} />
-      <div className="tx-page">
-        <Row className="tx-header">
-          <Col className="tx-heading">
-            <Title level={4} className="tx-title"> Transaction History </Title>
-            <Text className="tx-subtitle">
-              Transactions / #{transaction.orderId || transaction.traId}
-            </Text>
-          </Col>
-          <Space className="tx-header-actions">
-            {/* <Button shape="circle" icon={<PrinterOutlined />} onClick={() => window.print()} />
-            <Button shape="circle" icon={<DownloadOutlined />} onClick={() => alert("download")} /> */}
-            <Button shape="circle" icon={<ShareAltOutlined />} onClick={handleShare} />
-            <Button shape="circle" icon={<DropboxOutlined />} onClick={handleExport} /> 
-            <Button shape="circle" icon={<ReloadOutlined />} onClick={() => window.location.reload()} />
-          </Space>
-        </Row>
-        <div className="print-area">
-          <Card className="tx-card">
-            <Row gutter={[24, 24]} align="middle" className="tx-primary-row">
-              <Col xs={24} lg={10} className="tx-id-col">
-                <Text className="tx-id-label">ID Payment</Text>
-                <Title level={2} className="tx-id"> #{transaction.orderId || transaction.traId} </Title>
-                <Space wrap className="tx-tags">
-                  <Tag className="tx-tag" color={isDeposit ? "green" : "red"}> {transaction.type} </Tag>
-                  <Tag className="tx-tag" color={statusColorMap[transaction.status] || "default"}>{transaction.status} </Tag>
-                </Space>
-              </Col>
-              <Col xs={24} sm={12} lg={8} className="tx-contact-col text-center">
-                <Space direction="vertical" size={12} className="tx-contact-stack">
-                  <div className="tx-contact-item">
-                    <PhoneOutlined />
-                    <Text>{transaction?.metadata?.customerPhone || "-"}</Text>
+      <div className="space-y-6 animate-fade">
+        <section className={`overflow-hidden rounded-2xl border ${statusStyles[statusKey].border} bg-surface shadow-sm`}>
+          <div className={`border-b ${statusStyles[statusKey].border} ${statusStyles[statusKey].bg} p-5`}>
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+              <div className="flex items-start gap-4">
+                <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-surface shadow-sm ${statusStyles[statusKey].text}`}>
+                  <StatusIcon className="h-7 w-7" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-bold uppercase text-muted">Transaction Details</p>
+                  <div className="mt-1">
+                    <CopyableText value={String(referenceId)} label="Reference ID" />
                   </div>
-                  <div className="tx-contact-item">
-                    <MailOutlined />
-                    <Text>{transaction?.metadata?.customerEmail || "-"}</Text>
-                  </div>
-                  <Space wrap className="tx-action-buttons">
-                    <Button icon={<PrinterOutlined />} onClick={() => window.print()} > Print </Button>
-                    <Button type="primary" icon={<DownloadOutlined />} > Download </Button>
-                  </Space>
-                </Space>
-              </Col>
-              <Col xs={24} sm={12} lg={6}>
-                <div className="tx-amount-box">
-                  <Text className="tx-amount-label">Amount</Text>
-                  <div className={`tx-amount-value ${ isDeposit ? "text-success" : "text-warning" }`} >
-                    ₹ {transaction.amount}
+                  <div className="mt-3 flex flex-wrap items-center gap-2">
+                    <CommonBadge label={transaction.type} variant={isDeposit ? "success" : "danger"} uppercase />
+                    <CommonStatusBadge status={transaction.status || statusStyles[statusKey].label} />
+                    {transaction.paymentStatus && <CommonStatusBadge status={transaction.paymentStatus} />}
                   </div>
                 </div>
-              </Col>
-            </Row>
-            <Divider className="tx-divider" />
-            <Row gutter={[24, 20]} className="tx-detail-row">
-              <Col xs={24} lg={6} className="tx-customer-col">
-                <Title level={5} className="tx-customer-name"> {transaction?.metadata?.customerName || "Unknown"} </Title>
-                <Text className="tx-subtitle"> {transaction?.metadata?.customerEmail} </Text>
-              </Col>
-              <Col xs={24} lg={18}>
-                <Row gutter={[16, 16]}>
-                  {[
-                    // ["Payment Method", transaction.gateway],
-                    ["Order ID", transaction.orderId],
-                    ["Transaction ID", transaction.traId],
-                    ["Status", transaction.status],
-                    ["Type", transaction.type],
-                    ["Amount", `₹ ${transaction.amount}`],
-                  ].map(([label, value]) => (
-                    <Col xs={24} sm={12} xl={8} key={label}>
-                      <Text className="tx-label">{label}</Text>
-                      <div className="tx-detail-value">{value || "-"}</div>
-                    </Col>
-                  ))}
-                </Row>
-              </Col>
-            </Row>
-          </Card>
-        </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2 sm:flex">
+                <CommonButton variant="icon-only" icon={<Share2 className="h-4 w-4" />} onClick={handleShare}>
+                  Share
+                </CommonButton>
+                <CommonButton variant="icon-only" icon={<Printer className="h-4 w-4" />} onClick={() => window.print()}>
+                  Print
+                </CommonButton>
+                <CommonButton variant="icon-only" icon={<Download className="h-4 w-4" />} onClick={handleExport}>
+                  Export
+                </CommonButton>
+                <CommonButton variant="icon-only" icon={<RefreshCw className="h-4 w-4" />} onClick={() => window.location.reload()}>
+                  Refresh
+                </CommonButton>
+              </div>
+            </div>
+          </div>
+          <div className="responsive-grid p-[var(--space-5)]">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <DetailItem label="Amount" value={formatAmount(transaction.amount)} />
+              <DetailItem label="Type" value={transaction.type} />
+              <DetailItem label="Status" value={statusStyles[statusKey].label} />
+            </div>
+            <div className="rounded-2xl border border-border/20 bg-tableback/20 p-4">
+              <div className="flex items-center gap-2 text-xs md:text-sm text-muted">
+                <User className="h-4 w-4" />
+                Customer
+              </div>
+
+              <p className="text-sm md:text-base font-black text-foreground">
+                {customer.customerName || "Unknown"}
+              </p>
+
+              <div className="mt-3 space-y-2 text-sm text-muted">
+                <div className="flex items-center gap-2">
+                  <Phone className="h-4 w-4" />
+                  <span>{customer.customerPhone || "-"}</span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Mail className="h-4 w-4" />
+                  <span>{customer.customerEmail || "-"}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* REFERENCE SECTION */}
+        <section className="rounded-2xl border border-border/20 bg-surface p-5 shadow-sm">
+          <div className="mb-5 flex items-center gap-3">
+            <ReceiptText className="h-5 w-5 text-muted" />
+            <div>
+              <h3 className="text-sm md:text-base font-black text-foreground">Reference Information</h3>
+              <div className="text-xs md:text-sm text-muted">Identifiers and payment tracking values.</div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+            <DetailItem label="Order ID" value={transaction.orderId} copyable />
+            <DetailItem label="Transaction ID" value={transaction.traId} copyable />
+            <DetailItem label="UTR" value={transaction.utr} copyable />
+            <DetailItem label="Status" value={transaction.status} />
+            <DetailItem label="Payment Status" value={transaction.gateway} />
+          </div>
+        </section>
       </div>
     </>
   );

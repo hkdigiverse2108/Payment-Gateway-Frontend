@@ -1,4 +1,78 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+/* -------------------------------------------------
+   Global design tokens (colors, spacing, typography)
+   ------------------------------------------------- */
+:root {
+  /* Typography scaling – base font size changes per breakpoint */
+  --font-base: 14px;               /* xs  <640px */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  /* Colour tokens – adapt to light/dark via data-theme attribute elsewhere */
+  --bg-surface: hsl(210,20%,98%);
+  --bg-surface-dark: hsl(210,20%,12%);
+  --text-foreground: hsl(210,5%,10%);
+  --text-foreground-dark: hsl(210,5%,90%);
+}
+
+/* Break‑points – only adjust the root font size */
+@media (min-width: 640px) { :root { --font-base: 15px; } }   /* sm */
+@media (min-width: 768px) { :root { --font-base: 16px; } }   /* md */
+@media (min-width: 1024px) { :root { --font-base: 16px; } }  /* lg – unchanged */
+
+html, body { overflow-x: hidden; }
+
+/* -------------------------------------------------
+   Utility helpers (mobile‑first)
+   ------------------------------------------------- */
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.responsive-grid {
+  display: grid;
+  grid-template-columns: 1fr;   /* xs & sm */
+  gap: var(--space-4);
+}
+@media (min-width: 768px) {
+  .responsive-grid { grid-template-columns: 1fr 320px; }
+}
+
+/* -------------------------------------------------
+   Existing toolbar styles (unchanged logic, now use variables)
+   ------------------------------------------------- */
+.table-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+  justify-content: space-between;
+}
+.toolbar-left,
+.toolbar-center,
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+/* Mobile layout: stack items vertically */
+@media (max-width: 640px) {
+  .table-toolbar { flex-direction: column; align-items: stretch; }
+  .toolbar-left,
+  .toolbar-center,
+  .toolbar-right { width: 100%; justify-content: space-between; }
+  .toolbar-right { justify-content: flex-start; flex-wrap: wrap; gap: var(--space-2); }
+}
+
+/* Ensure dropdown menu adapts */
+.column-menu { min-width: 12rem; }
+@media (max-width: 480px) { .column-menu { min-width: 100%; } }
+
 @import "tailwindcss";
 @import "../public/assets/css/style.css";

@@ -1,4 +1,4 @@
-import { MenuFoldOutlined, MenuUnfoldOutlined, MenuOutlined, SearchOutlined } from "@ant-design/icons";
+import { MenuFoldOutlined, MenuUnfoldOutlined, MenuOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../Store";
 import { setToggleSidebar } from "../../Store/Slices/LayoutSlice";
 import HeaderBrand from "./HeaderBrand";
@@ -7,7 +7,6 @@ import { useMediaQuery } from "react-responsive";
 import { CommonButton } from "../../Attribute";
 import type { HeaderProps } from "../../Types";
 import { useEffect, useRef } from "react";
-import { Input } from "antd";
 
 const Header = ({ onOpenDrawer }: HeaderProps) => {
   const dispatch = useAppDispatch()

@@ -114,7 +114,7 @@ export interface CommonButtonProps extends Omit<ButtonProps, "variant"> {
   children?: ReactNode;
   className?: string;
   disabled?: boolean;
-  variant?: "primary" | "ghost" | "danger" | "icon-only";
+  variant?: "primary" | "ghost" | "danger" | "icon-only" | "plain";
 }
 export type SearchControl = {
     value?: string;

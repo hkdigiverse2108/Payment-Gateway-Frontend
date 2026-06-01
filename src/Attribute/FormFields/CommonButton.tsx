@@ -8,6 +8,9 @@ export const CommonButton: FC<CommonButtonProps> = ({ loading, title, children, 
     case "primary":
       variantClasses = "commonbtn-primary";
       break;
+    case "plain":
+      variantClasses = "commonbtn-plain";
+      break;
     case "ghost":
       variantClasses = "commonbtn-ghost";
       break;

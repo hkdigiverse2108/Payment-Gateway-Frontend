@@ -1,8 +1,8 @@
 import { Skeleton } from "antd";
-import { AlertTriangle, CheckCircle2, Clock, CreditCard, IndianRupee, UsersRound } from "lucide-react";
+import { AlertTriangle, CheckCircle2, CreditCard, IndianRupee, UsersRound } from "lucide-react";
 import { formatCurrency } from "../../Utils/FormatHelper";
 
-const KpiCards = ({ loading, totalTrans, totalVolume, todayRevenue, monthRevenue, successRate, failureRate, pendingCount, activeUsers }: any) => {
+const KpiCards = ({ loading, totalTrans, totalVolume, todayRevenue, monthRevenue, successRate, failureRate, activeUsers }: any) => {
   const cards = [
     {
       title: "Revenue Today",
@@ -38,13 +38,6 @@ const KpiCards = ({ loading, totalTrans, totalVolume, todayRevenue, monthRevenue
       detail: "Failed payment ratio",
       icon: <AlertTriangle className="w-5 h-5" />,
       type: "danger",
-    },
-    {
-      title: "Pending Queue",
-      value: pendingCount,
-      detail: "Awaiting settlement",
-      icon: <Clock className="w-5 h-5" />,
-      type: "warning",
     },
     {
       title: "Active Users",

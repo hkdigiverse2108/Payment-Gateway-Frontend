@@ -4,36 +4,20 @@ import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, Ref
 import { ROUTES } from "../../Constants/Routes";
 import { formatAbsoluteDate } from "../../Utils/DateHelper";
 import { formatCurrency, formatDateLabel } from "../../Utils/FormatHelper";
+import { useState } from "react";
+import { statusStyles } from "../../Data";
 
 const statusColors = ["var(--success)", "var(--warning)", "#ef4444"];
 
 const getStatusValue = (data: any, name: string) =>
   data?.statusData?.find((item: any) => item.name === name)?.value || 0;
-
 const getStatusMeta = (status = "pending") => {
-  switch (status.toLowerCase()) {
-    case "success":
-      return {
-        label: "Success",
-        icon: <CheckCircleOutlined />,
-        row: "lasttxn-row-success",
-        badge: "lasttxn-badge-success",
-      };
-    case "failed":
-      return {
-        label: "Failed",
-        icon: <CloseCircleOutlined />,
-        row: "lasttxn-row-failed",
-        badge: "lasttxn-badge-failed",
-      };
-    default:
-      return {
-        label: "Pending",
-        icon: <ClockCircleOutlined />,
-        row: "lasttxn-row-pending",
-        badge: "lasttxn-badge-pending",
-      };
-  }
+  const key = status.toLowerCase();
+
+  return (
+    statusStyles[key as keyof typeof statusStyles] ||
+    statusStyles.pending
+  );
 };
 
 const CashflowTooltip = ({ active, payload, label }: any) => {
@@ -209,6 +193,7 @@ export const UserActivityGraphs = ({ data }: any) => {
     }
     return acc;
   }, []);
+  const [activeIndex ] = useState<number | null>(null);
   const statusTotal = statusData.reduce(
     (sum: number, item: any) => sum + Number(item.value || 0),
     0,
@@ -332,8 +317,8 @@ export const UserActivityGraphs = ({ data }: any) => {
                       dataKey="value"
                       cx="50%"
                       cy="50%"
-                      innerRadius="58%"
-                      outerRadius="82%"
+                        innerRadius="58%"
+                        outerRadius={activeIndex !== null ? 88 : 82}  
                       paddingAngle={5}
                     >
                       {statusData.map((item: any, index: number) => (
@@ -412,16 +397,14 @@ export const LastTransactions = ({ transactions }: any) => {
             const status =
               transaction.status || transaction.paymentStatus || "pending";
             const meta = getStatusMeta(status);
+            const StatusIcon = meta.icon;
             const orderId =
               transaction.orderId || transaction._id || "Transaction";
-
             return (
-              <article
-                key={transaction._id || orderId}
-                className={`lasttxn-row ${meta.row}`}
-              >
-                <div className="lasttxn-icon">{meta.icon}</div>
-
+              <article key={transaction._id || orderId} className="lasttxn-row lasttxn-row-success">
+                <div className={`lasttxn-icon ${meta.ring}`}>
+                  <StatusIcon className={`w-4 h-4 ${meta.text}`} />
+                </div>
                 <div className="lasttxn-main">
                   <div className="lasttxn-topline">
                     <span className="lasttxn-id">
@@ -429,7 +412,16 @@ export const LastTransactions = ({ transactions }: any) => {
                         ? `${String(orderId).slice(0, 16)}...`
                         : orderId}
                     </span>
-                    <span className={`lasttxn-badge ${meta.badge}`}>
+                    <span
+                      className={`
+                        lasttxn-badge
+                        ${meta.text}
+                        ${meta.bg}
+                        ${meta.border}
+                        border
+                      `}
+                    >
+                      <StatusIcon className="w-3 h-3" />
                       {meta.label}
                     </span>
                   </div>

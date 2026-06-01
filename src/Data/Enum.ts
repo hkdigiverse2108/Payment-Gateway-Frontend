@@ -139,4 +139,3 @@ export const statusStyles = {
         ring: "bg-rose-500/10 dark:bg-rose-500/20",
     },
 };
-

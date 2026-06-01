@@ -647,15 +647,12 @@
 }
 
 .admin-hero {
-  @apply rounded-2xl bg-foreground text-surface p-5 sm:p-6 grid grid-cols-1 xl:grid-cols-[1fr_auto_auto] xl:items-center gap-5 shadow-theme-md overflow-hidden;
+  @apply rounded-2xl bg-brand-500 text-white p-5 sm:p-6 grid grid-cols-1 xl:grid-cols-[1fr_auto_auto] xl:items-center gap-5 shadow-theme-md overflow-hidden;
 }
 
-.dark .admin-hero {
-  @apply bg-surface border border-border/20 text-foreground;
-}
 
 .admin-hero-kicker {
-  @apply text-xs font-bold uppercase text-brand-300 m-0 mb-2;
+  @apply text-xs font-bold uppercase text-white m-0 mb-2;
   letter-spacing: 0;
 }
 
@@ -811,7 +808,7 @@
 }
 
 .admin-transaction-head {
-  @apply hidden md:grid grid-cols-[2fr_1.4fr_1fr_1fr] gap-3 px-3 py-2 text-[11px] font-black uppercase text-muted border-b border-border/20;
+  @apply hidden md:grid grid-cols-[auto_1.7fr_1.25fr_1fr] gap-3 px-3 py-2 text-[11px] font-black uppercase text-muted border-b border-border/20;
   letter-spacing: 0;
 }
 
@@ -1706,9 +1703,11 @@
   }
 }
 
-/* User dashboard mobile refinement */
 .user-dashboard-page {
   @apply flex flex-col gap-0;
+}
+.btn-deposit{
+  @apply bg-white! text-brand-500!;
 }
 
 @media (max-width: 640px) {

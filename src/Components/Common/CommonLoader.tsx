@@ -2,16 +2,15 @@ import React from "react";
 import { Spin } from "antd";
 import type { CommonLoaderProps } from "../../Types";
 
-const CommonLoader: React.FC<CommonLoaderProps> = ({ fullPage = false, size = "medium", description, tip, className, }) => {
-  const spinTitle = description ?? tip;
+const CommonLoader: React.FC<CommonLoaderProps> = ({ fullPage = false, size = "default", tip, className, }) => {
   if (fullPage) {
     return (
       <div className="c-common-loader">
-        <Spin size={size} description={spinTitle} />
+        <Spin size={size} tip={tip} />
       </div>
     );
   }
-  return <Spin size={size} description={spinTitle} className={className} />;
+  return <Spin size={size} tip={tip} className={className} />;
 };
 
 export default CommonLoader;

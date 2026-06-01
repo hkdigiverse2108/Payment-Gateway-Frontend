@@ -11,7 +11,7 @@ const StatusPieChart = ({ data = [], total = 0, loading }: any) => {
     <section className="admin-panel status-chart-card">
       <div className="admin-panel-header">
         <div>
-          <p>Backend status</p>
+          <p>User Payment Status</p>
           <h3>Transaction Status</h3>
         </div>
         <div className="admin-panel-icon">
